@@ -35,6 +35,7 @@ public class GyroCam : MonoBehaviour
         if (gyroSupported && startY == 0)
         {
             ResetGyroRotation();
+
         }
         transform.localRotation = gyroscope.attitude * rotfix;
     }
