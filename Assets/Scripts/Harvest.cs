@@ -64,7 +64,7 @@ public class Harvest : MonoBehaviour
         }
 
 
-        if (overheat > 400 )
+        if (overheat > 300 )
         {
             stopWatch.Stop();
             TimeSpan ts = stopWatch.Elapsed;
@@ -87,6 +87,10 @@ public class Harvest : MonoBehaviour
         if (other.name == "Wolf")
         {
             wolfUnits += 1;
+        }
+        if (other.name == "zoomObj")
+        {
+            gemUnits += 1;
         }
         Debug.Log("gem " + gemUnits + " wolf " + wolfUnits);
         GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);

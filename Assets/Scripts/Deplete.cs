@@ -5,7 +5,7 @@ using UnityEngine;
 public class Deplete : MonoBehaviour
 {
     // Start is called before the first frame update
-    public int resourceHP = 80;
+    public int resourceHP = 60;
     public Transform debrisObj;
     public string debrisDelay = "n";
     void Start()
