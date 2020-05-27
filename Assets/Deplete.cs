@@ -27,11 +27,7 @@ public class Deplete : MonoBehaviour
         resourceHP -= 1;
         if(debrisDelay == "n")
         {
-            Vector3 A = new Vector3(-0.3f, -1, 8f);
-            Vector3 b = transform.position;
-
-            //     Instantiate(debrisObj, b, debrisObj.rotation);//transform.position
-            Instantiate(debrisObj, A, debrisObj.rotation);
+            Instantiate(debrisObj, transform.position, debrisObj.rotation);
             debrisDelay = "y";
             StartCoroutine(resetDelay());
         }
@@ -40,7 +36,7 @@ public class Deplete : MonoBehaviour
 
     IEnumerator resetDelay()
     {
-        yield return new WaitForSeconds(.1f);
+        yield return new WaitForSeconds(.35f);
         debrisDelay = "n";
 
     }
