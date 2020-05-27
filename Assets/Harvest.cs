@@ -54,7 +54,7 @@ public class Harvest : MonoBehaviour
         }
         if ( (laserInUse=="n") && (overheat > 0))
         {
-            overheat -= 1;
+            overheat = 0;
            
         }
     //    if ((laserInUse == "locked") && (overheat > 0))
@@ -64,7 +64,7 @@ public class Harvest : MonoBehaviour
         }
 
 
-        if (overheat > 200 )
+        if (overheat > 400 )
         {
             stopWatch.Stop();
             TimeSpan ts = stopWatch.Elapsed;

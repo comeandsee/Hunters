@@ -226,7 +226,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 421720, guid: 0bff5de0452ee2b4ab4d0603fe171d7b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -5.8
       objectReference: {fileID: 0}
     - target: {fileID: 421720, guid: 0bff5de0452ee2b4ab4d0603fe171d7b, type: 3}
       propertyPath: m_LocalPosition.y
@@ -453,7 +453,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1396990265}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.77, y: -1, z: 8.82}
+  m_LocalPosition: {x: -0.3, y: -1, z: 8.82}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -472,6 +472,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resourceHP: 100
+  debrisObj: {fileID: 5646452407127779665, guid: 4f7139e8899414146b8427eb88bd3bb8,
+    type: 3}
+  debrisDelay: n
 --- !u!1 &1835348496 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 177940, guid: 0bff5de0452ee2b4ab4d0603fe171d7b,
@@ -502,7 +505,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f7016f515039964aa2807b81320fd73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resourceHP: 100
+  resourceHP: 80
+  debrisObj: {fileID: 5646452407127779665, guid: 4f7139e8899414146b8427eb88bd3bb8,
+    type: 3}
+  debrisDelay: n
 --- !u!1 &2128085470
 GameObject:
   m_ObjectHideFlags: 0
@@ -616,7 +622,7 @@ ParticleSystem:
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 1
-  prewarm: 0
+  prewarm: 1
   playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
@@ -5267,7 +5273,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2128085470}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: -9.24}
+  m_LocalPosition: {x: 0, y: -1, z: -7.84}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -5286,7 +5292,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireLaser: 323
-  laserInUse: 0
+  laserInUse: n
 --- !u!54 &2128085477
 Rigidbody:
   m_ObjectHideFlags: 0
