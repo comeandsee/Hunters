@@ -6,14 +6,15 @@ using UnityEngine;
 
 public class Harvest : MonoBehaviour
 {
-    public static int gemUnits = 0;
-    public static int wolfUnits = 0;
+    private  int gemUnits = 0;
+    private  int wolfUnits = 0;
     public KeyCode fireLaser;
 
     public  string laserInUse = "n";
-    public static int overheat = 0;
+    private  int overheat = 0;
     public  TimeSpan time= new TimeSpan();
     System.Diagnostics.Stopwatch stopWatch;
+    List<Transform> generatedObjects = new List<Transform>();
 
     // Start is called before the first frame update
     void Start()
@@ -25,7 +26,7 @@ public class Harvest : MonoBehaviour
     {
 
         var a = laserInUse;
-        if ((Input.GetKeyDown(fireLaser)) && (laserInUse == "n") )
+        if ( (laserInUse == "n") )
         {
             stopWatch = new System.Diagnostics.Stopwatch();
             stopWatch.Start();
@@ -90,6 +91,7 @@ public class Harvest : MonoBehaviour
         }
         if (other.name == "zoomObj")
         {
+            generatedObjects=other.gameObject.GetComponent<Deplete>().getGeneratedObjects();
             gemUnits += 1;
         }
         Debug.Log("gem " + gemUnits + " wolf " + wolfUnits);
@@ -120,6 +122,15 @@ public class Harvest : MonoBehaviour
         yield return new WaitForSeconds(timeToWait);
         GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
         laserInUse = "n";
+        var a =generatedObjects;
+        foreach(Transform obj in generatedObjects)
+        {
+            Destroy(obj.gameObject);
+        }
+        Destroy(gameObject);
+
+       
+
     }
 
 }

@@ -40,7 +40,7 @@ public class GyroCam : MonoBehaviour
             ResetGyroRotation();
 
         }
-        transform.localRotation = gyroscope.attitude * rotfix;
+      //  transform.localRotation = gyroscope.attitude * rotfix;
     }
 
     public void ResetGyroRotation()
