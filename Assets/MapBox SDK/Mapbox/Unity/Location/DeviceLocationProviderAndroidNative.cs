@@ -379,7 +379,7 @@
 			populateCurrentLocation(locNetwork);
 		}
 
-#if UNITY_ANDROID
+#if UNITY_ANdroid
 
 		private string time2str(AndroidJavaObject loc)
 		{

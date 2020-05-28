@@ -140,10 +140,10 @@ namespace Mapbox.MapboxSdkCs.UnitTest
             // not on .NET Core / UWP / Unity
 #if UNITY_EDITOR_OSX && UNITY_IOS
             Assert.AreEqual(buffer.Length, Compression.Decompress(buffer).Length); // EditMode on OSX
-#elif UNITY_EDITOR && (UNITY_IOS || UNITY_ANDROID) // PlayMode tests in Editor
+#elif UNITY_EDITOR && (UNITY_IOS || UNITY_ANdroid) // PlayMode tests in Editor
             Debug.Log("EditMode tests in Editor");
 			Assert.Less(buffer.Length, Compression.Decompress(buffer).Length);
-#elif !UNITY_EDITOR && (UNITY_EDITOR_OSX || UNITY_IOS || UNITY_ANDROID) // PlayMode tests on device
+#elif !UNITY_EDITOR && (UNITY_EDITOR_OSX || UNITY_IOS || UNITY_ANdroid) // PlayMode tests on device
 			Debug.Log("PlayMode tests on device");
 			Assert.AreEqual(buffer.Length, Compression.Decompress(buffer).Length);
 #elif NETFX_CORE

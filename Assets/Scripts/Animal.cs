@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.SceneManagement;
 
-public class Animal  : MonoBehaviour
+public class Animal : MonoBehaviour
 {
 
 
@@ -57,25 +57,25 @@ public class Animal  : MonoBehaviour
 
   private void OnMouseDown()
     {
-        /*PocketDroidsSceneManager[] managers = FindObjectsOfType<PocketDroidsSceneManager>();
+        /*PocketdroidsSceneManager[] managers = FindObjectsOfType<PocketdroidsSceneManager>();
         audioSource.PlayOneShot(crySound);
-        foreach (PocketDroidsSceneManager pocketDroidsSceneManager in managers)
+        foreach (PocketdroidsSceneManager pocketdroidsSceneManager in managers)
         {
-            if (pocketDroidsSceneManager.gameObject.activeSelf)
+            if (pocketdroidsSceneManager.gameObject.activeSelf)
             {
-                pocketDroidsSceneManager.droidTapped(this.gameObject);
+                pocketdroidsSceneManager.droidTapped(this.gameObject);
             }
         }*/
     }
     /* 
    private void OnCollisionEnter(Collision other)
    {
-       PocketDroidsSceneManager[] managers = FindObjectsOfType<PocketDroidsSceneManager>();
-       foreach (PocketDroidsSceneManager pocketDroidsSceneManager in managers)
+       PocketdroidsSceneManager[] managers = FindObjectsOfType<PocketdroidsSceneManager>();
+       foreach (PocketdroidsSceneManager pocketdroidsSceneManager in managers)
        {
-           if (pocketDroidsSceneManager.gameObject.activeSelf)
+           if (pocketdroidsSceneManager.gameObject.activeSelf)
            {
-               pocketDroidsSceneManager.droidCollision(this.gameObject, other);
+               pocketdroidsSceneManager.droidCollision(this.gameObject, other);
            }
        }
    }

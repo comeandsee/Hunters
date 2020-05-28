@@ -8,7 +8,7 @@
 			return TelemetryEditor.Instance;
 #elif UNITY_IOS
 			return TelemetryIos.Instance;
-#elif UNITY_ANDROID
+#elif UNITY_ANdroid
 			return TelemetryAndroid.Instance;
 #elif UNITY_WEBGL
 			return TelemetryWebgl.Instance;

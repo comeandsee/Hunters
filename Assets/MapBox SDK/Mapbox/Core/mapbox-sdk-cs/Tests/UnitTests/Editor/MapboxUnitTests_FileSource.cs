@@ -113,7 +113,7 @@ namespace Mapbox.MapboxSdkCs.UnitTest
 
 #if UNITY_5_6_OR_NEWER
 		[UnityTest]
-#if UNITY_ANDROID || UNITY_IOS
+#if UNITY_ANdroid || UNITY_IOS
 		[Ignore("test ignored: Request.Cancel() does not work on some devices")]
 #endif
 		public IEnumerator RequestCancel()
@@ -132,7 +132,7 @@ namespace Mapbox.MapboxSdkCs.UnitTest
 					// HasError is false as the request finishes successfully before 'Cancel()' kicks in
 					// couldn't find the reason or a proper fix.
 					// maybe some OS internal caching?
-#if UNITY_ANDROID || UNITY_IOS
+#if UNITY_ANdroid || UNITY_IOS
 					UnityEngine.Debug.LogWarning("test 'RequestCancel' not run");
 					return;
 #endif

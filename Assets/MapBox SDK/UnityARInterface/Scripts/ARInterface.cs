@@ -115,7 +115,7 @@ namespace UnityARInterface
                 m_Interface = new AREditorInterface();
 #elif UNITY_IOS
                 m_Interface = new ARKitInterface();
-#elif UNITY_ANDROID
+#elif UNITY_ANdroid
                 m_Interface = new ARCoreInterface();
 #endif
             }

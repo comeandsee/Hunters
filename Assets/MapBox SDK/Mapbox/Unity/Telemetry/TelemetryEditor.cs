@@ -116,7 +116,7 @@ namespace Mapbox.Unity.Telemetry
 				PlayerSettings.bundleVersion,
 #if UNITY_IOS
 				PlayerSettings.iOS.buildNumber,
-#elif UNITY_ANDROID
+#elif UNITY_ANdroid
 				PlayerSettings.Android.bundleVersionCode,
 #else
 				 "0",

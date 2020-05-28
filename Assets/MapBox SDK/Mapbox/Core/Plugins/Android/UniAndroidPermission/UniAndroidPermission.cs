@@ -16,7 +16,7 @@ public class UniAndroidPermission : MonoBehaviour
 
     public static bool IsPermitted(AndroidPermission permission)
     {
-#if !UNITY_EDITOR && UNITY_ANDROID
+#if !UNITY_EDITOR && UNITY_ANdroid
         using (var permissionManager = new AndroidJavaClass(PackageName))
         {
             return permissionManager.CallStatic<bool>("hasPermission", GetPermittionStr(permission));
@@ -28,7 +28,7 @@ public class UniAndroidPermission : MonoBehaviour
 
     public static void RequestPermission(AndroidPermission permission, Action onAllow = null, Action onDeny = null, Action onDenyAndNeverAskAgain = null)
     {
-#if !UNITY_EDITOR && UNITY_ANDROID
+#if !UNITY_EDITOR && UNITY_ANdroid
         using (var permissionManager = new AndroidJavaClass(PackageName))
         {
             permissionManager.CallStatic("requestPermission", GetPermittionStr(permission));

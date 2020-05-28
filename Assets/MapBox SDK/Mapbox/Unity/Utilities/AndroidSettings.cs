@@ -12,7 +12,7 @@
 		{
 			try
 			{
-#if UNITY_ANDROID
+#if UNITY_ANdroid
 				using (var unityClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
 				{
 					using (AndroidJavaObject currentActivityObject = unityClass.GetStatic<AndroidJavaObject>("currentActivity"))
