@@ -11,8 +11,8 @@ public class AnimalFactory : Singleton<AnimalFactory>
     [SerializeField] private Animal[] availableAnimals;
     [SerializeField] private float waitTime = 180.0f;
     [SerializeField] private int startingAnimals = 5;
-    [SerializeField] private float minRange = 1.0f;
-    [SerializeField] private float maxRange = 30.0f;
+    [SerializeField] private float minRange = 5.0f;
+    [SerializeField] private float maxRange = 50.0f;
 
     private List<Animal> liveAnimals = new List<Animal>();
     private Animal selectedAnimal;

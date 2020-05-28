@@ -18,19 +18,25 @@ public class UIManager : MonoBehaviour
 
     }
 
-    public void updateLevel(int lvl)
+    public void updateLevel()
     {
-        lvlText.text = lvl.ToString();
+        lvlText.text = GameManager.Instance.CurrentPlayer.Lvl.ToString();
     }
 
-    public void updateXP(int currentXP, int requiredXP)
+    public void updateXP()
     {
-        xpText.text = currentXP.ToString() + " / " + requiredXP.ToString();
+        xpText.text = GameManager.Instance.CurrentPlayer.Xp + " / " + GameManager.Instance.CurrentPlayer.RequiredXp;
     }
 
     public void toggleMenu()
     {
         menu.SetActive(!menu.activeSelf);
+    }
+
+    private void Update()
+    {
+        updateLevel();
+        updateXP();
     }
 
 }
