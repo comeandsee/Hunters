@@ -27,7 +27,7 @@ public class Animal : MonoBehaviour
 
     private void Start()
     {
-        //		DontDestroyOnLoad(this);
+   		DontDestroyOnLoad(this);
     }
 
     public float SpawnRate
@@ -57,15 +57,15 @@ public class Animal : MonoBehaviour
 
   private void OnMouseDown()
     {
-        /*PocketdroidsSceneManager[] managers = FindObjectsOfType<PocketdroidsSceneManager>();
-        audioSource.PlayOneShot(crySound);
-        foreach (PocketdroidsSceneManager pocketdroidsSceneManager in managers)
+        AnimalSceneManager[] managers = FindObjectsOfType<AnimalSceneManager>();
+        //audioSource.PlayOneShot(crySound);
+        foreach (AnimalSceneManager animalsSceneManager in managers)
         {
-            if (pocketdroidsSceneManager.gameObject.activeSelf)
+            if (animalsSceneManager.gameObject.activeSelf)
             {
-                pocketdroidsSceneManager.droidTapped(this.gameObject);
+                animalsSceneManager.animalTapped(this.gameObject);
             }
-        }*/
+        }
     }
     /* 
    private void OnCollisionEnter(Collision other)

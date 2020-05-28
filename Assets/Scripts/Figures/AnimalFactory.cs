@@ -41,6 +41,7 @@ public class AnimalFactory : Singleton<AnimalFactory>
         for (int i = 0; i < startingAnimals; i++)
         {
             InstantiateAnimal();
+             
         }
 
         StartCoroutine(GenerateAnimals());
