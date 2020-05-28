@@ -2287,6 +2287,7 @@ GameObject:
   - component: {fileID: 421720}
   - component: {fileID: 9599240}
   - component: {fileID: -7080801941274731097}
+  - component: {fileID: 8970329093580208954}
   m_Layer: 0
   m_Name: Wolf
   m_TagString: Untagged
@@ -2344,8 +2345,25 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.36, y: 0.61, z: 0.89}
+  m_Center: {x: 0, y: 0.27, z: -0}
+--- !u!114 &8970329093580208954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 177940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2ab6f6789630b14aa0e1816b1f06a77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnRate: 0.1
+  catchRate: 0.1
+  attack: 0
+  defense: 0
+  hp: 10
 --- !u!1 &178112
 GameObject:
   m_ObjectHideFlags: 0

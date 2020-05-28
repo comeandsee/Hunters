@@ -35,14 +35,15 @@ public class Player : MonoBehaviour {
 		get { return lvl; }
 	}
 	
-	/*private void Start() {
-		path = Application.persistentDataPath + "/player.dat";
-		Load();
-	}*/
+	private void Start() {
+        InitLevelData();
+		//path = Application.persistentDataPath + "/player.dat";
+		//Load();
+	}
 
 	public void AddXp(int xp) {
 		this.xp += Mathf.Max(0, xp);
-		InitLevelData();
+		//InitLevelData();
 		//Save();
 	}
 

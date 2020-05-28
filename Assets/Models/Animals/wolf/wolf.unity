@@ -444,3 +444,27 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: 98d30e3fe879b6449815e541e3c69c20, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0bff5de0452ee2b4ab4d0603fe171d7b, type: 3}
+--- !u!1 &1852634663 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 177940, guid: 0bff5de0452ee2b4ab4d0603fe171d7b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1852634662}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1852634664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1852634663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2ab6f6789630b14aa0e1816b1f06a77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnRate: 0.1
+  catchRate: 0.1
+  attack: 0
+  defense: 0
+  hp: 10
+  crySound: {fileID: 0}
