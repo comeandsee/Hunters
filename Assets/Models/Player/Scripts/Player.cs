@@ -10,7 +10,7 @@ public class Player : MonoBehaviour {
 	[SerializeField] private int xp = 0;
 	[SerializeField] private int requiredXp = 100;
 	[SerializeField] private int levelBase = 100;
-	[SerializeField] private List<GameObject> droids = new List<GameObject>();
+	[SerializeField] private List<GameObject> animals = new List<GameObject>();
 	
 	private int lvl = 1;
 	private string path;
@@ -27,8 +27,8 @@ public class Player : MonoBehaviour {
 		get { return levelBase; }
 	}
 
-	public List<GameObject> Droids {
-		get { return droids; }
+	public List<GameObject> Animals {
+		get { return animals; }
 	}
 
 	public int Lvl {
@@ -47,9 +47,9 @@ public class Player : MonoBehaviour {
 		//Save();
 	}
 
-	public void AddDroid(GameObject droid) {
-		if (droid)
-		droids.Add(droid);
+	public void AddAnimal(GameObject animal) {
+		if (animal)
+           animals.Add(animal);
 	}
 
 	private void InitLevelData() {
