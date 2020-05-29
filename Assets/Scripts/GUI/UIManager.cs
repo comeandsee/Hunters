@@ -9,12 +9,19 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Text xpText;
     [SerializeField] private Text lvlText;
     [SerializeField] private GameObject menu;
+    [SerializeField] private AudioClip menuBtnSound;
+
+    private AudioSource audioSource;
 
     private void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
+
+        Assert.IsNotNull(audioSource);
         Assert.IsNotNull(xpText);
         Assert.IsNotNull(lvlText);
         Assert.IsNotNull(menu);
+        Assert.IsNotNull(menuBtnSound);
 
     }
 
@@ -28,7 +35,7 @@ public class UIManager : MonoBehaviour
         xpText.text = GameManager.Instance.CurrentPlayer.Xp + " / " + GameManager.Instance.CurrentPlayer.RequiredXp;
     }
 
-    public void toggleMenu()
+    private void toggleMenu()
     {
         menu.SetActive(!menu.activeSelf);
     }
@@ -37,6 +44,11 @@ public class UIManager : MonoBehaviour
     {
         updateLevel();
         updateXP();
+    }
+    public void MenuBtnClicked()
+    {
+        audioSource.PlayOneShot(menuBtnSound);
+   //     toggleMenu();
     }
 
 }
