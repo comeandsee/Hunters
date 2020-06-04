@@ -57,15 +57,15 @@ public class Animal : MonoBehaviour
 
   private void OnMouseDown()
     {
-     /*   AnimalSceneManager[] managers = FindObjectsOfType<AnimalSceneManager>();
+        HuntersSceneManager[] managers = FindObjectsOfType<HuntersSceneManager>();
         audioSource.PlayOneShot(animalSound);
-        foreach (AnimalSceneManager animalsSceneManager in managers)
+        foreach (HuntersSceneManager huntersSceneManager in managers)
         {
-            if (animalsSceneManager.gameObject.activeSelf)
+            if (huntersSceneManager.gameObject.activeSelf)
             {
-                animalsSceneManager.animalTapped(this.gameObject);
+                huntersSceneManager.animalTapped(this.gameObject);
             }
-        }*/
+        }
     }
     /* 
    private void OnCollisionEnter(Collision other)

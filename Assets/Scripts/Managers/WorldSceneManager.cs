@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class WorldSceneManager : AnimalSceneManager
+public class WorldSceneManager : HuntersSceneManager
 {
     private GameObject animal;
     private AsyncOperation loadScene;
