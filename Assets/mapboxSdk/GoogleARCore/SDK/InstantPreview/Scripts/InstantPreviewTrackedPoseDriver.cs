@@ -1,7 +1,7 @@
-﻿//-----------------------------------------------------------------------
-// <copyright file="InstantPreviewTrackedPoseDriver.cs" company="Google">
+//-----------------------------------------------------------------------
+// <copyright file="InstantPreviewTrackedPoseDriver.cs" company="Google LLC">
 //
-// Copyright 2017 Google Inc. All Rights Reserved.
+// Copyright 2017 Google LLC. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ namespace GoogleARCore
     public class InstantPreviewTrackedPoseDriver : MonoBehaviour
     {
         /// <summary>
-        /// Updates the game object's transform to that of the latest pose 
+        /// Updates the game object's local transform to that of the latest pose
         /// received by Instant Preview.
         /// </summary>
         public void Update()
@@ -39,8 +39,8 @@ namespace GoogleARCore
                 return;
             }
 
-            transform.position = Frame.Pose.position;
-            transform.rotation = Frame.Pose.rotation;
+            transform.localPosition = Frame.Pose.position;
+            transform.localRotation = Frame.Pose.rotation;
         }
     }
 }

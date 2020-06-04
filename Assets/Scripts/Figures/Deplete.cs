@@ -28,9 +28,11 @@ public class Deplete : MonoBehaviour
             Destroy(gameObject);
             foreach (var obj in generatedObjects)
             {
-             //   StartCoroutine(deletDebris());
+               // StartCoroutine(deletDebris(obj));
+              //  Destroy(obj.gameObject);
+                
 
-             //lis   Destroy(obj.gameObject);
+
             }
 
         }
@@ -42,8 +44,8 @@ public class Deplete : MonoBehaviour
         if(debrisDelay == "n")
         {
             var objInst =  Instantiate(debrisObj, transform.position, debrisObj.rotation);
-            generatedObjects.Add(objInst);
-
+            generatedObjects.Add( objInst);
+            
             debrisDelay = "y";
             StartCoroutine(resetDelay());
         }
@@ -57,9 +59,9 @@ public class Deplete : MonoBehaviour
 
     }
 
-    IEnumerator deletDebris()
+    IEnumerator deletDebris(Transform obj )
     {
         yield return new WaitForSeconds(2.0f);
-
+        Destroy((obj as Transform).gameObject);
     }
 }

@@ -35,5 +35,10 @@ public class WorldSceneManager : HuntersSceneManager
         SceneManager.LoadScene(AnimalsConstants.SCENE_CAPTURE, LoadSceneMode.Additive);
        // SceneTransitionManager.Instance.GoToScene(AnimalsConstants.SCENE_CAPTURE, objects);
     }
+
+    public void xd()
+    {
+        Debug.Log("www !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+    }
 }
 

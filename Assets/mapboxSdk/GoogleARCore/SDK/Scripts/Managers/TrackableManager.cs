@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------
-// <copyright file="TrackableManager.cs" company="Google">
+// <copyright file="TrackableManager.cs" company="Google LLC">
 //
-// Copyright 2017 Google Inc. All Rights Reserved.
+// Copyright 2017 Google LLC. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -22,13 +22,10 @@ namespace GoogleARCoreInternal
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using GoogleARCore;
     using UnityEngine;
 
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented",
-     Justification = "Internal")]
-    public class TrackableManager
+    internal class TrackableManager
     {
         private Dictionary<IntPtr, Trackable> m_TrackableDict =
             new Dictionary<IntPtr, Trackable>(new IntPtrEqualityComparer());
@@ -39,23 +36,25 @@ namespace GoogleARCoreInternal
 
         private List<Trackable> m_NewTrackables = new List<Trackable>();
 
-        private List<Trackable> m_AllTrackables  = new List<Trackable>();
+        private List<Trackable> m_AllTrackables = new List<Trackable>();
 
-        private List<Trackable> m_UpdatedTrackables  = new List<Trackable>();
+        private List<Trackable> m_UpdatedTrackables = new List<Trackable>();
 
-        private HashSet<Trackable> m_OldTrackables  = new HashSet<Trackable>();
+        private HashSet<Trackable> m_OldTrackables = new HashSet<Trackable>();
 
         public TrackableManager(NativeSession nativeSession)
         {
             m_NativeSession = nativeSession;
+            LifecycleManager.Instance.OnResetInstance += _ClearCachedTrackables;
         }
 
         /// <summary>
-        /// Factory method for creating and reusing TrackedPlane references from native handles.
+        /// Factory method for creating and reusing Trackable references from native handles.
         /// </summary>
-        /// <param name="nativeHandle">A native handle to a plane that has been acquired.  RELEASE WILL BE HANDLED BY
-        /// THIS METHOD.</param>
-        /// <returns>A reference to a tracked plane. </returns>
+        /// <param name="nativeHandle">A native handle to a plane that has been acquired.  RELEASE
+        /// WILL BE HANDLED BY THIS METHOD.</param>
+        /// <returns>A reference to the Trackable. May return <c>null</c> on error or if Trackable
+        /// is not handled.</returns>
         public Trackable TrackableFactory(IntPtr nativeHandle)
         {
             if (nativeHandle == IntPtr.Zero)
@@ -71,6 +70,9 @@ namespace GoogleARCoreInternal
                 return result;
             }
 
+            // This block needs to construct classes marked Obsolete since those versions are always
+            // the most derived type.
+#pragma warning disable 618 // Obsolete warning
             ApiTrackableType trackableType = m_NativeSession.TrackableApi.GetType(nativeHandle);
             if (trackableType == ApiTrackableType.Plane)
             {
@@ -80,17 +82,36 @@ namespace GoogleARCoreInternal
             {
                 result = new TrackedPoint(nativeHandle, m_NativeSession);
             }
+            else if (trackableType == ApiTrackableType.AugmentedImage)
+            {
+                result = new AugmentedImage(nativeHandle, m_NativeSession);
+            }
+            else if (trackableType == ApiTrackableType.AugmentedFace)
+            {
+                result = new AugmentedFace(nativeHandle, m_NativeSession);
+            }
+            else if (ExperimentManager.Instance.IsManagingTrackableType((int)trackableType))
+            {
+                result =
+                    ExperimentManager.Instance.TrackableFactory((int)trackableType, nativeHandle);
+            }
             else
             {
-                UnityEngine.Debug.LogFormat("Cant find {0}", trackableType);
-                throw new NotImplementedException("TrackableFactory:: No constructor for requested trackable type.");
+                Debug.LogWarning(
+                    "TrackableFactory::No constructor for requested trackable type.");
+            }
+#pragma warning restore 618
+
+            if (result != null)
+            {
+                m_TrackableDict.Add(nativeHandle, result);
             }
 
-            m_TrackableDict.Add(nativeHandle, result);
             return result;
         }
 
-        public void GetTrackables<T>(List<T> trackables, TrackableQueryFilter filter) where T : Trackable
+        public void GetTrackables<T>(
+            List<T> trackables, TrackableQueryFilter filter) where T : Trackable
         {
             if (m_LastUpdateFrame < Time.frameCount)
             {
@@ -133,7 +154,7 @@ namespace GoogleARCoreInternal
             }
             else if (filter == TrackableQueryFilter.Updated)
             {
-                for (int i = 0; i < m_NewTrackables.Count; i++)
+                for (int i = 0; i < m_UpdatedTrackables.Count; i++)
                 {
                     _SafeAdd<T>(m_UpdatedTrackables[i], trackables);
                 }
@@ -146,6 +167,15 @@ namespace GoogleARCoreInternal
             {
                 trackables.Add(trackable as T);
             }
+        }
+
+        private void _ClearCachedTrackables()
+        {
+            m_TrackableDict.Clear();
+            m_NewTrackables.Clear();
+            m_AllTrackables.Clear();
+            m_UpdatedTrackables.Clear();
+            m_OldTrackables.Clear();
         }
     }
 }

@@ -1,7 +1,7 @@
-﻿//-----------------------------------------------------------------------
-// <copyright file="IntPtrEqualityComparer.cs" company="Google">
+//-----------------------------------------------------------------------
+// <copyright file="IntPtrEqualityComparer.cs" company="Google LLC">
 //
-// Copyright 2017 Google Inc. All Rights Reserved.
+// Copyright 2017 Google LLC. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -22,14 +22,8 @@ namespace GoogleARCoreInternal
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Runtime.InteropServices;
-    using GoogleARCore;
-    using UnityEngine;
-    
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented",
-    Justification = "Internal")]
-    public class IntPtrEqualityComparer : IEqualityComparer<IntPtr>
+
+    internal class IntPtrEqualityComparer : IEqualityComparer<IntPtr>
     {
         public bool Equals(IntPtr intPtr1, IntPtr intPtr2)
         {

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 421720}
   - component: {fileID: 9599240}
+  - component: {fileID: 4186988978964984061}
   - component: {fileID: -7080801941274731097}
   - component: {fileID: 8970329093580208954}
   - component: {fileID: 2894586505808853974}
@@ -53,6 +54,22 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &4186988978964984061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 177940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f7016f515039964aa2807b81320fd73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceHP: 99
+  debrisObj: {fileID: 5646452407127779665, guid: 4f7139e8899414146b8427eb88bd3bb8,
+    type: 3}
+  debrisDelay: n
 --- !u!65 &-7080801941274731097
 BoxCollider:
   m_ObjectHideFlags: 0

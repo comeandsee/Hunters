@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------
-// <copyright file="TrackableHit.cs" company="Google">
+// <copyright file="TrackableHit.cs" company="Google LLC">
 //
-// Copyright 2017 Google Inc. All Rights Reserved.
+// Copyright 2017 Google LLC. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -27,8 +27,6 @@ namespace GoogleARCore
     /// </summary>
     public struct TrackableHit
     {
-        //// @cond EXCLUDE_FROM_DOXYGEN
-
         /// <summary>
         /// Constructs a TrackableHit.
         /// </summary>
@@ -36,15 +34,14 @@ namespace GoogleARCore
         /// <param name="distance">Hit's distance from the origin of the ray to the hit.</param>
         /// <param name="flags">Type of the hit.</param>
         /// <param name="trackable">Trackable object of the hit.</param>
-        public TrackableHit(Pose pose, float distance, TrackableHitFlags flags, Trackable trackable)
+        internal TrackableHit(
+            Pose pose, float distance, TrackableHitFlags flags, Trackable trackable) : this()
         {
             Pose = pose;
             Distance = distance;
             Flags = flags;
             Trackable = trackable;
         }
-
-        //// @endcond
 
         /// <summary>
         /// Gets the pose where the raycast hit the object in Unity world coordinates.
