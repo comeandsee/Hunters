@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -7080801941274731097}
   - component: {fileID: 8970329093580208954}
   - component: {fileID: 2894586505808853974}
+  - component: {fileID: 4747032528471919329}
   m_Layer: 0
   m_Name: Animal
   m_TagString: Animal
@@ -99,8 +100,10 @@ MonoBehaviour:
   catchRate: 0.1
   attack: 0
   defense: 0
-  hp: 10
+  hp: 80
   animalSound: {fileID: 8300000, guid: 6eddfc86529739e4bba7a966f24d6f45, type: 3}
+  debrisObj: {fileID: 0}
+  debrisDelay: n
 --- !u!82 &2894586505808853974
 AudioSource:
   m_ObjectHideFlags: 0
@@ -197,3 +200,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!54 &4747032528471919329
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 177940}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

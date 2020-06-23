@@ -53,6 +53,9 @@ public class Harvest : MonoBehaviour
         Assert.IsNotNull(throwSound);
     }
 
+
+
+
     private void OnTriggerStay(Collider other)
     {
         gemUnits += 1;
@@ -66,11 +69,11 @@ public class Harvest : MonoBehaviour
         }
         if (other.name == "zoomObj")
         {
-            generatedObjects = other.gameObject.GetComponent<Deplete>().getGeneratedObjects();
+            generatedObjects = other.gameObject.GetComponent<Animal>().getGeneratedObjects();
             gemUnits += 1;
         }
       
-        Debug.Log("gem " + gemUnits + " wolf " + wolfUnits + " hp:" + other.gameObject.GetComponent<Deplete>().resourceHP) ;
+        Debug.Log("gem " + gemUnits + " wolf " + wolfUnits + " hp:" + other.gameObject.GetComponent<Animal>().Hp) ;
         //  GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
 
 
@@ -80,11 +83,11 @@ public class Harvest : MonoBehaviour
 
 
             //jezeli koniec
-            if (other.gameObject.GetComponent<Deplete>().resourceHP == 1)
+            if (other.gameObject.GetComponent<Animal>().Hp == 1)
             {
                 audioSource.PlayOneShot(successSound);
                 dead();
-                Invoke("PowerDown", stallTime);
+              //  Invoke("PowerDown", stallTime);
             }
 
 
