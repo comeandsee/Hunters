@@ -25,35 +25,42 @@ public class Animal : MonoBehaviour
 
     private void Awake()
     {
-        audioSource = GetComponent<AudioSource>();
-        Assert.IsNotNull(audioSource);
+        AudioSource = GetComponent<AudioSource>();
+        Assert.IsNotNull(AudioSource);
         Assert.IsNotNull(animalSound);
     }
 
     public float SpawnRate
     {
         get { return spawnRate; }
+        set {  spawnRate=value; }
     }
 
     public float CatchRate
     {
         get { return catchRate; }
+        set { catchRate = value; }
     }
 
     public int Attack
     {
         get { return attack; }
+        set { attack = value; }
     }
 
     public int Defense
     {
         get { return defense; }
+        set { defense = value; }
     }
 
     public int Hp
     {
         get { return hp; }
+        set { hp = value; }
     }
+
+    public AudioSource AudioSource { get => audioSource; set => audioSource = value; }
 
     void Update()
     {
@@ -68,7 +75,7 @@ public class Animal : MonoBehaviour
     private void OnMouseDown()
     {
         HuntersSceneManager[] managers = FindObjectsOfType<HuntersSceneManager>();
-        audioSource.PlayOneShot(animalSound);
+        AudioSource.PlayOneShot(animalSound);
         foreach (HuntersSceneManager huntersSceneManager in managers)
         {
             if (huntersSceneManager.gameObject.activeSelf)

@@ -10,7 +10,7 @@ public class Player : MonoBehaviour {
 	[SerializeField] private int xp = 0;
 	[SerializeField] private int requiredXp = 100;
 	[SerializeField] private int levelBase = 100;
-	[SerializeField] private List<GameObject> animals = new List<GameObject>();
+	[SerializeField] private List<Animal> animals = new List<Animal>();
 	
 	private int lvl = 1;
 	private string path;
@@ -27,7 +27,7 @@ public class Player : MonoBehaviour {
 		get { return levelBase; }
 	}
 
-	public List<GameObject> Animals {
+	public List<Animal> Animals {
 		get { return animals; }
 	}
 
@@ -36,27 +36,28 @@ public class Player : MonoBehaviour {
 	}
 	
 	private void Start() {
-        InitLevelData();
-		//path = Application.persistentDataPath + "/player.dat";
-		//Load();
+        //InitLevelData();
+		path = Application.persistentDataPath + "/player.dat";
+		Load();
 	}
 
 	public void AddXp(int xp) {
 		this.xp += Mathf.Max(0, xp);
 		InitLevelData();
-		//Save();
+		Save();
 	}
 
-	public void AddAnimal(GameObject animal) {
+	public void AddAnimal(Animal animal) {
 		if (animal)
            animals.Add(animal);
+        Save();
 	}
 
 	private void InitLevelData() {
 		lvl = (xp / levelBase) + 1;
 		requiredXp = levelBase * lvl;
 	}
-/*
+
 	public void Save() {
 		BinaryFormatter bf = new BinaryFormatter();
 		FileStream file = File.Create(path);
@@ -74,9 +75,23 @@ public class Player : MonoBehaviour {
 
 			xp = data.Xp;
 			requiredXp = data.RequiredXp;
-			levelBase = data.LevelBase;
-			droids = data.Droids;
-			lvl = data.Lvl;
+			levelBase = data.LvlBase;
+            lvl = data.Lvl;
+
+
+            foreach (AnimalData animalData in data.Animals)
+            {
+                Animal animal = new Animal() ;
+                 animal.SpawnRate= animalData.SpawnRate;
+                 animal.CatchRate = animalData.CatchRate;
+                animal.Attack = animalData.Attack;
+                animal.Defense = animalData.Defense;
+                animal.AudioSource.name = animalData.AnimalSound;
+               animal.Hp = animalData.Hp;
+                
+               
+               animals.Add(animal);
+            }
 		}
 		else {
 			InitLevelData();
@@ -85,25 +100,5 @@ public class Player : MonoBehaviour {
 	}
 }
 
-[Serializable]
-internal class PlayerData {
-	private int xp = 0;
-	private int requiredXp = 100;
-	private int levelBase = 100;
-	private List<GameObject> droids = new List<GameObject>();
-	private int lvl = 1;
 
-	public int Xp { get { return xp; } }
-	public int RequiredXp { get { return requiredXp; } }
-	public int LevelBase { get { return levelBase; } }
-	public List<GameObject> Droids { get { return droids; } }
-	public int Lvl { get { return lvl; } }
 
-	public PlayerData(Player player) {
-		xp = player.Xp;
-		requiredXp = player.RequiredXp;
-		levelBase = player.LevelBase;
-		lvl = player.Lvl;
-		droids = player.Droids;
-	}*/
-}
