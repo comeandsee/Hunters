@@ -16,7 +16,7 @@ public class AnimalFactory : Singleton<AnimalFactory>
 
     private List<Animal> liveAnimals = new List<Animal>();
     private Animal selectedAnimal;
-    [SerializeField]private Player player;
+    private Player player;
 
     public List<Animal> LiveAnimals
     {
@@ -31,13 +31,12 @@ public class AnimalFactory : Singleton<AnimalFactory>
     private void Awake()
     {
         Assert.IsNotNull(availableAnimals);
-        Assert.IsNotNull(player);
     }
 
     void Start()
     {
-        //player = GameManager.Instance.CurrentPlayer;
-        //Assert.IsNotNull(player);
+        player = GameManager.Instance.CurrentPlayer;
+        Assert.IsNotNull(player);
         for (int i = 0; i < startingAnimals; i++)
         {
             InstantiateAnimal();

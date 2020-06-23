@@ -22,19 +22,12 @@ public class Animal : MonoBehaviour
     public Transform debrisObj;
     public string debrisDelay = "n";
     List<Transform> generatedObjects = new List<Transform>();
-    CaptureSceneUIManager captureUIManager;
 
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
-        captureUIManager = FindObjectOfType<CaptureSceneUIManager>();
         Assert.IsNotNull(audioSource);
         Assert.IsNotNull(animalSound);
-    }
-
-    private void Start()
-    {
-        DontDestroyOnLoad(this);
     }
 
     public float SpawnRate
@@ -96,7 +89,6 @@ public class Animal : MonoBehaviour
         if (other.gameObject.CompareTag(HuntersConstants.TAG_Harvester))
         {
             hp -= 1;
-           // captureUIManager.updateHPCountText();
             if (debrisDelay == "n")
             {
                 var objInst = Instantiate(debrisObj, transform.position, debrisObj.rotation);

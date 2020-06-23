@@ -27,18 +27,12 @@ public class WorldSceneManager : HuntersSceneManager
 
     public override void animalTapped(GameObject animal)
     {
-        //		SceneManager.LoadScene(PocketDroidsConstants.SCENE_CAPTURE);
-      //  List<GameObject> objects = new List<GameObject>();
-     //   print(objects);
-     //   objects.Add(animal);
-    //    print(objects);
-        SceneManager.LoadScene(HuntersConstants.SCENE_CAPTURE, LoadSceneMode.Additive);
-       // SceneTransitionManager.Instance.GoToScene(HuntersConstants.SCENE_CAPTURE, objects);
-    }
+        List<GameObject> objects = new List<GameObject>();
+        objects.Add(animal);
+        SceneTransitionManager.Instance.
+            GoToScene(HuntersConstants.SCENE_CAPTURE, objects);
+   }
 
-    public void xd()
-    {
-        Debug.Log("www !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-    }
+
 }
 

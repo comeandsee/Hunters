@@ -24,6 +24,8 @@ public class CaptureSceneManager : HuntersSceneManager
     public override void animalCollision(GameObject animal, Collider other)
     {
         status = CaptureSceneStatus.Successful;
-            
+        SceneTransitionManager.Instance.GoToScene(HuntersConstants.SCENE_WORLD,
+            new List<GameObject>());
+
     }
 }
