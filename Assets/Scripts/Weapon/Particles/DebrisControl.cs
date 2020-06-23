@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class DebrisControl : MonoBehaviour
 {
+    float delay = 2.0f;
+
+
     // Start is called before the first frame update
     void Start()
     {
-          GetComponent<Rigidbody>().velocity = new Vector3(0, 0, -5);
+        GetComponent<Rigidbody>().velocity = new Vector3(0, 0, -5);
+        Object.Destroy(gameObject, delay);
 
     }
 
@@ -17,4 +21,6 @@ public class DebrisControl : MonoBehaviour
         transform.Rotate(0, 0, 1);
 
     }
+
+    
 }

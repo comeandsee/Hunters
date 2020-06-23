@@ -57,7 +57,7 @@ public class Animal : MonoBehaviour
 
   private void OnMouseDown()
     {
-        HuntersSceneManager[] managers = FindObjectsOfType<HuntersSceneManager>();
+        HuntersSceneManager[] managers = FindObjectsOfType <HuntersSceneManager>();
         audioSource.PlayOneShot(animalSound);
         foreach (HuntersSceneManager huntersSceneManager in managers)
         {
@@ -67,17 +67,17 @@ public class Animal : MonoBehaviour
             }
         }
     }
-    /* 
+    
    private void OnCollisionEnter(Collision other)
    {
-       PocketdroidsSceneManager[] managers = FindObjectsOfType<PocketdroidsSceneManager>();
-       foreach (PocketdroidsSceneManager pocketdroidsSceneManager in managers)
+        HuntersSceneManager[] managers = FindObjectsOfType<HuntersSceneManager>();
+       foreach (HuntersSceneManager huntersSceneManager in managers)
        {
-           if (pocketdroidsSceneManager.gameObject.activeSelf)
+           if (huntersSceneManager.gameObject.activeSelf)
            {
-               pocketdroidsSceneManager.droidCollision(this.gameObject, other);
+                huntersSceneManager.animalCollision(this.gameObject, other);
            }
        }
    }
-   */
+   
 }

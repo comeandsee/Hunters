@@ -138,7 +138,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!108 &12590041
 Light:
   m_ObjectHideFlags: 0
@@ -287,6 +287,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 105663537}
   m_CullTransparentMesh: 0
+--- !u!1 &189680691 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1637996540812124, guid: c10877f7cd5764de18d46d7b777d1faa,
+    type: 3}
+  m_PrefabInstance: {fileID: 725481005}
+  m_PrefabAsset: {fileID: 0}
+--- !u!81 &189680692
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 189680691}
+  m_Enabled: 1
 --- !u!1 &195594220
 GameObject:
   m_ObjectHideFlags: 0
@@ -370,6 +384,10 @@ PrefabInstance:
     - target: {fileID: 1248447649449928, guid: cf498fc35b538884db557f7a9a2c0ef9, type: 3}
       propertyPath: m_Name
       value: Environmental Light
+      objectReference: {fileID: 0}
+    - target: {fileID: 1248447649449928, guid: cf498fc35b538884db557f7a9a2c0ef9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1995114164396524, guid: cf498fc35b538884db557f7a9a2c0ef9, type: 3}
       propertyPath: m_IsActive
@@ -488,6 +506,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mouse
       objectReference: {fileID: 0}
+    - target: {fileID: 8481093795961208585, guid: 36db26a1dbc73fa49bdef79528838aa2,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8481093795961208585, guid: 36db26a1dbc73fa49bdef79528838aa2,
+        type: 3}
+      propertyPath: deadSound
+      value: 
+      objectReference: {fileID: 8300000, guid: f3f707fb5bbce694991b04d6e0b47ac4, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36db26a1dbc73fa49bdef79528838aa2, type: 3}
 --- !u!1 &474364217
@@ -537,6 +565,10 @@ PrefabInstance:
     - target: {fileID: 1772147192650458, guid: c10877f7cd5764de18d46d7b777d1faa, type: 3}
       propertyPath: m_Name
       value: ARCore Device
+      objectReference: {fileID: 0}
+    - target: {fileID: 1772147192650458, guid: c10877f7cd5764de18d46d7b777d1faa, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4442908887562770, guid: c10877f7cd5764de18d46d7b777d1faa, type: 3}
       propertyPath: m_LocalPosition.x
@@ -589,28 +621,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c10877f7cd5764de18d46d7b777d1faa, type: 3}
---- !u!1 &767568730 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1637996540812124, guid: c10877f7cd5764de18d46d7b777d1faa,
-    type: 3}
-  m_PrefabInstance: {fileID: 725481005}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &767568732
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 767568730}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83773e7d9472b7f41ae84f3458bfcd2b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  harvester: {fileID: 7813486982340662377, guid: 6a4492973540df943b9dcc51b5e6d457,
-    type: 3}
-  weaponButtonText: {fileID: 1237272026}
-  weaponsButton: {fileID: 939568539}
 --- !u!4 &767568735 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4497055787654456, guid: c10877f7cd5764de18d46d7b777d1faa,
@@ -873,7 +883,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 767568732}
+      - m_Target: {fileID: 0}
         m_MethodName: createWeapon
         m_Mode: 1
         m_Arguments:
@@ -1013,7 +1023,7 @@ PrefabInstance:
     - target: {fileID: 7813486982340662371, guid: 6a4492973540df943b9dcc51b5e6d457,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -7.84
+      value: -3.5
       objectReference: {fileID: 0}
     - target: {fileID: 7813486982340662371, guid: 6a4492973540df943b9dcc51b5e6d457,
         type: 3}
@@ -1059,6 +1069,46 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: harvester
+      objectReference: {fileID: 0}
+    - target: {fileID: 7813486982340662377, guid: 6a4492973540df943b9dcc51b5e6d457,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7813486982340662377, guid: 6a4492973540df943b9dcc51b5e6d457,
+        type: 3}
+      propertyPath: m_TagString
+      value: Harvester
+      objectReference: {fileID: 0}
+    - target: {fileID: 7813486982340662380, guid: 6a4492973540df943b9dcc51b5e6d457,
+        type: 3}
+      propertyPath: lengthInSec
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7813486982340662380, guid: 6a4492973540df943b9dcc51b5e6d457,
+        type: 3}
+      propertyPath: InitialModule.size3D
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7813486982340662380, guid: 6a4492973540df943b9dcc51b5e6d457,
+        type: 3}
+      propertyPath: simulationSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7813486982340662380, guid: 6a4492973540df943b9dcc51b5e6d457,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 750
+      objectReference: {fileID: 0}
+    - target: {fileID: 7813486982340662380, guid: 6a4492973540df943b9dcc51b5e6d457,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.a
+      value: 0.43137255
+      objectReference: {fileID: 0}
+    - target: {fileID: 7813486982340662380, guid: 6a4492973540df943b9dcc51b5e6d457,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6a4492973540df943b9dcc51b5e6d457, type: 3}
