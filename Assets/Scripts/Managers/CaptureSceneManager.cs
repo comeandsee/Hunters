@@ -2,11 +2,21 @@
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class CaptureSceneManager : HuntersSceneManager
 {
     private CaptureSceneStatus status = CaptureSceneStatus.InProgress;
+    [SerializeField] private AudioClip clickExitSound;
+    public AudioSource AudioSource { get => audioSource; set => audioSource = value; }
+    private AudioSource audioSource;
 
+    private void Awake()
+    {
+        AudioSource = GetComponent<AudioSource>();
+        Assert.IsNotNull(clickExitSound);
+        Assert.IsNotNull(AudioSource);
+    }
     private void Start()
     {
        // AnimalFactory.Instance.SelectedAnimal;
@@ -30,17 +40,21 @@ public class CaptureSceneManager : HuntersSceneManager
     {
         status = CaptureSceneStatus.Successful;
 
-        Animal[] animals = Resources.FindObjectsOfTypeAll<Animal>(); // FindObjectsOfType<Animal>();
+        comeBackToWorldScene();
+
+    }
+
+    private void comeBackToWorldScene()
+    {
+        Animal[] animals = Resources.FindObjectsOfTypeAll<Animal>();
         foreach (Animal a in animals)
         {
             a.showObject();
         }
-       
+
+
         IEnumerator coroutine = WaitAndGoToWorldScene(1.5f);
         StartCoroutine(coroutine);
-
-        
-
     }
 
     private IEnumerator WaitAndGoToWorldScene(float waitTime)
@@ -49,5 +63,17 @@ public class CaptureSceneManager : HuntersSceneManager
             SceneTransitionManager.Instance.GoToScene(HuntersConstants.SCENE_WORLD,
             new List<GameObject>());
 
+    }
+
+    public void ExitButtonClicked()
+    {
+        AudioSource.PlayOneShot(clickExitSound);
+        status = CaptureSceneStatus.Failed;
+        var animal = AnimalFactory.Instance.SelectedAnimal;
+        if(animal)
+        {
+            animal.changePositionToDefault();
+        }
+        comeBackToWorldScene();
     }
 }

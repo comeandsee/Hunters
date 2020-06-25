@@ -14,7 +14,7 @@ public class XPBonus : MonoBehaviour
 
     private void Awake()
     {
-        var a = GetComponents<AudioSource>();
+     
         AudioSource = GetComponent<AudioSource>();
 
         Assert.IsNotNull(clickSound);

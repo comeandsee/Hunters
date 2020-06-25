@@ -183,4 +183,9 @@ public class Animal : MonoBehaviour
         AnimalSound = Resources.Load<AudioClip>("Audio/"+ data.AnimalSound);
 
     }
+
+    public void changePositionToDefault()
+    {
+        this.gameObject.transform.position = positionStart;
+    }
 }

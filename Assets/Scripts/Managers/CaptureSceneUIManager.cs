@@ -9,17 +9,24 @@ public class CaptureSceneUIManager : MonoBehaviour
 {
     [SerializeField] private CaptureSceneManager manager;
     [SerializeField] private GameObject successScreen;
+    [SerializeField] private GameObject failScreen;
     [SerializeField] private GameObject gameScreen;
 
     [SerializeField] private Text HPCountText;
-    
+
+
     private Animal animal;
+
+
     private void Awake()
     {
+   
         animal = AnimalFactory.Instance.SelectedAnimal;
+
         Assert.IsNotNull(animal);
         Assert.IsNotNull(manager);
         Assert.IsNotNull(successScreen);
+        Assert.IsNotNull(failScreen);
         Assert.IsNotNull(gameScreen);
     }
 
@@ -33,9 +40,17 @@ public class CaptureSceneUIManager : MonoBehaviour
             case CaptureSceneStatus.Successful:
                 HandleSuccess();
                 break;
+            case CaptureSceneStatus.Failed:
+                HandleFail();
+                break;
             default:
                 break;
         }
+    }
+
+    private void HandleFail()
+    {
+        UpdateVisibleScreen();
     }
 
     private void HandleSuccess()
@@ -51,6 +66,7 @@ public class CaptureSceneUIManager : MonoBehaviour
 
     private void UpdateVisibleScreen()
     {
+        failScreen.SetActive(manager.Status == CaptureSceneStatus.Failed);
         successScreen.SetActive(manager.Status == CaptureSceneStatus.Successful);
         gameScreen.SetActive(manager.Status == CaptureSceneStatus.InProgress);
     }
@@ -59,4 +75,6 @@ public class CaptureSceneUIManager : MonoBehaviour
     {
         HPCountText.text = animal.Hp.ToString();
     }
+
+   
 }
