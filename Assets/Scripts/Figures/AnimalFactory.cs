@@ -41,18 +41,25 @@ public class AnimalFactory : Singleton<AnimalFactory>
 
     private void Awake()
     {
+      //  DontDestroyOnLoad(this);
         Assert.IsNotNull(AvailableAnimals);
         player = GameManager.Instance.CurrentPlayer;
         Assert.IsNotNull(player);
-        for (int i = 0; i < startingAnimals; i++)
-        {
-            InstantiateAnimal();
-        }
+       
     }
 
     void Start()
     {
-       
+        
+           var a = FindObjectOfType<AnimalFactory>();
+           var b = FindObjectsOfType<AnimalFactory>();
+
+        if (b.Length <= 1)
+        {
+            createAnimals();
+
+        }
+
         /*
         if (player)
         {
@@ -61,9 +68,18 @@ public class AnimalFactory : Singleton<AnimalFactory>
                 player.AddAnimal(animal.gameObject);
             }
         }*/
-       // StartCoroutine(GenerateAnimals());
+        // StartCoroutine(GenerateAnimals());
     }
 
+
+    private void createAnimals()
+    {
+        for (int i = 0; i < startingAnimals; i++)
+        {
+            InstantiateAnimal();
+        }
+
+    }
     public void AnimalWasSelected(Animal Animal)
     {
         selectedAnimal = Animal;

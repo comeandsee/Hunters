@@ -74,12 +74,12 @@ public class Animal : MonoBehaviour
 
     void Update()
     {
-        if (Hp < 1)
+       /* if (Hp < 1)
         {
             AnimalFactory.Instance.gatherAnimal(this);
             Destroy(gameObject);
            
-        }
+        }*/
     }
 
 
@@ -110,6 +110,28 @@ public class Animal : MonoBehaviour
         if (other.gameObject.CompareTag(HuntersConstants.TAG_Harvester))
         {
             hp -= 1;
+
+            if (hp == 0)
+            {
+                HuntersSceneManager[] managers = FindObjectsOfType<HuntersSceneManager>();
+                foreach (HuntersSceneManager huntersSceneManager in managers)
+                {
+                    if (huntersSceneManager.gameObject.activeSelf)
+                    {
+                        {
+                            huntersSceneManager.animalCollision(this.gameObject, other);
+                            AnimalFactory.Instance.gatherAnimal(this);
+                            Destroy(gameObject);
+                        }
+                    }
+                }
+
+                // harvester destroy
+                Harvest harvest = FindObjectOfType<Harvest>();
+                harvest.gameObject.Destroy();
+            }
+
+
             if (debrisDelay == "n")
             {
                 var objInst = Instantiate(debrisObj, transform.position, debrisObj.rotation);
@@ -120,23 +142,7 @@ public class Animal : MonoBehaviour
             }
 
 
-            if(hp == 1)
-            {
-                HuntersSceneManager[] managers = FindObjectsOfType<HuntersSceneManager>();
-                foreach (HuntersSceneManager huntersSceneManager in managers)
-                {
-                    if (huntersSceneManager.gameObject.activeSelf)
-                    {
-                        {
-                            huntersSceneManager.animalCollision(this.gameObject, other);
-                        }
-                    }
-                }
-
-                // harvester destroy
-                Harvest harvest = FindObjectOfType<Harvest>();
-                harvest.gameObject.Destroy();
-            }
+            
         }
     }
 
