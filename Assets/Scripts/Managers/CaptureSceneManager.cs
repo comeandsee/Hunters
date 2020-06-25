@@ -29,6 +29,13 @@ public class CaptureSceneManager : HuntersSceneManager
     public override void animalCollision(GameObject animal, Collider other)
     {
         status = CaptureSceneStatus.Successful;
+
+        Animal[] animals = Resources.FindObjectsOfTypeAll<Animal>(); // FindObjectsOfType<Animal>();
+        foreach (Animal a in animals)
+        {
+            a.showObject();
+        }
+       
         IEnumerator coroutine = WaitAndGoToWorldScene(1.5f);
         StartCoroutine(coroutine);
 

@@ -125,8 +125,10 @@ MonoBehaviour:
   catchRate: 0.1
   attack: 0
   defense: 0
-  hp: 10
   animalSound: {fileID: 8300000, guid: 7584e5b129e313d42913bcf089ad5edf, type: 3}
+  hp: 10
+  debrisObj: {fileID: 0}
+  debrisDelay: n
 --- !u!1001 &403977548790959888
 PrefabInstance:
   m_ObjectHideFlags: 0

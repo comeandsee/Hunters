@@ -447,7 +447,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4461716624848968, guid: cf498fc35b538884db557f7a9a2c0ef9, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4461716624848968, guid: cf498fc35b538884db557f7a9a2c0ef9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -540,107 +540,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 357504692}
   m_CullTransparentMesh: 0
---- !u!1001 &440638306
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 3734833592154764494, guid: 36db26a1dbc73fa49bdef79528838aa2,
-        type: 3}
-      propertyPath: debrisObj
-      value: 
-      objectReference: {fileID: 5646452407127779665, guid: 4f7139e8899414146b8427eb88bd3bb8,
-        type: 3}
-    - target: {fileID: 3734833592154764494, guid: 36db26a1dbc73fa49bdef79528838aa2,
-        type: 3}
-      propertyPath: hp
-      value: 80
-      objectReference: {fileID: 0}
-    - target: {fileID: 5740340844374909100, guid: 36db26a1dbc73fa49bdef79528838aa2,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.52
-      objectReference: {fileID: 0}
-    - target: {fileID: 5740340844374909100, guid: 36db26a1dbc73fa49bdef79528838aa2,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -3.15
-      objectReference: {fileID: 0}
-    - target: {fileID: 5740340844374909100, guid: 36db26a1dbc73fa49bdef79528838aa2,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 9.26
-      objectReference: {fileID: 0}
-    - target: {fileID: 5740340844374909100, guid: 36db26a1dbc73fa49bdef79528838aa2,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5740340844374909100, guid: 36db26a1dbc73fa49bdef79528838aa2,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.9961947
-      objectReference: {fileID: 0}
-    - target: {fileID: 5740340844374909100, guid: 36db26a1dbc73fa49bdef79528838aa2,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5740340844374909100, guid: 36db26a1dbc73fa49bdef79528838aa2,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: -0.08715578
-      objectReference: {fileID: 0}
-    - target: {fileID: 5740340844374909100, guid: 36db26a1dbc73fa49bdef79528838aa2,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5740340844374909100, guid: 36db26a1dbc73fa49bdef79528838aa2,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5740340844374909100, guid: 36db26a1dbc73fa49bdef79528838aa2,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 190
-      objectReference: {fileID: 0}
-    - target: {fileID: 5740340844374909100, guid: 36db26a1dbc73fa49bdef79528838aa2,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5740340844375128288, guid: 36db26a1dbc73fa49bdef79528838aa2,
-        type: 3}
-      propertyPath: m_Name
-      value: Mouse
-      objectReference: {fileID: 0}
-    - target: {fileID: 5740340844375128288, guid: 36db26a1dbc73fa49bdef79528838aa2,
-        type: 3}
-      propertyPath: m_TagString
-      value: Animal
-      objectReference: {fileID: 0}
-    - target: {fileID: 5740340844375128288, guid: 36db26a1dbc73fa49bdef79528838aa2,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8481093795961208585, guid: 36db26a1dbc73fa49bdef79528838aa2,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8481093795961208585, guid: 36db26a1dbc73fa49bdef79528838aa2,
-        type: 3}
-      propertyPath: deadSound
-      value: 
-      objectReference: {fileID: 8300000, guid: f3f707fb5bbce694991b04d6e0b47ac4, type: 3}
-    m_RemovedComponents:
-    - {fileID: 1392036923559357562, guid: 36db26a1dbc73fa49bdef79528838aa2, type: 3}
-  m_SourcePrefab: {fileID: 100100000, guid: 36db26a1dbc73fa49bdef79528838aa2, type: 3}
 --- !u!1 &474364217
 GameObject:
   m_ObjectHideFlags: 0

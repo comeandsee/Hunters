@@ -30,6 +30,13 @@ public class WorldSceneManager : HuntersSceneManager
         Animal animal = animalObject.GetComponent<Animal>();
         AnimalFactory.Instance.AnimalWasSelected(animal);
 
+        Animal[] animals = FindObjectsOfType<Animal>();
+        foreach(Animal a in animals)
+        {
+            a.hideObject();
+        }
+        animal.showObject();
+        
         List<GameObject> objects = new List<GameObject>();
         //objects.Add(animalObject);
        // DontDestroyOnLoad(animal);

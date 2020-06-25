@@ -91,9 +91,10 @@ public class Animal : MonoBehaviour
         {
             if (huntersSceneManager.gameObject.activeSelf)
             {
-                // GameManager.Instance.CurrentPlayer.AddXp(bonus);
+              
                 positionStart = this.gameObject.transform.position;
                 this.gameObject.transform.position = new Vector3(0.52f, -3.15f, 9.26f);
+
                 huntersSceneManager.animalTapped(this.gameObject);
             }
         }
@@ -163,6 +164,11 @@ public class Animal : MonoBehaviour
     public void hideObject()
     {
         this.gameObject.SetActive(false);
+    }
+
+    public void showObject()
+    {
+        this.gameObject.SetActive(true);
     }
 
     public void loadFromAnimalData(AnimalData data)
