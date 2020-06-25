@@ -48,7 +48,24 @@ public class UIManager : MonoBehaviour
     public void MenuBtnClicked()
     {
         audioSource.PlayOneShot(menuBtnSound);
-   //     toggleMenu();
+        toggleMenu();
+    }
+
+    public void StartBtnClicked()
+    {
+        audioSource.PlayOneShot(menuBtnSound);
+        //todo
+    }
+
+    public void RankingBtnClicked()
+    {
+        audioSource.PlayOneShot(menuBtnSound);
+        //todo
+    }
+    public void SettingsBtnClicked()
+    {
+        audioSource.PlayOneShot(menuBtnSound);
+        //todo
     }
 
 }
