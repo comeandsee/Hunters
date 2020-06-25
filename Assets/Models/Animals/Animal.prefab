@@ -62,7 +62,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 177940}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7f7016f515039964aa2807b81320fd73, type: 3}
   m_Name: 
@@ -100,9 +100,10 @@ MonoBehaviour:
   catchRate: 0.1
   attack: 0
   defense: 0
-  hp: 80
   animalSound: {fileID: 8300000, guid: 6eddfc86529739e4bba7a966f24d6f45, type: 3}
-  debrisObj: {fileID: 0}
+  hp: 80
+  debrisObj: {fileID: 5646452407127779665, guid: 4f7139e8899414146b8427eb88bd3bb8,
+    type: 3}
   debrisDelay: n
 --- !u!82 &2894586505808853974
 AudioSource:

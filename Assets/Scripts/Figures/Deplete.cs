@@ -6,7 +6,7 @@ using UnityEngine.Assertions;
 public class Deplete : MonoBehaviour
 {
     // Start is called before the first frame update
-    public int resourceHP = 60;
+    public int resourceHP ;
     public Transform debrisObj;
     public string debrisDelay = "n";
     List<Transform> generatedObjects = new List<Transform>();
@@ -21,7 +21,7 @@ public class Deplete : MonoBehaviour
 
     void Start()
     {
-        
+   //     resourceHP = AnimalFactory.Instance.SelectedAnimal.Hp;
     }
 
     // Update is called once per frame

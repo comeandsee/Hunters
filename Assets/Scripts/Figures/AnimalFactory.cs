@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.SceneManagement;
@@ -10,12 +11,13 @@ public class AnimalFactory : Singleton<AnimalFactory>
 
     [SerializeField] private Animal[] availableAnimals;
     [SerializeField] private float waitTime = 180.0f;
-    [SerializeField] private int startingAnimals = 5;
+    [SerializeField] private int startingAnimals = 10;
     [SerializeField] private float minRange = 5.0f;
-    [SerializeField] private float maxRange = 50.0f;
+    [SerializeField] private float maxRange = 20.0f;
 
-    private List<Animal> liveAnimals = new List<Animal>();
-    private Animal selectedAnimal;
+    [SerializeField] private List<Animal> liveAnimals = new List<Animal>();
+    //  private ListDictionary liveAnimalsWithIndex = new ListDictionary();
+    [SerializeField] private Animal selectedAnimal;
     private Player player;
 
     public List<Animal> LiveAnimals
@@ -28,22 +30,38 @@ public class AnimalFactory : Singleton<AnimalFactory>
         get { return selectedAnimal; }
     }
 
-    private void Awake()
+    public void gatherAnimal(Animal animal)
     {
-        Assert.IsNotNull(availableAnimals);
+        liveAnimals.Remove(animal);
+        selectedAnimal = null;
     }
 
-    void Start()
+    public Animal[] AvailableAnimals { get => availableAnimals; set => availableAnimals = value; }
+   // public ListDictionary LiveAnimalsWithIndex { get => liveAnimalsWithIndex; set => liveAnimalsWithIndex = value; }
+
+    private void Awake()
     {
+        Assert.IsNotNull(AvailableAnimals);
         player = GameManager.Instance.CurrentPlayer;
         Assert.IsNotNull(player);
         for (int i = 0; i < startingAnimals; i++)
         {
             InstantiateAnimal();
-             
         }
+    }
 
-        StartCoroutine(GenerateAnimals());
+    void Start()
+    {
+       
+        /*
+        if (player)
+        {
+            foreach (Animal animal in liveAnimals)
+            {
+                player.AddAnimal(animal.gameObject);
+            }
+        }*/
+       // StartCoroutine(GenerateAnimals());
     }
 
     public void AnimalWasSelected(Animal Animal)
@@ -62,11 +80,12 @@ public class AnimalFactory : Singleton<AnimalFactory>
 
     private void InstantiateAnimal()
     {
-        int index = Random.Range(0, availableAnimals.Length);
+        int index = Random.Range(0, AvailableAnimals.Length);
         float x = player.transform.position.x + GenerateRange();
         float z = player.transform.position.z + GenerateRange();
         float y = player.transform.position.y;
-        liveAnimals.Add(Instantiate(availableAnimals[index], new Vector3(x, y, z), Quaternion.identity));
+        liveAnimals.Add(Instantiate(AvailableAnimals[index], new Vector3(x, y, z), Quaternion.identity));
+      //  LiveAnimalsWithIndex.Add(index, liveAnimals[index]);
     }
 
     private float GenerateRange()
@@ -75,4 +94,6 @@ public class AnimalFactory : Singleton<AnimalFactory>
         bool isPositive = Random.Range(0, 10) < 5;
         return randomNum * (isPositive ? 1 : -1);
     }
+
+     
 }

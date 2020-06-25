@@ -15,7 +15,9 @@ public class SceneTransitionManager : Singleton<SceneTransitionManager>
 
     private IEnumerator LoadScene(string scenename, List<GameObject> objectsToMove)
     {
-        SceneManager.LoadSceneAsync(scenename);
+         SceneManager.LoadSceneAsync(scenename);
+
+      
 
         SceneManager.sceneLoaded += (newScene, mode) => {
             SceneManager.SetActiveScene(newScene);
@@ -26,6 +28,8 @@ public class SceneTransitionManager : Singleton<SceneTransitionManager>
         {
             SceneManager.MoveGameObjectToScene(obj, sceneToLoad);
         }
+
+      
 
         yield return null;
     }

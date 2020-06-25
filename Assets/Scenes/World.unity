@@ -211,7 +211,6 @@ GameObject:
   - component: {fileID: 175058333}
   - component: {fileID: 175058332}
   - component: {fileID: 175058331}
-  - component: {fileID: 175058335}
   - component: {fileID: 175058336}
   - component: {fileID: 175058337}
   m_Layer: 0
@@ -294,27 +293,6 @@ Transform:
   m_Father: {fileID: 363634775}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 44, y: 0, z: 0}
---- !u!114 &175058335
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 175058330}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b307698e5dccfc4ab48c4c69fd1f1ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  availableAnimals:
-  - {fileID: 7130128813303540744, guid: d9c0d41d301e7574a9cd40cc2e9f32e4, type: 3}
-  - {fileID: 6248415379531089199, guid: ecef8d5302fcc414094b96db81d488d3, type: 3}
-  - {fileID: 3734833592154764494, guid: 36db26a1dbc73fa49bdef79528838aa2, type: 3}
-  waitTime: 180
-  startingAnimals: 5
-  minRange: 5
-  maxRange: 50
-  player: {fileID: 363634774}
 --- !u!114 &175058336
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -703,18 +681,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7760043eea2cd452ba7117f2c97e0038, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &363634774 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2138616503702394111, guid: da4c35291f8065643a84f15ad26eb3d4,
-    type: 3}
-  m_PrefabInstance: {fileID: 943664150}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 363634771}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39c880e8f17e43849846471c290e2eb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &363634775 stripped
@@ -1276,6 +1242,7 @@ GameObject:
   - component: {fileID: 1165489561}
   - component: {fileID: 1165489560}
   - component: {fileID: 1165489562}
+  - component: {fileID: 1165489563}
   m_Layer: 0
   m_Name: Loader
   m_TagString: Untagged
@@ -1295,7 +1262,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7b18a84017e0243821ce92602949fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentPlayer: {fileID: 363634774}
 --- !u!4 &1165489561
 Transform:
   m_ObjectHideFlags: 0
@@ -1322,6 +1288,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 327fca0d3c035414299eb3904a0c773c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1165489563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1165489559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b307698e5dccfc4ab48c4c69fd1f1ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  availableAnimals:
+  - {fileID: 7130128813303540744, guid: d9c0d41d301e7574a9cd40cc2e9f32e4, type: 3}
+  - {fileID: 6248415379531089199, guid: ecef8d5302fcc414094b96db81d488d3, type: 3}
+  - {fileID: 3734833592154764494, guid: 36db26a1dbc73fa49bdef79528838aa2, type: 3}
+  waitTime: 180
+  startingAnimals: 3
+  minRange: 5
+  maxRange: 20
+  selectedAnimal: {fileID: 0}
 --- !u!1 &1301988548
 GameObject:
   m_ObjectHideFlags: 0

@@ -16,18 +16,25 @@ public class Animal : MonoBehaviour
     [SerializeField] private AudioClip animalSound;
     [SerializeField] private int hp = 80;
 
-    private AudioSource audioSource;
 
+    private AudioSource audioSource;
+   // private Vector3 position;
 
     public Transform debrisObj;
     public string debrisDelay = "n";
     List<Transform> generatedObjects = new List<Transform>();
 
+    private Vector3 positionStart = new Vector3();
+
     private void Awake()
     {
         AudioSource = GetComponent<AudioSource>();
         Assert.IsNotNull(AudioSource);
-        Assert.IsNotNull(animalSound);
+        Assert.IsNotNull(AnimalSound);
+    }
+    private void Start()
+    {
+        DontDestroyOnLoad(this);
     }
 
     public float SpawnRate
@@ -61,13 +68,17 @@ public class Animal : MonoBehaviour
     }
 
     public AudioSource AudioSource { get => audioSource; set => audioSource = value; }
+    public AudioClip AnimalSound { get => animalSound; set => animalSound = value; }
+
+    // public Vector3 Position { get => position; set => position = value; }
 
     void Update()
     {
         if (Hp < 1)
         {
+            AnimalFactory.Instance.gatherAnimal(this);
             Destroy(gameObject);
-
+           
         }
     }
 
@@ -75,11 +86,14 @@ public class Animal : MonoBehaviour
     private void OnMouseDown()
     {
         HuntersSceneManager[] managers = FindObjectsOfType<HuntersSceneManager>();
-        AudioSource.PlayOneShot(animalSound);
+        AudioSource.PlayOneShot(AnimalSound);
         foreach (HuntersSceneManager huntersSceneManager in managers)
         {
             if (huntersSceneManager.gameObject.activeSelf)
             {
+                // GameManager.Instance.CurrentPlayer.AddXp(bonus);
+                positionStart = this.gameObject.transform.position;
+                this.gameObject.transform.position = new Vector3(0.52f, -3.15f, 9.26f);
                 huntersSceneManager.animalTapped(this.gameObject);
             }
         }
@@ -106,7 +120,7 @@ public class Animal : MonoBehaviour
             }
 
 
-            if(hp == 0)
+            if(hp == 1)
             {
                 HuntersSceneManager[] managers = FindObjectsOfType<HuntersSceneManager>();
                 foreach (HuntersSceneManager huntersSceneManager in managers)
@@ -138,5 +152,23 @@ public class Animal : MonoBehaviour
     {
         yield return new WaitForSeconds(2.0f);
         Destroy((obj as Transform).gameObject);
+    }
+
+    public void hideObject()
+    {
+        this.gameObject.SetActive(false);
+    }
+
+    public void loadFromAnimalData(AnimalData data)
+    {
+
+        SpawnRate = data.SpawnRate;
+        CatchRate = data.CatchRate;
+        Attack = data.Attack;
+        Defense = data.Defense;
+        Hp = data.Hp;
+        //AnimalSound = Resources.Load() as AudioClip;
+        AnimalSound = Resources.Load<AudioClip>("Audio/"+ data.AnimalSound);
+
     }
 }

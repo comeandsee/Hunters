@@ -15,8 +15,8 @@ public class CaptureSceneUIManager : MonoBehaviour
     
     private Animal animal;
     private void Awake()
-    { 
-        animal = FindObjectOfType<Animal>();
+    {
+        animal = AnimalFactory.Instance.SelectedAnimal;
         Assert.IsNotNull(animal);
         Assert.IsNotNull(manager);
         Assert.IsNotNull(successScreen);

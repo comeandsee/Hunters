@@ -25,10 +25,14 @@ public class WorldSceneManager : HuntersSceneManager
 
     }
 
-    public override void animalTapped(GameObject animal)
+    public override void animalTapped(GameObject animalObject)
     {
+        Animal animal = animalObject.GetComponent<Animal>();
+        AnimalFactory.Instance.AnimalWasSelected(animal);
+
         List<GameObject> objects = new List<GameObject>();
-        objects.Add(animal);
+        //objects.Add(animalObject);
+       // DontDestroyOnLoad(animal);
         SceneTransitionManager.Instance.
             GoToScene(HuntersConstants.SCENE_CAPTURE, objects);
    }

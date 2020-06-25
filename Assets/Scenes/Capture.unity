@@ -623,6 +623,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Animal
       objectReference: {fileID: 0}
+    - target: {fileID: 5740340844375128288, guid: 36db26a1dbc73fa49bdef79528838aa2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8481093795961208585, guid: 36db26a1dbc73fa49bdef79528838aa2,
         type: 3}
       propertyPath: m_Enabled

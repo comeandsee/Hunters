@@ -9,4 +9,6 @@ public static class HuntersConstants
 
     public static string TAG_ANIMAL = "Animal";
     public static string TAG_Harvester = "Harvester";
+
+   
 }
