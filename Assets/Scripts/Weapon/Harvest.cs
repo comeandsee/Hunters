@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.EventSystems;
 
 public class Harvest : MonoBehaviour
 {
@@ -30,7 +31,15 @@ public class Harvest : MonoBehaviour
     {
         if (Input.GetMouseButtonUp(0))
         {
-            gatherAnimal = true;
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                Debug.Log("Clicked on the UI");
+                gatherAnimal = false;
+            }
+            else
+            {
+                gatherAnimal = true;
+            }
         }
 
         if (gatherAnimal)

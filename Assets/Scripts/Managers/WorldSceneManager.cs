@@ -35,7 +35,7 @@ public class WorldSceneManager : HuntersSceneManager
             .Cast<Transform>()
             .Where(c => c.gameObject.tag == "Animal").Select(c => c.gameObject)
             .ToArray();
-      //  var xd=  animal.GetComponentsInChildren(Animal, false);
+ 
 
         Animal[] allAnimals = FindObjectsOfType<Animal>();
         foreach(Animal a in allAnimals)
@@ -52,11 +52,8 @@ public class WorldSceneManager : HuntersSceneManager
 
         animal.showObject();
         
-        List<GameObject> objects = new List<GameObject>();
-        //objects.Add(animalObject);
-       // DontDestroyOnLoad(animal);
         SceneTransitionManager.Instance.
-            GoToScene(HuntersConstants.SCENE_CAPTURE, objects);
+            GoToScene(HuntersConstants.SCENE_CAPTURE, new List<GameObject>());
    }
 
 

@@ -106,7 +106,8 @@ public class Animal : MonoBehaviour
                     {
 
                         positionStart = this.gameObject.transform.position;
-                        this.gameObject.transform.position = new Vector3(0.52f, -3.15f, 9.26f);
+                        this.gameObject.transform.position = HuntersConstants.objectPositionInCaptureScene;
+                        this.gameObject.transform.eulerAngles = HuntersConstants.objectRotationInCaptureScene;
 
                         huntersSceneManager.animalTapped(this.gameObject);
                     }
