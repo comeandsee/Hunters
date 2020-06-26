@@ -22,7 +22,7 @@ public class Animal : MonoBehaviour
 
     private AudioSource audioSource;
     private float maxDistance = 15.0f;
-   // private Vector3 position;
+    // private Vector3 position;
 
     public Transform debrisObj;
     public string debrisDelay = "n";
@@ -34,7 +34,6 @@ public class Animal : MonoBehaviour
     {
 
         AudioSource = GetComponent<AudioSource>();
-
         Assert.IsNotNull(AudioSource);
         Assert.IsNotNull(AnimalSound);
 
@@ -97,11 +96,14 @@ public class Animal : MonoBehaviour
     private AbstractLocationProvider _locationProvider = null;
     private void OnMouseDown()
     {
-       // Location currLoc = _locationProvider.CurrentLocation;
+     //   Location currLoc = _locationProvider.CurrentLocation;
      //   var a = currLoc.LatitudeLongitude;
 
         var animalPosition = this.gameObject.transform.position;
-        var userPosition = GameManager.Instance.CurrentPlayer.transform.position;
+
+        var player = GameObject.FindWithTag("Player");
+        var userPosition = player.transform.position;
+        
         var xDistance = Math.Abs(userPosition.x - animalPosition.x);
         var zDistance = Math.Abs(userPosition.z - animalPosition.z);
 
@@ -124,7 +126,7 @@ public class Animal : MonoBehaviour
         }
         else{
       
-            var uI = FindObjectOfType<UIManager>(); ;
+            var uI = FindObjectOfType<UIManager>(); 
             uI.showPositionBox();
             StartCoroutine(WaitAndNotShowTxt(1.0f));
         }
