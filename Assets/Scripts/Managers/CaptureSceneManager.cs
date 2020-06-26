@@ -36,7 +36,7 @@ public class CaptureSceneManager : HuntersSceneManager
         print("2 palyer gartki ");
     }
 
-    public override void animalCollision(GameObject animal, Collider other)
+    public override void animalCollision()
     {
         status = CaptureSceneStatus.Successful;
 

@@ -7,35 +7,9 @@ using UnityEngine.Assertions;
 
 public class Harvest : MonoBehaviour
 {
-
-   private  int gemUnits = 0;
-    private  int wolfUnits = 0;
-    public KeyCode fireLaser;
-
-    public  string laserInUse = "n";
-    private  int overheat = 0;
-   
-    List<Transform> generatedObjects = new List<Transform>();
-
-    [SerializeField] private float collisionStallTime = 2.0f;
-    [SerializeField] private float stallTime = 0.01f;
-
-    [SerializeField] private AudioClip dropSound;
     [SerializeField] private AudioClip successSound;
-    [SerializeField] private AudioClip throwSound;
-
-    private Rigidbody rigidbody;
+    private bool gatherAnimal = false;
     private AudioSource audioSource;
-    private InputStatus inputStatus;
-
-    private float lastX;
-    private float lastY;
-    private bool released;
-    private bool holding;
-    private bool trackingCollisions = false;
-
-    private float OverheatStrong = 300;
-
 
     private enum InputStatus {
         Grabbing,
@@ -48,67 +22,121 @@ public class Harvest : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
 
         Assert.IsNotNull(audioSource);
-        Assert.IsNotNull(dropSound);
         Assert.IsNotNull(successSound);
-        Assert.IsNotNull(throwSound);
     }
 
 
-
-
-    private void OnTriggerStay(Collider other)
+    void Update()
     {
-        gemUnits += 1;
-        if (other.name == "gem")
+        if (Input.GetMouseButtonUp(0))
         {
-            gemUnits += 1;
+            gatherAnimal = true;
         }
-        if (other.name == "Wolf")
+
+        if (gatherAnimal)
         {
-            wolfUnits += 1;
-        }
-        if (other.name == "zoomObj")
-        {
-            generatedObjects = other.gameObject.GetComponent<Animal>().getGeneratedObjects();
-            gemUnits += 1;
-        }
-      
-        Debug.Log("gem " + gemUnits + " wolf " + wolfUnits + " hp:" + other.gameObject.GetComponent<Animal>().Hp) ;
-        //  GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
-
-
-        if (other.gameObject.CompareTag(HuntersConstants.TAG_ANIMAL))
-        {
-            // jezeli zwierze
-
-
-            //jezeli koniec
-            if (other.gameObject.GetComponent<Animal>().Hp == 1)
+            Animal animal = AnimalFactory.Instance.SelectedAnimal;
+            animal.Gather();
+            if(animal.Hp == 0)
             {
                 audioSource.PlayOneShot(successSound);
-                dead();
-              //  Invoke("PowerDown", stallTime);
+                gatherAnimal = false;
+            }
+        }
+    }
+
+
+    // jezeli kolizja - nieaktualne
+    /*
+        private void OnTriggerStay(Collider other)
+        {
+            gemUnits += 1;
+            if (other.name == "gem")
+            {
+                gemUnits += 1;
+            }
+            if (other.name == "Wolf")
+            {
+                wolfUnits += 1;
+            }
+            if (other.name == "zoomObj")
+            {
+                generatedObjects = other.gameObject.GetComponent<Animal>().getGeneratedObjects();
+                gemUnits += 1;
             }
 
+            Debug.Log("gem " + gemUnits + " wolf " + wolfUnits + " hp:" + other.gameObject.GetComponent<Animal>().Hp) ;
+            //  GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
 
+
+            if (other.gameObject.CompareTag(HuntersConstants.TAG_ANIMAL))
+            {
+                // jezeli zwierze
+
+
+                //jezeli koniec
+                if (other.gameObject.GetComponent<Animal>().Hp == 1)
+                {
+                    audioSource.PlayOneShot(successSound);
+                    dead();
+                  //  Invoke("PowerDown", stallTime);
+                }
+
+
+            }
+
+                }
+
+
+            private void dead()
+        {
+            Debug.Log("WINEEER");
         }
-       
+
+        private void PowerDown()
+        {
+            Destroy(gameObject);
+        }
+        */
 
 
 
 
+    //WCZESNIEJSZE
+    /* 
+     * //zmienne
+     
+     
+         private  int gemUnits = 0;
+   private  int wolfUnits = 0;
+  public KeyCode fireLaser;
 
-    }
+    public  string laserInUse = "n";
+    private  int overheat = 0;
+   
+    List<Transform> generatedObjects = new List<Transform>();
 
-    private void dead()
-    {
-        Debug.Log("WINEEER");
-    }
+    [SerializeField] private float collisionStallTime = 2.0f;
+    [SerializeField] private float stallTime = 0.01f;
 
-    private void PowerDown()
-    {
-        Destroy(gameObject);
-    }
+    [SerializeField] private AudioClip dropSound;
+
+    [SerializeField] private AudioClip throwSound;
+
+    private Rigidbody rigidbody;
+
+    private InputStatus inputStatus;
+
+    private float lastX;
+    private float lastY;
+    private bool released;
+    private bool holding;
+    private bool trackingCollisions = false;
+
+    private float OverheatStrong = 300;
+    */
+
+
     /*
     private void Awake()
     {

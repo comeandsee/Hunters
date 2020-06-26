@@ -840,7 +840,7 @@ GameObject:
   - component: {fileID: 364457620}
   - component: {fileID: 364457619}
   m_Layer: 5
-  m_Name: Distance Box
+  m_Name: DistanceBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2119,6 +2119,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 1589080780349302, guid: da4c35291f8065643a84f15ad26eb3d4, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 4827788207535740, guid: da4c35291f8065643a84f15ad26eb3d4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2475,7 +2479,7 @@ GameObject:
   - component: {fileID: 1176356278}
   - component: {fileID: 1176356277}
   m_Layer: 5
-  m_Name: Distanse Txt
+  m_Name: DistanseTxt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2497,8 +2501,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 1.8999939, y: -2.3}
-  m_SizeDelta: {x: -53.8, y: 226.5}
+  m_AnchoredPosition: {x: -12.500003, y: 0}
+  m_SizeDelta: {x: -25.000006, y: 226.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1176356277
 MonoBehaviour:
@@ -4085,6 +4089,7 @@ MonoBehaviour:
   xpText: {fileID: 770215745}
   lvlText: {fileID: 790110328}
   menu: {fileID: 515583915}
+  postionBox: {fileID: 364457617}
   menuBtnSound: {fileID: 8300000, guid: 819e234097c557747b57fbd28507d57b, type: 3}
 --- !u!82 &1610743564
 AudioSource:

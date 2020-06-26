@@ -10,8 +10,6 @@ using UnityEngine.UI;
 
 public class Animal : MonoBehaviour
 {
-
-
     [SerializeField] private float spawnRate = 0.10f;
     [SerializeField] private float catchRate = 0.10f;
     [SerializeField] private int attack = 0;
@@ -21,8 +19,7 @@ public class Animal : MonoBehaviour
 
 
     private AudioSource audioSource;
-    private float maxDistance = 15.0f;
-    // private Vector3 position;
+    private float maxDistance = 40.0f;
 
     public Transform debrisObj;
     public string debrisDelay = "n";
@@ -32,7 +29,6 @@ public class Animal : MonoBehaviour
 
     private void Awake()
     {
-
         AudioSource = GetComponent<AudioSource>();
         Assert.IsNotNull(AudioSource);
         Assert.IsNotNull(AnimalSound);
@@ -41,11 +37,6 @@ public class Animal : MonoBehaviour
     private void Start()
     {
         DontDestroyOnLoad(this);
-
-    /*    if (null == _locationProvider)
-        {
-            _locationProvider = LocationProviderFactory.Instance.DefaultLocationProvider as AbstractLocationProvider;
-        }*/
     }
 
     public float SpawnRate
@@ -81,54 +72,53 @@ public class Animal : MonoBehaviour
     public AudioSource AudioSource { get => audioSource; set => audioSource = value; }
     public AudioClip AnimalSound { get => animalSound; set => animalSound = value; }
 
-    // public Vector3 Position { get => position; set => position = value; }
 
     void Update()
     {
-       /* if (Hp < 1)
-        {
-            AnimalFactory.Instance.gatherAnimal(this);
-            Destroy(gameObject);
-           
-        }*/
+
     }
 
-    private AbstractLocationProvider _locationProvider = null;
+
     private void OnMouseDown()
     {
-     //   Location currLoc = _locationProvider.CurrentLocation;
-     //   var a = currLoc.LatitudeLongitude;
+        Scene currentScene = SceneManager.GetActiveScene();
+        string sceneName = currentScene.name;
 
-        var animalPosition = this.gameObject.transform.position;
-
-        var player = GameObject.FindWithTag("Player");
-        var userPosition = player.transform.position;
-        
-        var xDistance = Math.Abs(userPosition.x - animalPosition.x);
-        var zDistance = Math.Abs(userPosition.z - animalPosition.z);
-
-        if (xDistance <= maxDistance && zDistance <= maxDistance)
+        if (sceneName == HuntersConstants.SCENE_WORLD)
         {
 
-            HuntersSceneManager[] managers = FindObjectsOfType<HuntersSceneManager>();
-            AudioSource.PlayOneShot(AnimalSound);
-            foreach (HuntersSceneManager huntersSceneManager in managers)
+            var animalPosition = this.gameObject.transform.position;
+
+            var player = GameObject.FindWithTag("Player");
+            var userPosition = player.transform.position;
+
+            var xDistance = Math.Abs(userPosition.x - animalPosition.x);
+            var zDistance = Math.Abs(userPosition.z - animalPosition.z);
+
+            if (xDistance <= maxDistance && zDistance <= maxDistance)
             {
-                if (huntersSceneManager.gameObject.activeSelf)
+
+                HuntersSceneManager[] managers = FindObjectsOfType<HuntersSceneManager>();
+                AudioSource.PlayOneShot(AnimalSound);
+                foreach (HuntersSceneManager huntersSceneManager in managers)
                 {
+                    if (huntersSceneManager.gameObject.activeSelf)
+                    {
 
-                    positionStart = this.gameObject.transform.position;
-                    this.gameObject.transform.position = new Vector3(0.52f, -3.15f, 9.26f);
+                        positionStart = this.gameObject.transform.position;
+                        this.gameObject.transform.position = new Vector3(0.52f, -3.15f, 9.26f);
 
-                    huntersSceneManager.animalTapped(this.gameObject);
+                        huntersSceneManager.animalTapped(this.gameObject);
+                    }
                 }
             }
-        }
-        else{
-      
-            var uI = FindObjectOfType<UIManager>(); 
-            uI.showPositionBox();
-            StartCoroutine(WaitAndNotShowTxt(1.0f));
+            else
+            {
+
+                var uI = FindObjectOfType<UIManager>();
+                uI.showPositionBox();
+                StartCoroutine(WaitAndNotShowTxt(1.0f));
+            }
         }
     }
   
@@ -147,7 +137,7 @@ public List<Transform> getGeneratedObjects()
         return generatedObjects;
     }
 
-    private void OnTriggerStay(Collider other)
+  /*  private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.CompareTag(HuntersConstants.TAG_Harvester))
         {
@@ -161,7 +151,7 @@ public List<Transform> getGeneratedObjects()
                     if (huntersSceneManager.gameObject.activeSelf)
                     {
                         {
-                            huntersSceneManager.animalCollision(this.gameObject, other);
+                            huntersSceneManager.animalCollision();
                             AnimalFactory.Instance.gatherAnimal(this);
                             Destroy(gameObject);
                         }
@@ -186,6 +176,43 @@ public List<Transform> getGeneratedObjects()
 
             
         }
+    }
+
+    */
+    public void Gather()
+    {
+            hp -= 1;
+
+            if (hp == 0)
+            {
+                HuntersSceneManager[] managers = FindObjectsOfType<HuntersSceneManager>();
+                foreach (HuntersSceneManager huntersSceneManager in managers)
+                {
+                    if (huntersSceneManager.gameObject.activeSelf)
+                    {
+                        {
+                            huntersSceneManager.animalCollision();
+                            AnimalFactory.Instance.gatherAnimal(this);
+                            Destroy(gameObject);
+                        }
+                    }
+                }
+
+                // harvester destroy
+                Harvest harvest = FindObjectOfType<Harvest>();
+                harvest.gameObject.Destroy();
+            }
+
+
+            if (debrisDelay == "n")
+            {
+                var objInst = Instantiate(debrisObj, transform.position, debrisObj.rotation);
+                generatedObjects.Add(objInst);
+
+                debrisDelay = "y";
+                StartCoroutine(resetDelay());
+            }
+       
     }
 
 
