@@ -9,6 +9,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Text xpText;
     [SerializeField] private Text lvlText;
     [SerializeField] private GameObject menu;
+    [SerializeField] private GameObject postionBox;
     [SerializeField] private AudioClip menuBtnSound;
 
     private AudioSource audioSource;
@@ -22,7 +23,18 @@ public class UIManager : MonoBehaviour
         Assert.IsNotNull(lvlText);
         Assert.IsNotNull(menu);
         Assert.IsNotNull(menuBtnSound);
+        Assert.IsNotNull(postionBox);
 
+    }
+
+    public void showPositionBox()
+    {
+        postionBox.gameObject.SetActive(true);
+    }
+
+    public void hidePositionBox()
+    {
+        postionBox.gameObject.SetActive(false);
     }
 
     public void updateLevel()

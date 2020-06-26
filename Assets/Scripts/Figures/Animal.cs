@@ -4,6 +4,9 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.SceneManagement;
+using Mapbox.Unity.Location;
+using System;
+using UnityEngine.UI;
 
 public class Animal : MonoBehaviour
 {
@@ -18,6 +21,7 @@ public class Animal : MonoBehaviour
 
 
     private AudioSource audioSource;
+    private float maxDistance = 15.0f;
    // private Vector3 position;
 
     public Transform debrisObj;
@@ -28,13 +32,21 @@ public class Animal : MonoBehaviour
 
     private void Awake()
     {
+
         AudioSource = GetComponent<AudioSource>();
+
         Assert.IsNotNull(AudioSource);
         Assert.IsNotNull(AnimalSound);
+
     }
     private void Start()
     {
         DontDestroyOnLoad(this);
+
+    /*    if (null == _locationProvider)
+        {
+            _locationProvider = LocationProviderFactory.Instance.DefaultLocationProvider as AbstractLocationProvider;
+        }*/
     }
 
     public float SpawnRate
@@ -82,26 +94,53 @@ public class Animal : MonoBehaviour
         }*/
     }
 
-
+    private AbstractLocationProvider _locationProvider = null;
     private void OnMouseDown()
     {
-        HuntersSceneManager[] managers = FindObjectsOfType<HuntersSceneManager>();
-        AudioSource.PlayOneShot(AnimalSound);
-        foreach (HuntersSceneManager huntersSceneManager in managers)
-        {
-            if (huntersSceneManager.gameObject.activeSelf)
-            {
-              
-                positionStart = this.gameObject.transform.position;
-                this.gameObject.transform.position = new Vector3(0.52f, -3.15f, 9.26f);
+       // Location currLoc = _locationProvider.CurrentLocation;
+     //   var a = currLoc.LatitudeLongitude;
 
-                huntersSceneManager.animalTapped(this.gameObject);
+        var animalPosition = this.gameObject.transform.position;
+        var userPosition = GameManager.Instance.CurrentPlayer.transform.position;
+        var xDistance = Math.Abs(userPosition.x - animalPosition.x);
+        var zDistance = Math.Abs(userPosition.z - animalPosition.z);
+
+        if (xDistance <= maxDistance && zDistance <= maxDistance)
+        {
+
+            HuntersSceneManager[] managers = FindObjectsOfType<HuntersSceneManager>();
+            AudioSource.PlayOneShot(AnimalSound);
+            foreach (HuntersSceneManager huntersSceneManager in managers)
+            {
+                if (huntersSceneManager.gameObject.activeSelf)
+                {
+
+                    positionStart = this.gameObject.transform.position;
+                    this.gameObject.transform.position = new Vector3(0.52f, -3.15f, 9.26f);
+
+                    huntersSceneManager.animalTapped(this.gameObject);
+                }
             }
         }
+        else{
+      
+            var uI = FindObjectOfType<UIManager>(); ;
+            uI.showPositionBox();
+            StartCoroutine(WaitAndNotShowTxt(1.0f));
+        }
     }
+  
 
 
-    public List<Transform> getGeneratedObjects()
+private IEnumerator WaitAndNotShowTxt(float waitTime)
+{
+    yield return new WaitForSeconds(waitTime);
+    var uI = FindObjectOfType<UIManager>(); ;
+    uI.hidePositionBox();
+
+}
+
+public List<Transform> getGeneratedObjects()
     {
         return generatedObjects;
     }

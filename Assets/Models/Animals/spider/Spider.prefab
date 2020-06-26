@@ -33,6 +33,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 403977548790925742, guid: 6d2eb8f4d3acbff4f99737eed4f528a4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Animal
+      objectReference: {fileID: 0}
     - target: {fileID: 403977548791092622, guid: 6d2eb8f4d3acbff4f99737eed4f528a4,
         type: 3}
       propertyPath: m_LocalPosition.x
