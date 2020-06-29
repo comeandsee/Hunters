@@ -11,7 +11,7 @@ public class AnimalFactory : Singleton<AnimalFactory>
 
     [SerializeField] private Animal[] availableAnimals;
     [SerializeField] private float waitTime = 180.0f;
-    [SerializeField] private int startingAnimals = 10;
+    [SerializeField] private int startingAnimals = 1;
     [SerializeField] private float minRange = 5.0f;
     [SerializeField] private float maxRange = 20.0f;
 
@@ -96,12 +96,17 @@ public class AnimalFactory : Singleton<AnimalFactory>
 
     private void InstantiateAnimal()
     {
-        int index = Random.Range(0, AvailableAnimals.Length);
-        float x = player.transform.position.x + GenerateRange();
-        float z = player.transform.position.z + GenerateRange();
-        float y = player.transform.position.y;
-        liveAnimals.Add(Instantiate(AvailableAnimals[index], new Vector3(x, y, z), Quaternion.identity));
-      //  LiveAnimalsWithIndex.Add(index, liveAnimals[index]);
+        for (int i = 0; i < AvailableAnimals.Length; i++)
+        {
+
+
+            //  int index = Random.Range(0, AvailableAnimals.Length);
+            int index = i;
+            float x = player.transform.position.x + GenerateRange();
+            float z = player.transform.position.z + GenerateRange();
+            float y = player.transform.position.y;
+            liveAnimals.Add(Instantiate(AvailableAnimals[index], new Vector3(x, y, z), Quaternion.identity));
+        }
     }
 
     private float GenerateRange()

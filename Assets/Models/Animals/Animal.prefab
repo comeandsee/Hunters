@@ -101,7 +101,7 @@ MonoBehaviour:
   attack: 0
   defense: 0
   animalSound: {fileID: 8300000, guid: 6eddfc86529739e4bba7a966f24d6f45, type: 3}
-  hp: 80
+  hp: 10
   debrisObj: {fileID: 5646452407127779665, guid: 4f7139e8899414146b8427eb88bd3bb8,
     type: 3}
   debrisDelay: n

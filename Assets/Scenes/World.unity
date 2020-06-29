@@ -2461,6 +2461,7 @@ MonoBehaviour:
   - {fileID: 7130128813303540744, guid: d9c0d41d301e7574a9cd40cc2e9f32e4, type: 3}
   - {fileID: 6248415379531089199, guid: ecef8d5302fcc414094b96db81d488d3, type: 3}
   - {fileID: 3734833592154764494, guid: 36db26a1dbc73fa49bdef79528838aa2, type: 3}
+  - {fileID: 4842712661884287134, guid: 20fbf875ff32a4e4390b52ecadfbc373, type: 3}
   waitTime: 180
   startingAnimals: 3
   minRange: 5
