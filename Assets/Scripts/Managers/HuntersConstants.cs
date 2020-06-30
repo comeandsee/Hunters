@@ -14,4 +14,9 @@ public static class HuntersConstants
     public static Vector3 objectRotationInCaptureScene = new Vector3(0f, -30f, 0f);
 
     public static int maxLvl = 3;
+    public static float maxDistance = 5.0f;
+
+    public static int startingAnimals = 2;
+    public static float minRange = 2.0f;
+    public static float maxRange = 9.0f;
 }

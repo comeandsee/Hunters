@@ -18,7 +18,14 @@ public class Player : MonoBehaviour {
     private int lvl = 1;
 	private string path;
 
-	public int Xp {
+    [SerializeField] public float Timer = 0.0f;
+
+    public void Update()
+    {
+        Timer += Time.deltaTime;
+
+    }
+    public int Xp {
 		get { return xp; }
         set { xp = value; }
 	}

@@ -12,12 +12,11 @@ public class Animal : MonoBehaviour
 {
 
     [SerializeField] private AudioClip animalSound;
-    [SerializeField] private int hp = 80;
-    [SerializeField] private int points = 10;
+    [SerializeField] private int hp =0;
+    [SerializeField] private int points = 0;
     [SerializeField] private int lvl = 1;
 
     private AudioSource audioSource;
-    private float maxDistance = 40.0f;
 
     public Transform debrisObj;
     public string debrisDelay = "n";
@@ -50,11 +49,6 @@ public class Animal : MonoBehaviour
     public int Points { get => points; set => points = value; }
     public int Lvl { get => lvl; set => lvl = value; }
 
-    void Update()
-    {
-
-    }
-
 
     private void OnMouseDown()
     {
@@ -72,7 +66,7 @@ public class Animal : MonoBehaviour
             var xDistance = Math.Abs(userPosition.x - animalPosition.x);
             var zDistance = Math.Abs(userPosition.z - animalPosition.z);
 
-            if (xDistance <= maxDistance && zDistance <= maxDistance)
+            if (xDistance <= HuntersConstants.maxDistance && zDistance <= HuntersConstants.maxDistance)
             {
 
                 HuntersSceneManager[] managers = FindObjectsOfType<HuntersSceneManager>();

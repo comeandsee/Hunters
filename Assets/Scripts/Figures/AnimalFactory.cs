@@ -11,9 +11,7 @@ public class AnimalFactory : Singleton<AnimalFactory>
 
     [SerializeField] private Animal[] availableAnimals;
    // [SerializeField] private float waitTime = 180.0f;
-    [SerializeField] private int startingAnimals = 10;
-    [SerializeField] private float minRange = 5.0f;
-    [SerializeField] private float maxRange = 20.0f;
+
 
     [SerializeField] private List<Animal> liveAnimals = new List<Animal>();
 
@@ -98,7 +96,7 @@ public class AnimalFactory : Singleton<AnimalFactory>
 
     private void createAnimals()
     {
-        for (int i = 0; i < startingAnimals; i++)
+        for (int i = 0; i < HuntersConstants.startingAnimals; i++)
         {
             InstantiateAnimal();
         }
@@ -145,7 +143,7 @@ public class AnimalFactory : Singleton<AnimalFactory>
 
     private float GenerateRange()
     {
-        float randomNum = Random.Range(minRange, maxRange);
+        float randomNum = Random.Range(HuntersConstants.minRange, HuntersConstants.maxRange);
         bool isPositive = Random.Range(0, 10) < 5;
         return randomNum * (isPositive ? 1 : -1);
     }
