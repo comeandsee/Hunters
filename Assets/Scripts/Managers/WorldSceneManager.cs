@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -18,13 +19,23 @@ public class WorldSceneManager : HuntersSceneManager
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.Instance.CurrentPlayer.EndGame)
+        {
+            EndGame();
+            GameManager.Instance.CurrentPlayer.EndGame = false;
+        }
 
         if (GameManager.Instance.CurrentPlayer.NewLvl)
         {
             NewLvl();
             GameManager.Instance.CurrentPlayer.NewLvl = false;
-
         }
+    }
+
+    private void EndGame()
+    {
+        var uI = FindObjectOfType<UIManager>();
+        uI.showWinnerBox();
     }
 
     public override void playerTapped(GameObject player)

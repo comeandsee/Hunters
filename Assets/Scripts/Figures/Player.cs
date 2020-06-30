@@ -13,6 +13,7 @@ public class Player : MonoBehaviour {
 	[SerializeField] private List<GameObject> animals = new List<GameObject>();
 
     private bool newLvl = false;
+    private bool endGame = false;
 
     private int lvl = 1;
 	private string path;
@@ -24,12 +25,13 @@ public class Player : MonoBehaviour {
 
 	public int RequiredXp {
 		get { return requiredXp; }
-	}
+        set { requiredXp = value; }
+    }
 
 	public  int LevelBase {
 		get { return levelBase; }
         set { levelBase = value; }
-	}
+    }
 
 	public List<GameObject> Animals {
 		get { return animals; }
@@ -40,6 +42,7 @@ public class Player : MonoBehaviour {
 	}
 
     public bool NewLvl { get => newLvl; set => newLvl = value; }
+    public bool EndGame { get => endGame; set => endGame = value; }
 
     private void Awake()
     {
@@ -65,16 +68,12 @@ public class Player : MonoBehaviour {
         int lvlBefore = lvl;
 		lvl = (xp / levelBase) + lvl;
 
-        if(lvl == HuntersConstants.maxLvl)
+        if(lvl >= HuntersConstants.maxLvl)
         {
-            //end game
+            EndGame = true;
         }
-        
-        // new level
-        if (lvlBefore < lvl)
+        else if (lvlBefore < lvl) 
         {
-           
-
             AnimalFactory.Instance.CreateAnimalsOnLvl(lvl);
             NewLvl = true;
         }
@@ -140,7 +139,21 @@ public class Player : MonoBehaviour {
 		
 	}
 
-   
+
+    public void startFromBeginning()
+    {
+        endGame = false;
+        newLvl = false;
+        lvl = 1;
+        xp = 0;
+        requiredXp = 100;
+        levelBase = 200;
+        animals = new List<GameObject>();
+
+        Save();
+        AnimalFactory.Instance.CreateAnimalsOnLvl(lvl);
+    }
+
 }
 
 

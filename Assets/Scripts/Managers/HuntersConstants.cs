@@ -13,5 +13,5 @@ public static class HuntersConstants
     public static Vector3 objectPositionInCaptureScene = new Vector3(0.52f, -4.6f, 15.2f);
     public static Vector3 objectRotationInCaptureScene = new Vector3(0f, -30f, 0f);
 
-    public static int maxLvl = 5;
+    public static int maxLvl = 3;
 }

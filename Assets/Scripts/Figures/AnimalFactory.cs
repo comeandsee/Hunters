@@ -109,6 +109,7 @@ public class AnimalFactory : Singleton<AnimalFactory>
         }
         player.Xp = 0;
         player.LevelBase = maxPoints;
+        player.RequiredXp = maxPoints;
 
 
     }

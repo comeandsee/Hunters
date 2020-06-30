@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject menu;
     [SerializeField] private GameObject postionBox;
     [SerializeField] private GameObject newLvlBox;
+    [SerializeField] private GameObject winnerBox;
     [SerializeField] private AudioClip menuBtnSound;
 
     private AudioSource audioSource;
@@ -25,6 +26,7 @@ public class UIManager : MonoBehaviour
         Assert.IsNotNull(menu);
         Assert.IsNotNull(menuBtnSound);
         Assert.IsNotNull(postionBox);
+        Assert.IsNotNull(winnerBox);
 
     }
 
@@ -33,7 +35,12 @@ public class UIManager : MonoBehaviour
         newLvlBox.gameObject.SetActive(setActive);
     }
 
-    
+    public void showWinnerBox(bool setActive = true)
+    {
+        winnerBox.gameObject.SetActive(setActive);
+    }
+
+
     public void showPositionBox(bool setActive = true)
     {
         postionBox.gameObject.SetActive(setActive);
@@ -87,6 +94,13 @@ public class UIManager : MonoBehaviour
     {
         yield return new WaitForSeconds(waitTime);
         showNewLvlBox(false);
+    }
 
+
+    public void StartAgainBtnClicked()
+    {
+        audioSource.PlayOneShot(menuBtnSound);
+        showWinnerBox(false);
+        GameManager.Instance.CurrentPlayer.startFromBeginning();
     }
 }
