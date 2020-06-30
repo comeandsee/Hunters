@@ -4782,8 +4782,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46fd4477fba93fe4e863592a0e09e665, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireLaser: 323
-  laserInUse: n
+  successSound: {fileID: 0}
 --- !u!54 &5429683412849215831
 Rigidbody:
   m_ObjectHideFlags: 0

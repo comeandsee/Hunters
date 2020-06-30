@@ -1140,7 +1140,7 @@ GameObject:
   - component: {fileID: 519245563}
   - component: {fileID: 519245565}
   m_Layer: 5
-  m_Name: Ranking Button
+  m_Name: Rules Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2458,10 +2458,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   availableAnimals:
-  - {fileID: 7130128813303540744, guid: d9c0d41d301e7574a9cd40cc2e9f32e4, type: 3}
-  - {fileID: 6248415379531089199, guid: ecef8d5302fcc414094b96db81d488d3, type: 3}
-  - {fileID: 3734833592154764494, guid: 36db26a1dbc73fa49bdef79528838aa2, type: 3}
+  - {fileID: 188700815539016651, guid: c65888f6000b1e8469ba25a9634cebf4, type: 3}
+  - {fileID: 1151332046747600218, guid: e41fb9bd5a4239a4d878bf70687a8f33, type: 3}
   - {fileID: 4842712661884287134, guid: 20fbf875ff32a4e4390b52ecadfbc373, type: 3}
+  - {fileID: 7488671354298739073, guid: 4922c539c5e86c244ac20a807752805e, type: 3}
+  - {fileID: 5846705219406071729, guid: 4b796672af0b7f04a9292544d2299aaa, type: 3}
+  - {fileID: 3734833592154764494, guid: 36db26a1dbc73fa49bdef79528838aa2, type: 3}
+  - {fileID: 9223289698858503541, guid: e67352fbed1015c459277afda87d12ea, type: 3}
+  - {fileID: 3259063407776670435, guid: 71ca6db280ce66948a25320a2bdaa0b4, type: 3}
+  - {fileID: 1654518814999731633, guid: 461a202fa40868246a67b6515b4854b7, type: 3}
+  - {fileID: 5406889803390331930, guid: dabb20c480371954faffd403748e9b18, type: 3}
+  - {fileID: 1404235966051413185, guid: 570301812aa57194f981d2bcfc001bb5, type: 3}
+  - {fileID: 4248000901768143836, guid: 06ff5e51f3c855f49ba5af307de4faeb, type: 3}
+  - {fileID: 291627000284580032, guid: 7b2f922c12215064eb7adef13d295e11, type: 3}
+  - {fileID: 2489516198098384027, guid: ddbacb993c27e1745ba155b05f37ec46, type: 3}
+  - {fileID: 2344519601683534596, guid: d6d654e4812dc114b80b534b99b476cd, type: 3}
+  - {fileID: 5760647191048759328, guid: eab0f16646cee9e4ea716c12b8aeeb1b, type: 3}
+  - {fileID: 8008617003299910729, guid: 6ccf34a94120d314295babd1103bfe7c, type: 3}
+  - {fileID: 2089349930737048734, guid: cbb8ad64fc95b9548ad12c8c3e135277, type: 3}
+  - {fileID: 5866201617782437771, guid: 3e9f397ecef71174191459bdb3b3c97e, type: 3}
+  - {fileID: 2527745534403149169, guid: 76faf09b1dcbd2e449738268cfccb5ba, type: 3}
+  - {fileID: 1418895928938084214, guid: 875f7df3df85eff48adbcfd786301601, type: 3}
+  - {fileID: 6418300545163773122, guid: ba807c71191012e47ae226198019a782, type: 3}
+  - {fileID: 7068072462045339794, guid: 0716d8ed41593f7469461259eafd2a7c, type: 3}
+  - {fileID: 4987918190147651245, guid: cb585712a4e3d1443a9d4e51e427db2f, type: 3}
+  - {fileID: 6749787726248567925, guid: 5d96025e82028974a9327cd519cf6edb, type: 3}
+  - {fileID: 2590541974946249842, guid: 0ab2ee66f3b002a439ebda48f53d88e7, type: 3}
   waitTime: 180
   startingAnimals: 3
   minRange: 5
@@ -2765,7 +2787,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Ranking
+  m_Text: Rules
 --- !u!222 &1265688234
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4831,11 +4853,11 @@ RectTransform:
   m_Father: {fileID: 519245562}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 113.1, y: -2.0999756}
-  m_SizeDelta: {x: 222, y: 180}
-  m_Pivot: {x: 0.561731, y: 0.5}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: -28, y: 0.000023842}
+  m_SizeDelta: {x: 202.3, y: 162.2}
+  m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &1873984600
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4854,7 +4876,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e36d0c8caa3e8a64187ebb71b1c589b6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 484708ad00772824c8ff678c35cd3ded, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

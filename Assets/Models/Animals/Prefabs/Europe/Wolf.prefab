@@ -172,6 +172,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5646452407127779665, guid: 4f7139e8899414146b8427eb88bd3bb8,
         type: 3}
+    - target: {fileID: 8970329093580208954, guid: 0bff5de0452ee2b4ab4d0603fe171d7b,
+        type: 3}
+      propertyPath: hp
+      value: 140
+      objectReference: {fileID: 0}
+    - target: {fileID: 8970329093580208954, guid: 0bff5de0452ee2b4ab4d0603fe171d7b,
+        type: 3}
+      propertyPath: points
+      value: 70
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0bff5de0452ee2b4ab4d0603fe171d7b, type: 3}
 --- !u!4 &5740340844374909100 stripped

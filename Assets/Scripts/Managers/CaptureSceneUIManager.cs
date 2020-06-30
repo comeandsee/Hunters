@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.UI;
@@ -13,6 +14,9 @@ public class CaptureSceneUIManager : MonoBehaviour
     [SerializeField] private GameObject gameScreen;
 
     [SerializeField] private Text HPCountText;
+
+    [SerializeField] private Text animalNameTxt;
+    [SerializeField] private Text animalPointsTxt;
 
 
     private Animal animal;
@@ -28,6 +32,8 @@ public class CaptureSceneUIManager : MonoBehaviour
         Assert.IsNotNull(successScreen);
         Assert.IsNotNull(failScreen);
         Assert.IsNotNull(gameScreen);
+        Assert.IsNotNull(animalNameTxt);
+        Assert.IsNotNull(animalPointsTxt);
     }
 
     private void Update()
@@ -55,6 +61,10 @@ public class CaptureSceneUIManager : MonoBehaviour
 
     private void HandleSuccess()
     {
+        var animalName = animal.name.Replace("(Clone)", "");
+        animalNameTxt.text = animalName;
+        animalPointsTxt.text = animal.Points.ToString();
+
         UpdateVisibleScreen();
     }
 

@@ -2348,12 +2348,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2ab6f6789630b14aa0e1816b1f06a77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnRate: 0.1
-  catchRate: 0.1
-  attack: 0
-  defense: 0
   animalSound: {fileID: 8300000, guid: 7584e5b129e313d42913bcf089ad5edf, type: 3}
   hp: 150
+  points: 10
+  lvl: 1
   debrisObj: {fileID: 5646452407127779665, guid: 4f7139e8899414146b8427eb88bd3bb8,
     type: 3}
   debrisDelay: n

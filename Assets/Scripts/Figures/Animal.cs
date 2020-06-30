@@ -10,13 +10,11 @@ using UnityEngine.UI;
 
 public class Animal : MonoBehaviour
 {
-    [SerializeField] private float spawnRate = 0.10f;
-    [SerializeField] private float catchRate = 0.10f;
-    [SerializeField] private int attack = 0;
-    [SerializeField] private int defense = 0;
+
     [SerializeField] private AudioClip animalSound;
     [SerializeField] private int hp = 80;
-
+    [SerializeField] private int points = 10;
+    [SerializeField] private int lvl = 1;
 
     private AudioSource audioSource;
     private float maxDistance = 40.0f;
@@ -39,29 +37,7 @@ public class Animal : MonoBehaviour
         DontDestroyOnLoad(this);
     }
 
-    public float SpawnRate
-    {
-        get { return spawnRate; }
-        set {  spawnRate=value; }
-    }
 
-    public float CatchRate
-    {
-        get { return catchRate; }
-        set { catchRate = value; }
-    }
-
-    public int Attack
-    {
-        get { return attack; }
-        set { attack = value; }
-    }
-
-    public int Defense
-    {
-        get { return defense; }
-        set { defense = value; }
-    }
 
     public int Hp
     {
@@ -71,7 +47,8 @@ public class Animal : MonoBehaviour
 
     public AudioSource AudioSource { get => audioSource; set => audioSource = value; }
     public AudioClip AnimalSound { get => animalSound; set => animalSound = value; }
-
+    public int Points { get => points; set => points = value; }
+    public int Lvl { get => lvl; set => lvl = value; }
 
     void Update()
     {
@@ -243,11 +220,8 @@ public List<Transform> getGeneratedObjects()
     public void loadFromAnimalData(AnimalData data)
     {
 
-        SpawnRate = data.SpawnRate;
-        CatchRate = data.CatchRate;
-        Attack = data.Attack;
-        Defense = data.Defense;
         Hp = data.Hp;
+        Points = data.Points;
         //AnimalSound = Resources.Load() as AudioClip;
         AnimalSound = Resources.Load<AudioClip>("Audio/"+ data.AnimalSound);
 
@@ -257,4 +231,11 @@ public List<Transform> getGeneratedObjects()
     {
         this.gameObject.transform.position = positionStart;
     }
+
+    public void deleteMe()
+    {
+        this.gameObject.Destroy();
+    }
+
+    
 }

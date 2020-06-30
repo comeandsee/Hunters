@@ -9,22 +9,26 @@ public class Player : MonoBehaviour {
 
 	[SerializeField] private int xp = 0;
 	[SerializeField] private int requiredXp = 100;
-	[SerializeField] private int levelBase = 100;
+	[SerializeField] private int levelBase = 200;
 	[SerializeField] private List<GameObject> animals = new List<GameObject>();
+
+
 	
 	private int lvl = 1;
 	private string path;
 
 	public int Xp {
 		get { return xp; }
+        set { xp = value; }
 	}
 
 	public int RequiredXp {
 		get { return requiredXp; }
 	}
 
-	public int LevelBase {
+	public  int LevelBase {
 		get { return levelBase; }
+        set { levelBase = value; }
 	}
 
 	public List<GameObject> Animals {
@@ -38,12 +42,9 @@ public class Player : MonoBehaviour {
     private void Awake()
     {
         path = Application.persistentDataPath + "/player.dat";
+        Load();
     }
-    private void Start() {
-        //InitLevelData();     
-
-        path = Application.persistentDataPath + "/player.dat";
-		Load();
+    private void Start() {	
 	}
 
 	public void AddXp(int xp) {
@@ -59,8 +60,20 @@ public class Player : MonoBehaviour {
 	}
 
 	private void InitLevelData() {
-		lvl = (xp / levelBase) + 1;
-		requiredXp = levelBase * lvl;
+        int lvlBefore = lvl;
+		lvl = (xp / levelBase) + lvl;
+
+        if(lvl == HuntersConstants.maxLvl)
+        {
+            //end game
+        }
+
+        if (lvlBefore < lvl)
+        {
+            AnimalFactory.Instance.CreateAnimalsOnLvl(lvl);
+        }
+
+        requiredXp = levelBase;//* lvl;
 	}
 
 	public void Save() {
@@ -78,9 +91,7 @@ public class Player : MonoBehaviour {
 			PlayerData data = (PlayerData) bf.Deserialize(file);
 			file.Close();
 
-			xp = data.Xp;
-			requiredXp = data.RequiredXp;
-			levelBase = data.LvlBase;
+			
             lvl = data.Lvl;
             /*
             foreach (AnimalData animalData in data.Animals)
@@ -121,6 +132,8 @@ public class Player : MonoBehaviour {
 		}
 		
 	}
+
+   
 }
 
 
