@@ -12,9 +12,9 @@ public class Player : MonoBehaviour {
 	[SerializeField] private int levelBase = 200;
 	[SerializeField] private List<GameObject> animals = new List<GameObject>();
 
+    private bool newLvl = false;
 
-	
-	private int lvl = 1;
+    private int lvl = 1;
 	private string path;
 
 	public int Xp {
@@ -38,6 +38,8 @@ public class Player : MonoBehaviour {
 	public int Lvl {
 		get { return lvl; }
 	}
+
+    public bool NewLvl { get => newLvl; set => newLvl = value; }
 
     private void Awake()
     {
@@ -67,16 +69,21 @@ public class Player : MonoBehaviour {
         {
             //end game
         }
-
+        
+        // new level
         if (lvlBefore < lvl)
         {
+           
+
             AnimalFactory.Instance.CreateAnimalsOnLvl(lvl);
+            NewLvl = true;
         }
 
         requiredXp = levelBase;//* lvl;
 	}
 
-	public void Save() {
+  
+    public void Save() {
 		BinaryFormatter bf = new BinaryFormatter();
 		FileStream file = File.Create(path);
 		PlayerData data = new PlayerData(this);

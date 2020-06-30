@@ -8,7 +8,7 @@ public class WorldSceneManager : HuntersSceneManager
 {
     private GameObject animal;
     private AsyncOperation loadScene;
-
+  
     // Use this for initialization
     void Start()
     {
@@ -19,6 +19,12 @@ public class WorldSceneManager : HuntersSceneManager
     void Update()
     {
 
+        if (GameManager.Instance.CurrentPlayer.NewLvl)
+        {
+            NewLvl();
+            GameManager.Instance.CurrentPlayer.NewLvl = false;
+
+        }
     }
 
     public override void playerTapped(GameObject player)
@@ -56,6 +62,12 @@ public class WorldSceneManager : HuntersSceneManager
             GoToScene(HuntersConstants.SCENE_CAPTURE, new List<GameObject>());
    }
 
+    private void NewLvl()
+    {
+        var uI = FindObjectOfType<UIManager>();
+        uI.showNewLvlBox();
+        StartCoroutine(uI.WaitAndHideNewLvlBox(2.0f));
+    }
 
 }
 

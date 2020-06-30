@@ -61,11 +61,14 @@ public class CaptureSceneUIManager : MonoBehaviour
 
     private void HandleSuccess()
     {
-        var animalName = animal.name.Replace("(Clone)", "");
-        animalNameTxt.text = animalName;
-        animalPointsTxt.text = animal.Points.ToString();
-
+        if (animal != null)
+        {
+            var animalName = animal.name.Replace("(Clone)", "");
+            animalNameTxt.text = animalName;
+            animalPointsTxt.text = "+ " + animal.Points.ToString();
+        }
         UpdateVisibleScreen();
+
     }
 
     private void HandleInProgress()

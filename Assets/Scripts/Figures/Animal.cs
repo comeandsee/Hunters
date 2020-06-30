@@ -106,7 +106,7 @@ private IEnumerator WaitAndNotShowTxt(float waitTime)
 {
     yield return new WaitForSeconds(waitTime);
     var uI = FindObjectOfType<UIManager>(); ;
-    uI.hidePositionBox();
+    uI.showPositionBox(false);
 
 }
 

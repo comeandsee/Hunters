@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Text lvlText;
     [SerializeField] private GameObject menu;
     [SerializeField] private GameObject postionBox;
+    [SerializeField] private GameObject newLvlBox;
     [SerializeField] private AudioClip menuBtnSound;
 
     private AudioSource audioSource;
@@ -27,19 +28,20 @@ public class UIManager : MonoBehaviour
 
     }
 
-    public void showPositionBox()
+    public void showNewLvlBox(bool setActive=true)
     {
-        postionBox.gameObject.SetActive(true);
+        newLvlBox.gameObject.SetActive(setActive);
     }
 
-    public void hidePositionBox()
+    
+    public void showPositionBox(bool setActive = true)
     {
-        postionBox.gameObject.SetActive(false);
+        postionBox.gameObject.SetActive(setActive);
     }
 
     public void updateLevel()
     {
-        lvlText.text = GameManager.Instance.CurrentPlayer.Lvl.ToString();
+        lvlText.text = "Lvl: " + GameManager.Instance.CurrentPlayer.Lvl.ToString();
     }
 
     public void updateXP()
@@ -80,4 +82,11 @@ public class UIManager : MonoBehaviour
         //todo
     }
 
+
+    public IEnumerator WaitAndHideNewLvlBox(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        showNewLvlBox(false);
+
+    }
 }
