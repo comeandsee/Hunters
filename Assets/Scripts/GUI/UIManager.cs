@@ -12,7 +12,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject postionBox;
     [SerializeField] private GameObject newLvlBox;
     [SerializeField] private GameObject winnerBox;
+    [SerializeField] private GameObject rulesBox;
     [SerializeField] private AudioClip menuBtnSound;
+
+    public Slider musicVolume;
 
     private AudioSource audioSource;
 
@@ -38,6 +41,11 @@ public class UIManager : MonoBehaviour
     public void showWinnerBox(bool setActive = true)
     {
         winnerBox.gameObject.SetActive(setActive);
+    }
+
+    public void showRulesBox(bool setActive = true)
+    {
+        rulesBox.gameObject.SetActive(setActive);
     }
 
 
@@ -77,15 +85,14 @@ public class UIManager : MonoBehaviour
         audioSource.PlayOneShot(menuBtnSound);
         int lvl = GameManager.Instance.CurrentPlayer.Lvl;
         GameManager.Instance.CurrentPlayer.startFromBeginning( lvl);
-
         toggleMenu();
 
     }
 
-    public void RankingBtnClicked()
+    public void RulesBtnClicked()
     {
         audioSource.PlayOneShot(menuBtnSound);
-        //todo
+        showRulesBox();
     }
     public void SettingsBtnClicked()
     {
@@ -106,5 +113,20 @@ public class UIManager : MonoBehaviour
         audioSource.PlayOneShot(menuBtnSound);
         showWinnerBox(false);
         GameManager.Instance.CurrentPlayer.startFromBeginning();
+    }
+
+    public void ExitRulesBtnClicked()
+    {
+        audioSource.PlayOneShot(menuBtnSound);
+        showRulesBox(false);
+    }
+
+
+
+
+    public void SetVolume()
+    { 
+        AudioSource [] ad  = GetComponents<AudioSource>();
+        audioSource.volume = musicVolume.value;
     }
 }

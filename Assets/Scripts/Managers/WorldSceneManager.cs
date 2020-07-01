@@ -80,5 +80,7 @@ public class WorldSceneManager : HuntersSceneManager
         StartCoroutine(uI.WaitAndHideNewLvlBox(2.0f));
     }
 
+
+
 }
 
