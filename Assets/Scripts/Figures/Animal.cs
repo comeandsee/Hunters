@@ -228,7 +228,7 @@ public List<Transform> getGeneratedObjects()
 
     public void deleteMe()
     {
-        this.gameObject.Destroy();
+        Destroy(this.gameObject);
     }
 
     

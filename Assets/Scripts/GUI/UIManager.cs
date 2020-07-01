@@ -75,7 +75,11 @@ public class UIManager : MonoBehaviour
     public void StartBtnClicked()
     {
         audioSource.PlayOneShot(menuBtnSound);
-        //todo
+        int lvl = GameManager.Instance.CurrentPlayer.Lvl;
+        GameManager.Instance.CurrentPlayer.startFromBeginning( lvl);
+
+        toggleMenu();
+
     }
 
     public void RankingBtnClicked()

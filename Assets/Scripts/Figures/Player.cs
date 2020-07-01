@@ -147,11 +147,11 @@ public class Player : MonoBehaviour {
 	}
 
 
-    public void startFromBeginning()
+    public void startFromBeginning(int lvl = 1)
     {
         endGame = false;
         newLvl = false;
-        lvl = 1;
+        lvl = lvl;
         xp = 0;
         requiredXp = 100;
         levelBase = 200;
@@ -160,6 +160,8 @@ public class Player : MonoBehaviour {
         Save();
         AnimalFactory.Instance.CreateAnimalsOnLvl(lvl);
     }
+
+
 
 }
 

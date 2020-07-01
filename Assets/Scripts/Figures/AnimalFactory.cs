@@ -27,7 +27,6 @@ public class AnimalFactory : Singleton<AnimalFactory>
         for (int i = 0; i < liveAnimals.Count; i++)
         {
             liveAnimals[i].deleteMe();
-            liveAnimals.RemoveAt(i);
         }
         liveAnimals = new List<Animal>();
 
@@ -42,6 +41,7 @@ public class AnimalFactory : Singleton<AnimalFactory>
 
         createAnimals();
     }
+
     public List<Animal> LiveAnimals
     {
         get { return liveAnimals; }
