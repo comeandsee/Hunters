@@ -46,7 +46,8 @@ public class Player : MonoBehaviour {
 
 	public int Lvl {
 		get { return lvl; }
-	}
+        set { lvl = value; }
+    }
 
     public bool NewLvl { get => newLvl; set => newLvl = value; }
     public bool EndGame { get => endGame; set => endGame = value; }
@@ -56,8 +57,9 @@ public class Player : MonoBehaviour {
         path = Application.persistentDataPath + "/player.dat";
         Load();
     }
-    private void Start() {	
-	}
+    private void Start() {
+        Load();
+    }
 
 	public void AddXp(int xp) {
 		this.xp += Mathf.Max(0, xp);
@@ -149,9 +151,9 @@ public class Player : MonoBehaviour {
 
     public void startFromBeginning(int lvl = 1)
     {
-        endGame = false;
-        newLvl = false;
-        lvl = lvl;
+        EndGame = false;
+        NewLvl = false;
+        Lvl = lvl;
         xp = 0;
         requiredXp = 100;
         levelBase = 200;

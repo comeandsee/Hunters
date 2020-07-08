@@ -15,7 +15,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject rulesBox;
     [SerializeField] private AudioClip menuBtnSound;
 
-    public Slider musicVolume;
+   // public Slider musicVolume;
 
     private AudioSource audioSource;
 
@@ -124,9 +124,9 @@ public class UIManager : MonoBehaviour
 
 
 
-    public void SetVolume()
+  /*  public void SetVolume()
     { 
         AudioSource [] ad  = GetComponents<AudioSource>();
         audioSource.volume = musicVolume.value;
-    }
+    }*/
 }

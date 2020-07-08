@@ -689,7 +689,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ec017a0f76548d4daf2473c0da80646, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clickExitSound: {fileID: 8300000, guid: 819e234097c557747b57fbd28507d57b, type: 3}
+  clickExitSound: {fileID: 8300000, guid: f3f707fb5bbce694991b04d6e0b47ac4, type: 3}
 --- !u!114 &189680697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1795,7 +1795,9 @@ PrefabInstance:
       propertyPath: InitialModule.rotation3D
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7813486982340662381, guid: 6a4492973540df943b9dcc51b5e6d457, type: 3}
+    - {fileID: 7813486982340662380, guid: 6a4492973540df943b9dcc51b5e6d457, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 6a4492973540df943b9dcc51b5e6d457, type: 3}
 --- !u!1 &1237272024
 GameObject:

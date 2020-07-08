@@ -50,15 +50,12 @@ public class Animal : MonoBehaviour
     public int Points { get => points; set => points = value; }
     public int Lvl { get => lvl; set => lvl = value; }
 
+    
 
     private void OnMouseDown()
     {
-        if (EventSystem.current.IsPointerOverGameObject())
-        {
-            Debug.Log("KLICK");
-        }
-        else
-        {
+
+        StartCoroutine(clickedAnimalSound());
 
             Scene currentScene = SceneManager.GetActiveScene();
             string sceneName = currentScene.name;
@@ -78,12 +75,10 @@ public class Animal : MonoBehaviour
                 {
 
                     HuntersSceneManager[] managers = FindObjectsOfType<HuntersSceneManager>();
-                    AudioSource.PlayOneShot(AnimalSound);
                     foreach (HuntersSceneManager huntersSceneManager in managers)
                     {
                         if (huntersSceneManager.gameObject.activeSelf)
                         {
-
                             positionStart = this.gameObject.transform.position;
                             this.gameObject.transform.position = HuntersConstants.objectPositionInCaptureScene;
                             this.gameObject.transform.eulerAngles = HuntersConstants.objectRotationInCaptureScene;
@@ -100,7 +95,7 @@ public class Animal : MonoBehaviour
                     StartCoroutine(WaitAndNotShowTxt(1.0f));
                 }
             }
-        }
+        
     }
   
 
@@ -240,5 +235,9 @@ public List<Transform> getGeneratedObjects()
         Destroy(this.gameObject);
     }
 
-    
+    private IEnumerator clickedAnimalSound()
+    {
+        AudioSource.PlayOneShot(AnimalSound);
+        yield return new WaitForSeconds(2f);
+    }
 }

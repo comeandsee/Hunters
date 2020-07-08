@@ -12,6 +12,11 @@ PrefabInstance:
       propertyPath: m_Size.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: -7080801941274731097, guid: 0bff5de0452ee2b4ab4d0603fe171d7b,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 1.17
+      objectReference: {fileID: 0}
     - target: {fileID: 177940, guid: 0bff5de0452ee2b4ab4d0603fe171d7b, type: 3}
       propertyPath: m_Name
       value: Spider
@@ -105,7 +110,7 @@ PrefabInstance:
     - target: {fileID: 6601116164439458528, guid: d9c0d41d301e7574a9cd40cc2e9f32e4,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: 6601116164439458528, guid: d9c0d41d301e7574a9cd40cc2e9f32e4,
         type: 3}
