@@ -5,12 +5,17 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.SceneManagement;
 
+using Mapbox.Unity.Map;
+using Mapbox.Unity.Utilities;
+using System.Linq;
+using Mapbox.Utils;
+
 public class AnimalFactory : Singleton<AnimalFactory>
 {
 
 
     [SerializeField] private Animal[] availableAnimals;
-   // [SerializeField] private float waitTime = 180.0f;
+    // [SerializeField] private float waitTime = 180.0f;
 
 
     [SerializeField] private List<Animal> liveAnimals = new List<Animal>();
@@ -38,7 +43,7 @@ public class AnimalFactory : Singleton<AnimalFactory>
 
         for (int i = 0; i < availableAnimals.Length; i++)
         {
-            if(availableAnimals[i].Lvl == lvl)
+            if (availableAnimals[i].Lvl == lvl)
             {
                 LvlAnimalsIndex.Add(i);
             }
@@ -77,20 +82,21 @@ public class AnimalFactory : Singleton<AnimalFactory>
 
     private void Awake()
     {
-      //  DontDestroyOnLoad(this);
+        //  DontDestroyOnLoad(this);
         Assert.IsNotNull(AvailableAnimals);
         player = GameManager.Instance.CurrentPlayer;
         Assert.IsNotNull(player);
-       
+
     }
 
     void Start()
     {
         var animalsFactories = FindObjectsOfType<AnimalFactory>();
 
-         if (animalsFactories.Length <= 1)
+        if (animalsFactories.Length <= 1)
         {
-            CreateAnimalsOnLvl(lvl:player.Lvl);
+            CreateAnimalsOnLvl(lvl: player.Lvl);
+
         }
 
         /*
@@ -109,7 +115,11 @@ public class AnimalFactory : Singleton<AnimalFactory>
     {
         for (int i = 0; i < HuntersConstants.startingAnimals; i++)
         {
-            InstantiateAnimal();
+             InstantiateAnimal();
+
+            //on area
+          //  GameAreaCoordinates gameArea = new GameAreaCoordinates();
+          //  InstantiateAnimalsOnArea(gameArea);
         }
         int maxPoints = 0;
         foreach (var animal in liveAnimals)
@@ -132,25 +142,21 @@ public class AnimalFactory : Singleton<AnimalFactory>
         while (true)
         {
             // InstantiatePlant();
-          //  yield return new WaitForSeconds(waitTime);
+            //  yield return new WaitForSeconds(waitTime);
         }
     }
 
     private void InstantiateAnimal()
     {
-        //for (int i = 0; i < AvailableAnimals.Length; i++)
-      //  {
+        int indexInLvlAnimalsIndex = Random.Range(0, LvlAnimalsIndex.Count);
+        int index = LvlAnimalsIndex[indexInLvlAnimalsIndex];
 
-
-              int indexInLvlAnimalsIndex = Random.Range(0, LvlAnimalsIndex.Count);
-             int index = LvlAnimalsIndex[indexInLvlAnimalsIndex];
-            //int index = i;
-            float x = player.transform.position.x + GenerateRange();
-            float z = player.transform.position.z + GenerateRange();
-            float y = player.transform.position.y;
-            liveAnimals.Add(Instantiate(AvailableAnimals[index], new Vector3(x, y, z), Quaternion.identity));
-      //  }
+        float x = player.transform.position.x + GenerateRange();
+        float z = player.transform.position.z + GenerateRange();
+        float y = player.transform.position.y;
+        liveAnimals.Add(Instantiate(AvailableAnimals[index], new Vector3(x, y, z), Quaternion.identity));
     }
+
 
     private float GenerateRange()
     {
@@ -158,6 +164,96 @@ public class AnimalFactory : Singleton<AnimalFactory>
         bool isPositive = Random.Range(0, 10) < 5;
         return randomNum * (isPositive ? 1 : -1);
     }
+
+    public class Coordinates
+    {
+        public float lat;
+        public float lon;
+        public Coordinates(float lat, float lon)
+        {
+            this.lat = lat;
+            this.lon = lon;
+        }
+    }
+
+    public class GameAreaCoordinates
+    {
+        public Coordinates northWest;
+        public Coordinates northEast;
+        public Coordinates southEast;
+        public Coordinates southWest;
+
+        public GameAreaCoordinates(Coordinates northWest, Coordinates northEast, Coordinates southEast, Coordinates southWest)
+        {
+            this.northWest = northWest;
+            this.northEast = northEast;
+            this.southEast = southEast;
+            this.southWest = southWest;
+        }
+
+        public GameAreaCoordinates()
+        {
+            this.northWest = new Coordinates(60.19188f, 24.9685822f);
+            this.northEast = new Coordinates(60.19200f, 24.9686823f);
+            this.southEast = new Coordinates(60.19201f, 24.9687822f);
+            this.southWest = new Coordinates(60.19189f, 24.9684822f);
+        }
+        public GameAreaCoordinates(bool isGdansk)
+        {
+            this.northWest = new Coordinates(54.367873f, 18.609933f);
+            this.northEast = new Coordinates(54.367857f, 18.612052f);
+            this.southEast = new Coordinates(54.366369f, 18.611564f);
+            this.southWest = new Coordinates(54.366553f, 18.609472f);
+        }
+    }
+
+    private void InstantiateAnimalsOnArea( GameAreaCoordinates gameArea)
+    {
+            int indexInLvlAnimalsIndex = Random.Range(0, LvlAnimalsIndex.Count);
+            int index = LvlAnimalsIndex[indexInLvlAnimalsIndex];
+
+            Coordinates randomCoordinates = GenerateRangeCooridantes(gameArea);
+            liveAnimals.Add( InstancePrefabOnRealMap(AvailableAnimals[index], randomCoordinates.lat, randomCoordinates.lon));
+    }
+
+    private Coordinates GenerateRangeCooridantes(GameAreaCoordinates gameArea)
+    {
+        float[] xArray = { gameArea.northWest.lat, gameArea.northEast.lat, gameArea.southEast.lat, gameArea.southWest.lat };
+        float[] yArray = { gameArea.northWest.lon, gameArea.northEast.lon, gameArea.southEast.lon, gameArea.southWest.lon };
+
+        float randomLat = Random.Range(xArray.Min(), xArray.Max());
+        float randomLon = Random.Range(yArray.Min(), yArray.Max());
+
+        return new Coordinates(randomLat, randomLon);
+    }
+
+
+
+    [SerializeField]
+    AbstractMap _map;
+    float _spawnScale = 100f;
+
+    private Animal InstancePrefabOnRealMap(Animal _markerPrefab, double lat, double lon)
+    {
+        Animal instance = Instantiate(_markerPrefab);
+
+        var locations= new Vector2d(lat, lon);
+        instance.transform.localPosition = _map.GeoToWorldPosition(locations, true);
+       // instance.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
+
+
+        /*   var earthRadius = ((IGlobeTerrainLayer)_map.Terrain).EarthRadius;
+           Vector2d refere;
+           instance.transform.position = Conversions.GeoToWorldPosition()//GeoToWorldGlobePosition(lat, lon, earthRadius);
+           instance.transform.localScale = Vector3.one * _spawnScale;
+           instance.transform.SetParent(transform);
+          */
+        return instance;
+
+
+    }
+
+
 
      
 }

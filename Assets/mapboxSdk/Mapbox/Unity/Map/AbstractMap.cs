@@ -316,7 +316,7 @@ namespace Mapbox.Unity.Map
 			{
 				_options = new MapOptions();
 			}
-			_options.locationOptions.latitudeLongitude = String.Format(CultureInfo.InvariantCulture, "{0},{1}", latLon.x, latLon.y);
+            _options.locationOptions.latitudeLongitude= String.Format(CultureInfo.InvariantCulture, "{0},{1}", latLon.x, latLon.y);
 			_options.locationOptions.zoom = zoom;
 
 			SetUpMap();
