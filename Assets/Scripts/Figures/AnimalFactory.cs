@@ -121,14 +121,7 @@ public class AnimalFactory : Singleton<AnimalFactory>
             GameAreaCoordinates gameArea = new GameAreaCoordinates();
             InstantiateAnimalsOnArea(gameArea);
         }
-        int maxPoints = 0;
-        foreach (var animal in liveAnimals)
-        {
-            maxPoints += animal.Points;
-        }
-        player.Xp = 0;
-        player.LevelBase = maxPoints;
-        player.RequiredXp = maxPoints;
+        UpdatePlayerValues();
 
 
     }
@@ -250,10 +243,22 @@ public class AnimalFactory : Singleton<AnimalFactory>
         Animal instance = Instantiate(_markerPrefab);
 
         liveAnimals.Add(instance);
+        UpdatePlayerValues();
+
         var locations = new Vector2d(lat, lon);
         instance.transform.localPosition = _map.GeoToWorldPosition(locations, true);
         instance.transform.position = _map.GeoToWorldPosition(locations, true);
     }
 
-
+    private void UpdatePlayerValues()
+    {
+        int maxPoints = 0;
+        foreach (var animal in liveAnimals)
+        {
+            maxPoints += animal.Points;
+        }
+        player.Xp = 0;
+        player.LevelBase = maxPoints;
+        player.RequiredXp = maxPoints;
+    }
 }

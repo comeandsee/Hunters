@@ -25,9 +25,9 @@ public static class HuntersConstants
 
     public enum distanceZone
     {
-        close = 2, //2m
-        middle = 5,
-        away = 10,
+        close = 5, //5m
+        middle = 10,
+        away = 50,
         tooFar
     }
 }

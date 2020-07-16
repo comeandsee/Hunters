@@ -158,42 +158,58 @@ public List<Transform> getGeneratedObjects()
     }
 
     */
+
+
     public void Gather()
     {
-            hp -= 1;
+        hp -= 1;
+        CreateParticles();
 
-            if (hp == 0)
+        if (hp == 0)
+        {
+            AnimalFactory.Instance.gatherAnimal(this);
+            Destroy(gameObject);
+        }
+    }
+    public void GatherInCaptureScene()
+    {
+        hp -= 1;
+
+        if (hp == 0)
+        {
+            HuntersSceneManager[] managers = FindObjectsOfType<HuntersSceneManager>();
+            foreach (HuntersSceneManager huntersSceneManager in managers)
             {
-                HuntersSceneManager[] managers = FindObjectsOfType<HuntersSceneManager>();
-                foreach (HuntersSceneManager huntersSceneManager in managers)
+                if (huntersSceneManager.gameObject.activeSelf)
                 {
-                    if (huntersSceneManager.gameObject.activeSelf)
                     {
-                        {
-                            huntersSceneManager.animalCollision();
-                            AnimalFactory.Instance.gatherAnimal(this);
-                            Destroy(gameObject);
-                        }
+                        huntersSceneManager.animalCollision();
+                        AnimalFactory.Instance.gatherAnimal(this);
+                        Destroy(gameObject);
                     }
                 }
-
-                // harvester destroy
-                Harvest harvest = FindObjectOfType<Harvest>();
-                harvest.gameObject.Destroy();
             }
 
+            // harvester destroy
+            Harvest harvest = FindObjectOfType<Harvest>();
+            harvest.gameObject.Destroy();
+        }
 
-            if (debrisDelay == "n")
-            {
-                var objInst = Instantiate(debrisObj, transform.position, debrisObj.rotation);
-                generatedObjects.Add(objInst);
+        CreateParticles();
 
-                debrisDelay = "y";
-                StartCoroutine(resetDelay());
-            }
-       
     }
 
+    private void CreateParticles()
+    {
+        if (debrisDelay == "n")
+        {
+            var objInst = Instantiate(debrisObj, transform.position, debrisObj.rotation);
+            generatedObjects.Add(objInst);
+
+            debrisDelay = "y";
+            StartCoroutine(resetDelay());
+        }
+    }
 
     IEnumerator resetDelay()
     {

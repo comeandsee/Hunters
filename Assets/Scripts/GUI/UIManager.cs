@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.UI;
+using static HuntersConstants;
 
 public class UIManager : MonoBehaviour
 {
@@ -66,7 +67,7 @@ public class UIManager : MonoBehaviour
         huntBox.gameObject.SetActive(setActive);
     }
 
-    public void updateDistanceInf(string info)
+    private void updateDistanceInf(string info)
     {
         distanceInfoText.text = info; 
 }
@@ -106,8 +107,14 @@ public class UIManager : MonoBehaviour
     {
         mapCam.enabled = !mapCam.enabled;
         ARCam.SetActive(!ARCam.activeSelf);
-        Map.SetActive(!Map.activeSelf);
         distanceInfoBox.gameObject.SetActive(!distanceInfoBox.activeSelf);
+
+        var renderers = Map.GetComponentsInChildren<MeshRenderer>();
+        foreach ( Renderer r in renderers)
+        {
+            r.enabled = !r.enabled;
+        }
+        //tutaj jesli chcesz zeby za kazdym razem inne zwierze sledzilo - najlizsze
     }
 
     public void StartBtnClicked()
@@ -149,6 +156,28 @@ public class UIManager : MonoBehaviour
     {
         audioSource.PlayOneShot(menuBtnSound);
         showRulesBox(false);
+    }
+
+
+    public void updateDistanceStatusUI(distanceZone distanceState)
+    {
+        switch (distanceState)
+        {
+            case distanceZone.close:
+                updateDistanceInf("look around");
+                break;
+            case distanceZone.middle:
+               updateDistanceInf("you are near");
+                break;
+            case distanceZone.away:
+                updateDistanceInf("come closer");
+                break;
+            case distanceZone.tooFar:
+                updateDistanceInf("you are far away");
+                break;
+            default:
+                break;
+        }
     }
 
 

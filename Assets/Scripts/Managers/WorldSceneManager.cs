@@ -13,7 +13,7 @@ public class WorldSceneManager : HuntersSceneManager
     private AsyncOperation loadScene;
    [SerializeField] private GameObject ARCam;
 
-    private bool searchForNewAnimal = true;
+
 
     private void Awake()
     {
@@ -34,69 +34,8 @@ public class WorldSceneManager : HuntersSceneManager
             NewLvl();
             GameManager.Instance.CurrentPlayer.NewLvl = false;
         }
-        if (ARCam.activeSelf)
-        {
-            huntAnimal();
-        }
     }
 
-
-    private void huntAnimal()
-    {
-        if (ARCam.activeSelf && searchForNewAnimal)
-        {
-            var tuple = getAnimalWithMinDistance();
-            Animal searchingAnimal = tuple.Item1;
-            double startDistance = tuple.Item2;
-
-            var playerPosition = getPlayerPosition();
-            var updatedDistance = calculateDistance(playerPosition, searchingAnimal.transform.position);
-
-            var distanceState = updateDistanceStatus(updatedDistance);
-
-            var uI = FindObjectOfType<UIManager>();
-
-            switch (distanceState)
-            {
-                case distanceZone.close:
-                    uI.updateDistanceInf("look around");
-                    break;
-                case distanceZone.middle:
-                    uI.updateDistanceInf("you are near");
-                    break;
-                case distanceZone.away:
-                    uI.updateDistanceInf("come closer");
-                    break;
-                case distanceZone.tooFar:
-                    uI.updateDistanceInf("you are far away");
-                    break;
-                default:
-                    break;
-            }
-
-            searchForNewAnimal = false;
-        }
-    }
-
-    private distanceZone updateDistanceStatus(double updatedDistance)
-    {
-        distanceZone distanceState = distanceZone.tooFar;
-
-        if (updatedDistance <= (double)distanceZone.close)
-        {
-            distanceState = distanceZone.close;
-        }
-        else if (updatedDistance <= (double)distanceZone.middle)
-        {
-            distanceState = distanceZone.middle;
-        }
-        else if (updatedDistance <= (double)distanceZone.away)
-        {
-            distanceState = distanceZone.away;
-        }
-
-        return distanceState;
-    }
 
     private void EndGame()
     {
@@ -106,7 +45,6 @@ public class WorldSceneManager : HuntersSceneManager
 
     public override void playerTapped(GameObject player)
     {
-           var playerPosition = getPlayerPosition();
     }
 
     public override void animalTapped(GameObject animalObject)
@@ -124,6 +62,12 @@ public class WorldSceneManager : HuntersSceneManager
             if (ARCam.activeSelf)
             {
                 AnimalFactory.Instance.AnimalWasSelected(animal);
+                int startHp = animal.Hp;
+                for (int i = startHp; i > 0; i--) //to zle jeszcze raz zjebko
+                {
+                    animal.Gather();
+                }
+               
             }
             else
             {
@@ -187,46 +131,9 @@ public class WorldSceneManager : HuntersSceneManager
     }
 
 
-    private Tuple<Animal,double> getAnimalWithMinDistance()
-    {
-        var playerPosition = getPlayerPosition();
-        var liveAnimals = AnimalFactory.Instance.LiveAnimals;
-
-        Animal animalWithMaxDistance = null;
-        double maxDistance;
-
-        //first animal
-        var animalPosition = liveAnimals[0].transform.position;
-        maxDistance = calculateDistance(playerPosition, animalPosition);
+   
 
 
-        //find min distance
-        foreach ( Animal liveAnimal in liveAnimals)
-        {
-            animalPosition = liveAnimal.transform.position;
-
-            var distance = calculateDistance(playerPosition, animalPosition);
-
-            if (distance <= maxDistance)
-            {
-                animalWithMaxDistance = liveAnimal;
-                maxDistance = distance;
-            }
-        }
-
-
-        return Tuple.Create(animalWithMaxDistance, maxDistance);
-    }
-
-    private Vector3 getPlayerPosition()
-    {
-        var player = GameObject.FindWithTag("Player");
-        return player.transform.position;
-    }
-
-    private double calculateDistance( Vector3 object1, Vector3 object2 )
-    {
-        return Math.Sqrt(Math.Pow(object1.x - object2.x, 2) + Math.Pow(object2.z - object1.z, 2));
-    }
+  
 }
 

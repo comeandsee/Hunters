@@ -45,7 +45,7 @@ public class Harvest : MonoBehaviour
         if (gatherAnimal)
         {
             Animal animal = AnimalFactory.Instance.SelectedAnimal;
-            animal.Gather();
+            animal.GatherInCaptureScene();
             if(animal.Hp == 0)
             {
                 audioSource.PlayOneShot(successSound);
