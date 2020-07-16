@@ -25,6 +25,9 @@ public class Animal : MonoBehaviour
 
     private Vector3 positionStart = new Vector3();
 
+
+    private bool isGathering = false;
+
     private void Awake()
     {
         AudioSource = GetComponent<AudioSource>();
@@ -160,16 +163,17 @@ public List<Transform> getGeneratedObjects()
     */
 
 
-    public void Gather()
+    public void StartGatherInWordScene()
     {
         hp -= 1;
-        CreateParticles();
-
         if (hp == 0)
         {
             AnimalFactory.Instance.gatherAnimal(this);
             Destroy(gameObject);
+
         }
+        CreateParticles();
+       
     }
     public void GatherInCaptureScene()
     {

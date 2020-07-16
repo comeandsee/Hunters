@@ -63,11 +63,12 @@ public class WorldSceneManager : HuntersSceneManager
             {
                 AnimalFactory.Instance.AnimalWasSelected(animal);
                 int startHp = animal.Hp;
-                for (int i = startHp; i > 0; i--) //to zle jeszcze raz zjebko
-                {
-                    animal.Gather();
-                }
-               
+
+
+                Harvest harvest = FindObjectOfType<Harvest>();
+                harvest.GatherAnimal = true;
+
+
             }
             else
             {

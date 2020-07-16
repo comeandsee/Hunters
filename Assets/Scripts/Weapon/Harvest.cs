@@ -12,6 +12,8 @@ public class Harvest : MonoBehaviour
     private bool gatherAnimal = false;
     private AudioSource audioSource;
 
+    public bool GatherAnimal { get => gatherAnimal; set => gatherAnimal = value; }
+
     private enum InputStatus {
         Grabbing,
         Holding,
@@ -29,7 +31,7 @@ public class Harvest : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonUp(0))
+       /* if (Input.GetMouseButtonUp(0))
         {
             if (EventSystem.current.IsPointerOverGameObject())
             {
@@ -40,16 +42,23 @@ public class Harvest : MonoBehaviour
             {
                 gatherAnimal = true;
             }
-        }
+        }*/
 
-        if (gatherAnimal)
+        if (GatherAnimal)
         {
             Animal animal = AnimalFactory.Instance.SelectedAnimal;
-            animal.GatherInCaptureScene();
+            if (HuntersConstants.isAreaGame)
+            {
+                animal.StartGatherInWordScene();
+            }
+            else
+            {
+                animal.GatherInCaptureScene();
+            }
             if(animal.Hp == 0)
             {
                 audioSource.PlayOneShot(successSound);
-                gatherAnimal = false;
+                GatherAnimal = false;
             }
         }
     }
