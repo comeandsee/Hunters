@@ -19,6 +19,7 @@ public class AnimalFactory : Singleton<AnimalFactory>
 
 
     [SerializeField] private List<Animal> liveAnimals = new List<Animal>();
+    [SerializeField] private List<GameObject> liveAnimalsFootsteps = new List<GameObject>();
 
     private List<int> lvlAnimalsIndex = new List<int>();
     [SerializeField] private Animal selectedAnimal;
@@ -77,6 +78,7 @@ public class AnimalFactory : Singleton<AnimalFactory>
     public List<int> LvlAnimalsIndex { get => lvlAnimalsIndex; set => lvlAnimalsIndex = value; }
     public string NameSelectedAnimal { get => nameSelectedAnimal; set => nameSelectedAnimal = value; }
     public int PointsSelectedAnimal { get => pointsSelectedAnimal; set => pointsSelectedAnimal = value; }
+    public List<GameObject> LiveAnimalsFootsteps { get => liveAnimalsFootsteps; set => liveAnimalsFootsteps = value; }
 
     // public ListDictionary LiveAnimalsWithIndex { get => liveAnimalsWithIndex; set => liveAnimalsWithIndex = value; }
 

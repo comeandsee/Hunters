@@ -4661,6 +4661,8 @@ MonoBehaviour:
   - {fileID: 6749787726248567925, guid: 5d96025e82028974a9327cd519cf6edb, type: 3}
   - {fileID: 2590541974946249842, guid: 0ab2ee66f3b002a439ebda48f53d88e7, type: 3}
   liveAnimals: []
+  liveAnimalsFootsteps:
+  - {fileID: 7775989984562912466, guid: 5a96a4cbd9aaf1b498dade24136e7150, type: 3}
   selectedAnimal: {fileID: 0}
   _map: {fileID: 1099197346}
 --- !u!1 &1176356275

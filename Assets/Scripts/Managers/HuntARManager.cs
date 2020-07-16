@@ -66,11 +66,14 @@ public class HuntARManager : Singleton<HuntARManager>
    
     private void huntAnimal()
     {
-        UpdateHuntingAnimalDistance(huntedAnimal);
-  
+        var distanceState = UpdateHuntingAnimalDistance(huntedAnimal);
+        
+        //slady tutaj dodaj
+
+        
     }
 
-    private void UpdateHuntingAnimalDistance(Animal searchingAnimal)
+    private distanceZone UpdateHuntingAnimalDistance(Animal searchingAnimal)
     {
         var playerPosition = getPlayerPosition();
 
@@ -80,6 +83,8 @@ public class HuntARManager : Singleton<HuntARManager>
         var distanceState = updateDistanceStatus(updatedDistance);
         var uI = FindObjectOfType<UIManager>();
         uI.updateDistanceStatusUI(distanceState);
+
+        return distanceState;
     }
 
     private double calculateDistance(Vector3 object1, Vector3 object2)
