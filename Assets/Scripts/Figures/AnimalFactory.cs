@@ -236,18 +236,22 @@ public class AnimalFactory : Singleton<AnimalFactory>
 
     }
 
-    private IEnumerator waitUntilMapShowUp(float waitTime, Animal _markerPrefab, double lat, double lon) //to pozniej zmien az mapa sie zaladuje
+    private IEnumerator waitUntilMapShowUp(float waitTime, Animal _markerPrefab, double lat, double lon) 
     {
-        yield return new WaitForSeconds(waitTime);
+        //    yield return new WaitForSeconds(waitTime);
 
-        Animal instance = Instantiate(_markerPrefab);
+            Vector2d zeroVector = new Vector2d(0.00000, 0.00000);
 
-        liveAnimals.Add(instance);
-        UpdatePlayerValues();
+            yield return new WaitUntil(() => !_map.CenterMercator.normalized.Equals(zeroVector));
+            Animal instance = Instantiate(_markerPrefab);
 
-        var locations = new Vector2d(lat, lon);
-        instance.transform.localPosition = _map.GeoToWorldPosition(locations, true);
-        instance.transform.position = _map.GeoToWorldPosition(locations, true);
+            liveAnimals.Add(instance);
+            UpdatePlayerValues();
+
+            var locations = new Vector2d(lat, lon);
+            instance.transform.localPosition = _map.GeoToWorldPosition(locations, true);
+            instance.transform.position = _map.GeoToWorldPosition(locations, true);
+        
     }
 
     private void UpdatePlayerValues()
