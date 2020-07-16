@@ -253,8 +253,6 @@ public class AnimalFactory : Singleton<AnimalFactory>
         var locations = new Vector2d(lat, lon);
         instance.transform.localPosition = _map.GeoToWorldPosition(locations, true);
         instance.transform.position = _map.GeoToWorldPosition(locations, true);
-
-
     }
 
 

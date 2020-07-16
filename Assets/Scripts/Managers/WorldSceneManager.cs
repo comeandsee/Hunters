@@ -5,21 +5,19 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.SceneManagement;
+using static HuntersConstants;
 
 public class WorldSceneManager : HuntersSceneManager
 {
     private GameObject animal;
     private AsyncOperation loadScene;
-    public bool isAreaGame = true;
+   [SerializeField] private GameObject ARCam;
 
-    [SerializeField] Camera mapCam;
-    [SerializeField] GameObject ARCam;
-    [SerializeField] GameObject Map;
+    private bool searchForNewAnimal = true;
+
     private void Awake()
     {
-        Assert.IsNotNull(mapCam);
-        Assert.IsNotNull(ARCam);
-        Assert.IsNotNull(Map);
+       
     }
 
     // Update is called once per frame
@@ -36,6 +34,68 @@ public class WorldSceneManager : HuntersSceneManager
             NewLvl();
             GameManager.Instance.CurrentPlayer.NewLvl = false;
         }
+        if (ARCam.activeSelf)
+        {
+            huntAnimal();
+        }
+    }
+
+
+    private void huntAnimal()
+    {
+        if (ARCam.activeSelf && searchForNewAnimal)
+        {
+            var tuple = getAnimalWithMinDistance();
+            Animal searchingAnimal = tuple.Item1;
+            double startDistance = tuple.Item2;
+
+            var playerPosition = getPlayerPosition();
+            var updatedDistance = calculateDistance(playerPosition, searchingAnimal.transform.position);
+
+            var distanceState = updateDistanceStatus(updatedDistance);
+
+            var uI = FindObjectOfType<UIManager>();
+
+            switch (distanceState)
+            {
+                case distanceZone.close:
+                    uI.updateDistanceInf("look around");
+                    break;
+                case distanceZone.middle:
+                    uI.updateDistanceInf("you are near");
+                    break;
+                case distanceZone.away:
+                    uI.updateDistanceInf("come closer");
+                    break;
+                case distanceZone.tooFar:
+                    uI.updateDistanceInf("you are far away");
+                    break;
+                default:
+                    break;
+            }
+
+            searchForNewAnimal = false;
+        }
+    }
+
+    private distanceZone updateDistanceStatus(double updatedDistance)
+    {
+        distanceZone distanceState = distanceZone.tooFar;
+
+        if (updatedDistance <= (double)distanceZone.close)
+        {
+            distanceState = distanceZone.close;
+        }
+        else if (updatedDistance <= (double)distanceZone.middle)
+        {
+            distanceState = distanceZone.middle;
+        }
+        else if (updatedDistance <= (double)distanceZone.away)
+        {
+            distanceState = distanceZone.away;
+        }
+
+        return distanceState;
     }
 
     private void EndGame()
@@ -46,28 +106,37 @@ public class WorldSceneManager : HuntersSceneManager
 
     public override void playerTapped(GameObject player)
     {
-
+           var playerPosition = getPlayerPosition();
     }
 
     public override void animalTapped(GameObject animalObject)
     {
         //get tapped animal
-        Animal animal = animalObject.GetComponent<Animal>();
-        AnimalFactory.Instance.AnimalWasSelected(animal);
+        Animal animal;
+        GameObject[] arrayOfChildrenOfAnimal;
+        GetTappedAnimal(animalObject, out animal, out arrayOfChildrenOfAnimal);
 
-        var arrayOfChildrenOfAnimal = animal.transform
-            .Cast<Transform>()
-            .Where(c => c.gameObject.tag == "Animal").Select(c => c.gameObject)
-            .ToArray();
-
-        if (isAreaGame)
+        if (HuntersConstants.isAreaGame)
         {
-            mapCam.enabled = false;
-            ARCam.SetActive(true);
-            Map.SetActive(false);
+            //todo
+
+            //TODO
+            if (ARCam.activeSelf)
+            {
+                AnimalFactory.Instance.AnimalWasSelected(animal);
+            }
+            else
+            {
+                var uI = FindObjectOfType<UIManager>();
+                uI.showHuntBox();
+                StartCoroutine(WaitAndNotShowTxt(1.0f));
+            }
+
         }
         else // this is game for the closest distance around the user
         {
+            AnimalFactory.Instance.AnimalWasSelected(animal);
+
             // hide all others obj
             Animal[] allAnimals = FindObjectsOfType<Animal>();
             foreach (Animal a in allAnimals)
@@ -88,8 +157,18 @@ public class WorldSceneManager : HuntersSceneManager
             SceneTransitionManager.Instance.
                 GoToScene(HuntersConstants.SCENE_CAPTURE, new List<GameObject>());
         }
-       
-   }
+
+    }
+
+    private static void GetTappedAnimal(GameObject animalObject, out Animal animal, out GameObject[] arrayOfChildrenOfAnimal)
+    {
+        animal = animalObject.GetComponent<Animal>();
+
+        arrayOfChildrenOfAnimal = animal.transform
+            .Cast<Transform>()
+            .Where(c => c.gameObject.tag == "Animal").Select(c => c.gameObject)
+            .ToArray();
+    }
 
     private void NewLvl()
     {
@@ -99,6 +178,55 @@ public class WorldSceneManager : HuntersSceneManager
     }
 
 
+    private IEnumerator WaitAndNotShowTxt(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        var uI = FindObjectOfType<UIManager>(); ;
+        uI.showHuntBox(false);
 
+    }
+
+
+    private Tuple<Animal,double> getAnimalWithMinDistance()
+    {
+        var playerPosition = getPlayerPosition();
+        var liveAnimals = AnimalFactory.Instance.LiveAnimals;
+
+        Animal animalWithMaxDistance = null;
+        double maxDistance;
+
+        //first animal
+        var animalPosition = liveAnimals[0].transform.position;
+        maxDistance = calculateDistance(playerPosition, animalPosition);
+
+
+        //find min distance
+        foreach ( Animal liveAnimal in liveAnimals)
+        {
+            animalPosition = liveAnimal.transform.position;
+
+            var distance = calculateDistance(playerPosition, animalPosition);
+
+            if (distance <= maxDistance)
+            {
+                animalWithMaxDistance = liveAnimal;
+                maxDistance = distance;
+            }
+        }
+
+
+        return Tuple.Create(animalWithMaxDistance, maxDistance);
+    }
+
+    private Vector3 getPlayerPosition()
+    {
+        var player = GameObject.FindWithTag("Player");
+        return player.transform.position;
+    }
+
+    private double calculateDistance( Vector3 object1, Vector3 object2 )
+    {
+        return Math.Sqrt(Math.Pow(object1.x - object2.x, 2) + Math.Pow(object2.z - object1.z, 2));
+    }
 }
 

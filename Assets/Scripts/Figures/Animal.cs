@@ -57,44 +57,47 @@ public class Animal : MonoBehaviour
 
         StartCoroutine(clickedAnimalSound());
 
-            Scene currentScene = SceneManager.GetActiveScene();
-            string sceneName = currentScene.name;
+        Scene currentScene = SceneManager.GetActiveScene();
+        string sceneName = currentScene.name;
 
-            if (sceneName == HuntersConstants.SCENE_WORLD)
+        if (sceneName == HuntersConstants.SCENE_WORLD)
+        {
+           
+            var animalPosition = this.gameObject.transform.position;
+
+            var player = GameObject.FindWithTag("Player");
+            var userPosition = player.transform.position;
+
+            var xDistance = Math.Abs(userPosition.x - animalPosition.x);
+            var zDistance = Math.Abs(userPosition.z - animalPosition.z);
+
+            if (xDistance <= HuntersConstants.maxDistance && zDistance <= HuntersConstants.maxDistance)
             {
 
-                var animalPosition = this.gameObject.transform.position;
-
-                var player = GameObject.FindWithTag("Player");
-                var userPosition = player.transform.position;
-
-                var xDistance = Math.Abs(userPosition.x - animalPosition.x);
-                var zDistance = Math.Abs(userPosition.z - animalPosition.z);
-
-                if (xDistance <= HuntersConstants.maxDistance && zDistance <= HuntersConstants.maxDistance)
+                HuntersSceneManager[] managers = FindObjectsOfType<HuntersSceneManager>();
+                foreach (HuntersSceneManager huntersSceneManager in managers)
                 {
-
-                    HuntersSceneManager[] managers = FindObjectsOfType<HuntersSceneManager>();
-                    foreach (HuntersSceneManager huntersSceneManager in managers)
+                    if (huntersSceneManager.gameObject.activeSelf)
                     {
-                        if (huntersSceneManager.gameObject.activeSelf)
+                        if (!HuntersConstants.isAreaGame)
                         {
                             positionStart = this.gameObject.transform.position;
                             this.gameObject.transform.position = HuntersConstants.objectPositionInCaptureScene;
                             this.gameObject.transform.eulerAngles = HuntersConstants.objectRotationInCaptureScene;
-
-                            huntersSceneManager.animalTapped(this.gameObject);
                         }
+                        huntersSceneManager.animalTapped(this.gameObject);
                     }
                 }
-                else
-                {
-
-                    var uI = FindObjectOfType<UIManager>();
-                    uI.showPositionBox();
-                    StartCoroutine(WaitAndNotShowTxt(1.0f));
-                }
             }
+            else
+            {
+
+                var uI = FindObjectOfType<UIManager>();
+                uI.showPositionBox();
+                StartCoroutine(WaitAndNotShowTxt(1.0f));
+            }
+            
+        }
         
     }
   

@@ -19,4 +19,15 @@ public static class HuntersConstants
     public static int startingAnimals = 5;
     public static float minRange = 2.0f;
     public static float maxRange = 20.0f;
+
+    public static bool isAreaGame = true;
+
+
+    public enum distanceZone
+    {
+        close = 2, //2m
+        middle = 5,
+        away = 10,
+        tooFar
+    }
 }

@@ -8,8 +8,10 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField] private Text xpText;
     [SerializeField] private Text lvlText;
+    [SerializeField] private Text distanceInfoText;
     [SerializeField] private GameObject menu;
     [SerializeField] private GameObject postionBox;
+    [SerializeField] private GameObject huntBox;
     [SerializeField] private GameObject newLvlBox;
     [SerializeField] private GameObject winnerBox;
     [SerializeField] private GameObject rulesBox;
@@ -17,6 +19,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Camera mapCam;
     [SerializeField] private GameObject ARCam;
     [SerializeField] private GameObject Map;
+    [SerializeField] private GameObject distanceInfoBox;
     // public Slider musicVolume;
 
     private AudioSource audioSource;
@@ -58,6 +61,15 @@ public class UIManager : MonoBehaviour
         postionBox.gameObject.SetActive(setActive);
     }
 
+    public void showHuntBox(bool setActive = true)
+    {
+        huntBox.gameObject.SetActive(setActive);
+    }
+
+    public void updateDistanceInf(string info)
+    {
+        distanceInfoText.text = info; 
+}
     public void updateLevel()
     {
         lvlText.text = "Lvl: " + GameManager.Instance.CurrentPlayer.Lvl.ToString();
@@ -95,6 +107,7 @@ public class UIManager : MonoBehaviour
         mapCam.enabled = !mapCam.enabled;
         ARCam.SetActive(!ARCam.activeSelf);
         Map.SetActive(!Map.activeSelf);
+        distanceInfoBox.gameObject.SetActive(!distanceInfoBox.activeSelf);
     }
 
     public void StartBtnClicked()
