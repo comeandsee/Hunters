@@ -14,8 +14,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject winnerBox;
     [SerializeField] private GameObject rulesBox;
     [SerializeField] private AudioClip menuBtnSound;
-
-   // public Slider musicVolume;
+    [SerializeField] private Camera mapCam;
+    [SerializeField] private GameObject ARCam;
+    [SerializeField] private GameObject Map;
+    // public Slider musicVolume;
 
     private AudioSource audioSource;
 
@@ -30,7 +32,9 @@ public class UIManager : MonoBehaviour
         Assert.IsNotNull(menuBtnSound);
         Assert.IsNotNull(postionBox);
         Assert.IsNotNull(winnerBox);
-
+        Assert.IsNotNull(mapCam);
+        Assert.IsNotNull(ARCam);
+        Assert.IsNotNull(Map);
     }
 
     public void showNewLvlBox(bool setActive=true)
@@ -78,6 +82,19 @@ public class UIManager : MonoBehaviour
     {
         audioSource.PlayOneShot(menuBtnSound);
         toggleMenu();
+    }
+
+    public void ChangeCamBtnClicked()
+    {
+        audioSource.PlayOneShot(menuBtnSound);
+        changeCam();
+    }
+
+    public void changeCam()
+    {
+        mapCam.enabled = !mapCam.enabled;
+        ARCam.SetActive(!ARCam.activeSelf);
+        Map.SetActive(!Map.activeSelf);
     }
 
     public void StartBtnClicked()

@@ -115,11 +115,11 @@ public class AnimalFactory : Singleton<AnimalFactory>
     {
         for (int i = 0; i < HuntersConstants.startingAnimals; i++)
         {
-             InstantiateAnimal();
+            //  InstantiateAnimal();
 
             //on area
-          //  GameAreaCoordinates gameArea = new GameAreaCoordinates();
-          //  InstantiateAnimalsOnArea(gameArea);
+            GameAreaCoordinates gameArea = new GameAreaCoordinates();
+            InstantiateAnimalsOnArea(gameArea);
         }
         int maxPoints = 0;
         foreach (var animal in liveAnimals)
@@ -193,10 +193,10 @@ public class AnimalFactory : Singleton<AnimalFactory>
 
         public GameAreaCoordinates()
         {
-            this.northWest = new Coordinates(60.19188f, 24.9685822f);
-            this.northEast = new Coordinates(60.19200f, 24.9686823f);
-            this.southEast = new Coordinates(60.19201f, 24.9687822f);
-            this.southWest = new Coordinates(60.19189f, 24.9684822f);
+            this.northWest = new Coordinates(60.193635f, 24.967477f);
+            this.northEast = new Coordinates(60.193736f, 24.971189f);
+            this.southEast = new Coordinates(60.192200f, 24.9687445f);
+            this.southWest = new Coordinates(60.191901f, 24.970663f);
         }
         public GameAreaCoordinates(bool isGdansk)
         {
@@ -207,13 +207,13 @@ public class AnimalFactory : Singleton<AnimalFactory>
         }
     }
 
-    private void InstantiateAnimalsOnArea( GameAreaCoordinates gameArea)
+    private void InstantiateAnimalsOnArea(GameAreaCoordinates gameArea)
     {
-            int indexInLvlAnimalsIndex = Random.Range(0, LvlAnimalsIndex.Count);
-            int index = LvlAnimalsIndex[indexInLvlAnimalsIndex];
+        int indexInLvlAnimalsIndex = Random.Range(0, LvlAnimalsIndex.Count);
+        int index = LvlAnimalsIndex[indexInLvlAnimalsIndex];
 
-            Coordinates randomCoordinates = GenerateRangeCooridantes(gameArea);
-            liveAnimals.Add( InstancePrefabOnRealMap(AvailableAnimals[index], randomCoordinates.lat, randomCoordinates.lon));
+        Coordinates randomCoordinates = GenerateRangeCooridantes(gameArea);
+        InstancePrefabOnRealMap(AvailableAnimals[index], randomCoordinates.lat, randomCoordinates.lon);
     }
 
     private Coordinates GenerateRangeCooridantes(GameAreaCoordinates gameArea)
@@ -235,25 +235,27 @@ public class AnimalFactory : Singleton<AnimalFactory>
 
     private Animal InstancePrefabOnRealMap(Animal _markerPrefab, double lat, double lon)
     {
+
+        StartCoroutine(waitUntilMapShowUp(2, _markerPrefab, lat, lon));
+
+        return new Animal();
+
+
+    }
+
+    private IEnumerator waitUntilMapShowUp(float waitTime, Animal _markerPrefab, double lat, double lon) //to pozniej zmien az mapa sie zaladuje
+    {
+        yield return new WaitForSeconds(waitTime);
+
         Animal instance = Instantiate(_markerPrefab);
 
-        var locations= new Vector2d(lat, lon);
+        liveAnimals.Add(instance);
+        var locations = new Vector2d(lat, lon);
         instance.transform.localPosition = _map.GeoToWorldPosition(locations, true);
-       // instance.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
-
-
-        /*   var earthRadius = ((IGlobeTerrainLayer)_map.Terrain).EarthRadius;
-           Vector2d refere;
-           instance.transform.position = Conversions.GeoToWorldPosition()//GeoToWorldGlobePosition(lat, lon, earthRadius);
-           instance.transform.localScale = Vector3.one * _spawnScale;
-           instance.transform.SetParent(transform);
-          */
-        return instance;
+        instance.transform.position = _map.GeoToWorldPosition(locations, true);
 
 
     }
 
 
-
-     
 }

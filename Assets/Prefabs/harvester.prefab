@@ -4783,13 +4783,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46fd4477fba93fe4e863592a0e09e665, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireLaser: 323
-  laserInUse: n
-  collisionStallTime: 2
-  stallTime: 5
-  dropSound: {fileID: 8300000, guid: 8c584d58bad070d4da4fcd45011d20b3, type: 3}
   successSound: {fileID: 8300000, guid: f3f707fb5bbce694991b04d6e0b47ac4, type: 3}
-  throwSound: {fileID: 8300000, guid: c9acb4f0d326c014680d7f7125037db7, type: 3}
 --- !u!54 &7813486982340662376
 Rigidbody:
   m_ObjectHideFlags: 0
