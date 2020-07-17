@@ -15,6 +15,7 @@ public class AnimalFactory : Singleton<AnimalFactory>
 
 
     [SerializeField] private Animal[] availableAnimals;
+    [SerializeField] private GameObject[] availableFootsteps;
     // [SerializeField] private float waitTime = 180.0f;
 
 
@@ -61,6 +62,7 @@ public class AnimalFactory : Singleton<AnimalFactory>
     public Animal SelectedAnimal
     {
         get { return selectedAnimal; }
+        set { selectedAnimal = value; }
     }
 
     public void gatherAnimal(Animal animal)
@@ -79,7 +81,12 @@ public class AnimalFactory : Singleton<AnimalFactory>
     public string NameSelectedAnimal { get => nameSelectedAnimal; set => nameSelectedAnimal = value; }
     public int PointsSelectedAnimal { get => pointsSelectedAnimal; set => pointsSelectedAnimal = value; }
     public List<GameObject> LiveAnimalsFootsteps { get => liveAnimalsFootsteps; set => liveAnimalsFootsteps = value; }
+    public GameObject[] AvailableFootsteps { get => availableFootsteps; set => availableFootsteps = value; }
 
+    public void AnimalWasSelected(Animal Animal)
+    {
+        selectedAnimal = Animal;
+    }
     // public ListDictionary LiveAnimalsWithIndex { get => liveAnimalsWithIndex; set => liveAnimalsWithIndex = value; }
 
     private void Awake()
@@ -127,10 +134,7 @@ public class AnimalFactory : Singleton<AnimalFactory>
 
 
     }
-    public void AnimalWasSelected(Animal Animal)
-    {
-        selectedAnimal = Animal;
-    }
+   
 
     private IEnumerator GeneratePlants()
     {
@@ -266,5 +270,29 @@ public class AnimalFactory : Singleton<AnimalFactory>
         player.Xp = 0;
         player.LevelBase = maxPoints;
         player.RequiredXp = maxPoints;
+    }
+
+    public void createTracks()
+    {
+        var playerPosition = getPlayerPosition();
+
+        //position of target
+        var heading = selectedAnimal.transform.position - playerPosition;
+        var distance = heading.magnitude;
+        var direction = heading / distance;
+
+        heading.y = 0;
+
+        var position = playerPosition + direction;
+
+        liveAnimalsFootsteps.Add(Instantiate(AvailableFootsteps[0], position, Quaternion.identity));
+        liveAnimalsFootsteps.Last().transform.rotation = Quaternion.LookRotation(direction);
+    }
+
+
+    private Vector3 getPlayerPosition()
+    {
+        var player = GameObject.FindWithTag("Player");
+        return player.transform.position;
     }
 }

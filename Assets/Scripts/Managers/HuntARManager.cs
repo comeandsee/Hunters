@@ -7,6 +7,7 @@ using static HuntersConstants;
 public class HuntARManager : Singleton<HuntARManager>
 {
     private bool searchForNewAnimal = true;
+    private bool areTracks = true;
 
     private Animal huntedAnimal;
 
@@ -31,23 +32,19 @@ public class HuntARManager : Singleton<HuntARManager>
 
     private void getAnimalWithMinDistance()
     {
-        var playerPosition = getPlayerPosition();
         var liveAnimals = AnimalFactory.Instance.LiveAnimals;
 
         Animal animalWithMinDistance = null;
         double minDistance;
 
         //first animal
-        var animalPosition = liveAnimals[0].transform.position;
-        minDistance = calculateDistance(playerPosition, animalPosition);
+        minDistance = calculateDistance(GameObject.FindWithTag("Player"), liveAnimals[0].gameObject);
 
 
         //find min distance
         foreach (Animal liveAnimal in liveAnimals)
         {
-            animalPosition = liveAnimal.transform.position;
-
-            var distance = calculateDistance(playerPosition, animalPosition);
+            var distance = calculateDistance(GameObject.FindWithTag("Player"), liveAnimal.gameObject);
 
             if (distance <= minDistance)
             {
@@ -58,6 +55,8 @@ public class HuntARManager : Singleton<HuntARManager>
 
         huntedAnimal = animalWithMinDistance;
 
+        AnimalFactory.Instance.SelectedAnimal = huntedAnimal;
+
         var distanceState = updateDistanceStatus(minDistance);
         var uI = FindObjectOfType<UIManager>();
         uI.updateDistanceStatusUI(distanceState);
@@ -66,18 +65,21 @@ public class HuntARManager : Singleton<HuntARManager>
    
     private void huntAnimal()
     {
-        var distanceState = UpdateHuntingAnimalDistance(huntedAnimal);
-        
-        //slady tutaj dodaj
+        if (areTracks)
+        {
+            var distanceState = UpdateHuntingAnimalDistance(huntedAnimal);
 
-        
+            //slady tutaj dodaj
+            AnimalFactory.Instance.createTracks();
+
+         //   areTracks = false;
+        }
+
     }
 
     private distanceZone UpdateHuntingAnimalDistance(Animal searchingAnimal)
     {
-        var playerPosition = getPlayerPosition();
-
-        var updatedDistance = calculateDistance(playerPosition, searchingAnimal.transform.position);
+        var updatedDistance = calculateDistance(GameObject.FindWithTag("Player"), searchingAnimal.gameObject);
 
         //update status
         var distanceState = updateDistanceStatus(updatedDistance);
@@ -87,9 +89,10 @@ public class HuntARManager : Singleton<HuntARManager>
         return distanceState;
     }
 
-    private double calculateDistance(Vector3 object1, Vector3 object2)
+    private double calculateDistance(GameObject object1, GameObject object2)
     {
-        return Math.Sqrt(Math.Pow(object1.x - object2.x, 2) + Math.Pow(object2.z - object1.z, 2));
+        var heading = object1.transform.position - object2.transform.position;
+        return heading.magnitude;
     }
 
 
