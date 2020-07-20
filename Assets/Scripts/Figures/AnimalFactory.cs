@@ -147,15 +147,18 @@ public class AnimalFactory : Singleton<AnimalFactory>
         return randomNum * (isPositive ? 1 : -1);
     }
 
-  
+    int blablabla = 0; // nie mozna wyjsc za zakres
+    //to do
 
     private void InstantiateAnimalsOnArea(GameAreaCoordinates gameArea)
     {
-        int indexInLvlAnimalsIndex = Random.Range(0, LvlAnimalsIndex.Count);
-        int index = LvlAnimalsIndex[indexInLvlAnimalsIndex];
+       // int indexInLvlAnimalsIndex = Random.Range(0, LvlAnimalsIndex.Count);
+      //  int index = LvlAnimalsIndex[indexInLvlAnimalsIndex];
+        int index = LvlAnimalsIndex[blablabla];
 
         Coordinates randomCoordinates = GenerateRangeCooridantes(gameArea);
         InstancePrefabOnRealMap(AvailableAnimals[index], randomCoordinates.lat, randomCoordinates.lon);
+        blablabla += 1;
     }
 
     private Coordinates GenerateRangeCooridantes(GameAreaCoordinates gameArea)
@@ -258,15 +261,16 @@ public class AnimalFactory : Singleton<AnimalFactory>
             {
 
                 var basic = (float)distanceZone.close + step;
-                var distanceX = Random.Range(basic, basic + (float)distanceZone.middle) *  xPositive;
-                var distanceZ = Random.Range(basic, basic + (float)distanceZone.middle) *  yPositive;
+                var distanceX = Random.Range(basic, basic + 5) *  xPositive;
+                var distanceZ = Random.Range(basic, basic + 5) *  yPositive;
 
                 var distance = new Vector3(distanceX, 0, distanceZ);
 
                 var position = animal.transform.position  + distance;
-                var footstep = Instantiate(AvailableFootsteps[0], position, Quaternion.identity);
 
-               // footstep.GetComponent<Renderer>().material.color = Color.blue;
+                var indexAnimal = System.Array.FindIndex(AvailableAnimals, row => row.name.Contains(animal.name.Replace("(Clone)", "")));
+
+                var footstep = Instantiate(AvailableFootsteps[indexAnimal], position, Quaternion.identity);
 
 
                 //roration of track
@@ -280,7 +284,7 @@ public class AnimalFactory : Singleton<AnimalFactory>
                 footstep.transform.rotation = Quaternion.LookRotation(directionToPrevFootstep);
 
                 prevFootstep = footstep;
-                step += 10;
+                step += 5;
             }
            
 
