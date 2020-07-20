@@ -16,13 +16,13 @@ public class HuntARManager : Singleton<HuntARManager>
     // Start is called before the first frame update
     void Start()
     {
-        GetHuntedAnimal();
+      //  GetHuntedAnimal();
     }
 
     // Update is called once per frame
     void Update()
     {
-        huntAnimal();
+     //   huntAnimal();
     }
 
     public void GetHuntedAnimal()
@@ -70,7 +70,7 @@ public class HuntARManager : Singleton<HuntARManager>
             var distanceState = UpdateHuntingAnimalDistance(huntedAnimal);
 
             //slady tutaj dodaj
-            AnimalFactory.Instance.createTracks();
+            AnimalFactory.Instance.createTracksByPlayerPosition();
 
          //   areTracks = false;
         }

@@ -9,29 +9,26 @@ using Mapbox.Unity.Map;
 using Mapbox.Unity.Utilities;
 using System.Linq;
 using Mapbox.Utils;
+using static Location;
+using static HuntersConstants;
 
 public class AnimalFactory : Singleton<AnimalFactory>
 {
-
-
     [SerializeField] private Animal[] availableAnimals;
     [SerializeField] private GameObject[] availableFootsteps;
-    // [SerializeField] private float waitTime = 180.0f;
-
-
     [SerializeField] private List<Animal> liveAnimals = new List<Animal>();
     [SerializeField] private List<GameObject> liveAnimalsFootsteps = new List<GameObject>();
 
-    private List<int> lvlAnimalsIndex = new List<int>();
+    [SerializeField] AbstractMap _map;
+ 
     [SerializeField] private Animal selectedAnimal;
 
-
+    private List<int> lvlAnimalsIndex = new List<int>();
     private string nameSelectedAnimal = "animal";
     private int pointsSelectedAnimal = 100;
-
     private bool tracksDelay = false;
-
     private Player player;
+    private float resetDelayTime = 20f;
 
 
     public void CreateAnimalsOnLvl(int lvl)
@@ -89,15 +86,12 @@ public class AnimalFactory : Singleton<AnimalFactory>
     {
         selectedAnimal = Animal;
     }
-    // public ListDictionary LiveAnimalsWithIndex { get => liveAnimalsWithIndex; set => liveAnimalsWithIndex = value; }
 
     private void Awake()
     {
-        //  DontDestroyOnLoad(this);
-        Assert.IsNotNull(AvailableAnimals);
+       Assert.IsNotNull(AvailableAnimals);
         player = GameManager.Instance.CurrentPlayer;
         Assert.IsNotNull(player);
-
     }
 
     void Start()
@@ -107,18 +101,7 @@ public class AnimalFactory : Singleton<AnimalFactory>
         if (animalsFactories.Length <= 1)
         {
             CreateAnimalsOnLvl(lvl: player.Lvl);
-
         }
-
-        /*
-        if (player)
-        {
-            foreach (Animal animal in liveAnimals)
-            {
-                player.AddAnimal(animal.gameObject);
-            }
-        }*/
-        // StartCoroutine(GenerateAnimals());
     }
 
 
@@ -133,8 +116,6 @@ public class AnimalFactory : Singleton<AnimalFactory>
             InstantiateAnimalsOnArea(gameArea);
         }
         UpdatePlayerValues();
-
-
     }
    
 
@@ -166,47 +147,7 @@ public class AnimalFactory : Singleton<AnimalFactory>
         return randomNum * (isPositive ? 1 : -1);
     }
 
-    public class Coordinates
-    {
-        public float lat;
-        public float lon;
-        public Coordinates(float lat, float lon)
-        {
-            this.lat = lat;
-            this.lon = lon;
-        }
-    }
-
-    public class GameAreaCoordinates
-    {
-        public Coordinates northWest;
-        public Coordinates northEast;
-        public Coordinates southEast;
-        public Coordinates southWest;
-
-        public GameAreaCoordinates(Coordinates northWest, Coordinates northEast, Coordinates southEast, Coordinates southWest)
-        {
-            this.northWest = northWest;
-            this.northEast = northEast;
-            this.southEast = southEast;
-            this.southWest = southWest;
-        }
-
-        public GameAreaCoordinates()
-        {
-            this.northWest = new Coordinates(60.193635f, 24.967477f);
-            this.northEast = new Coordinates(60.193736f, 24.971189f);
-            this.southEast = new Coordinates(60.192200f, 24.9687445f);
-            this.southWest = new Coordinates(60.191901f, 24.970663f);
-        }
-        public GameAreaCoordinates(bool isGdansk)
-        {
-            this.northWest = new Coordinates(54.367873f, 18.609933f);
-            this.northEast = new Coordinates(54.367857f, 18.612052f);
-            this.southEast = new Coordinates(54.366369f, 18.611564f);
-            this.southWest = new Coordinates(54.366553f, 18.609472f);
-        }
-    }
+  
 
     private void InstantiateAnimalsOnArea(GameAreaCoordinates gameArea)
     {
@@ -229,27 +170,14 @@ public class AnimalFactory : Singleton<AnimalFactory>
     }
 
 
-
-    [SerializeField]
-    AbstractMap _map;
-    float _spawnScale = 100f;
-
-    private Animal InstancePrefabOnRealMap(Animal _markerPrefab, double lat, double lon)
+    private void InstancePrefabOnRealMap(Animal _markerPrefab, double lat, double lon)
     {
-
-        StartCoroutine(waitUntilMapShowUp(2, _markerPrefab, lat, lon));
-
-        return new Animal();
-
-
+        StartCoroutine(waitUntilMapShowUpAndCreateAnimalsOnMap(2, _markerPrefab, lat, lon));
     }
 
-    private IEnumerator waitUntilMapShowUp(float waitTime, Animal _markerPrefab, double lat, double lon) 
+    private IEnumerator waitUntilMapShowUpAndCreateAnimalsOnMap(float waitTime, Animal _markerPrefab, double lat, double lon) 
     {
-        //    yield return new WaitForSeconds(waitTime);
-
             Vector2d zeroVector = new Vector2d(0.00000, 0.00000);
-
             yield return new WaitUntil(() => !_map.CenterMercator.normalized.Equals(zeroVector));
             Animal instance = Instantiate(_markerPrefab);
 
@@ -259,7 +187,10 @@ public class AnimalFactory : Singleton<AnimalFactory>
             var locations = new Vector2d(lat, lon);
             instance.transform.localPosition = _map.GeoToWorldPosition(locations, true);
             instance.transform.position = _map.GeoToWorldPosition(locations, true);
-        
+
+            createTrack(instance);
+
+
     }
 
     private void UpdatePlayerValues()
@@ -274,7 +205,7 @@ public class AnimalFactory : Singleton<AnimalFactory>
         player.RequiredXp = maxPoints;
     }
 
-    public void createTracks()
+    public void createTracksByPlayerPosition()
     {
         if (!tracksDelay)
         {
@@ -306,9 +237,65 @@ public class AnimalFactory : Singleton<AnimalFactory>
 
     IEnumerator resetDelay()
     {
-        yield return new WaitForSeconds(20f);
+        yield return new WaitForSeconds(resetDelayTime);
         tracksDelay = false;
+    }
+
+
+    private void createTrack(Animal animal )
+    {
+        if (liveAnimals.Count <= 1)
+        {
+            var tracksNumber = Random.Range(10, 10);
+            var step = 0;
+
+           var xPositive = isPositve();
+           var yPositive = isPositve();
+
+            GameObject prevFootstep = null;
+
+            for (int i = 0; i < tracksNumber; i++)
+            {
+
+                var basic = (float)distanceZone.close + step;
+                var distanceX = Random.Range(basic, basic + (float)distanceZone.middle) *  xPositive;
+                var distanceZ = Random.Range(basic, basic + (float)distanceZone.middle) *  yPositive;
+
+                var distance = new Vector3(distanceX, 0, distanceZ);
+
+                var position = animal.transform.position  + distance;
+                var footstep = Instantiate(AvailableFootsteps[0], position, Quaternion.identity);
+
+
+
+                //roration of track
+                if (!prevFootstep) { prevFootstep = animal.gameObject; };
+
+                var headingAnimal = prevFootstep.transform.position - footstep.transform.position;
+
+                var distanceFromAnimal = headingAnimal.magnitude;
+                var directionToPrevFootstep = headingAnimal / distanceFromAnimal;
+
+                footstep.transform.rotation = Quaternion.LookRotation(directionToPrevFootstep);
+
+                prevFootstep = footstep;
+                step += 10;
+            }
+           
+
+        }
 
     }
 
+    private int isPositve()
+    {
+        bool isPositive = Random.Range(0, 10) < 5;
+        return (isPositive ? 1 : -1);
+    }
+
+    private int isPositveNumber(float number )
+    {
+        bool isPositive = number >= 0;
+        return (isPositive ? 1 : -1);
+    }
 }
