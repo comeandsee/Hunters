@@ -244,9 +244,9 @@ public class AnimalFactory : Singleton<AnimalFactory>
 
     private void createTrack(Animal animal )
     {
-        if (liveAnimals.Count <= 1)
+       // if (liveAnimals.Count <= 1)
         {
-            var tracksNumber = Random.Range(10, 10);
+            var tracksNumber = Random.Range(2, 5);
             var step = 0;
 
            var xPositive = isPositve();
@@ -266,6 +266,7 @@ public class AnimalFactory : Singleton<AnimalFactory>
                 var position = animal.transform.position  + distance;
                 var footstep = Instantiate(AvailableFootsteps[0], position, Quaternion.identity);
 
+               // footstep.GetComponent<Renderer>().material.color = Color.blue;
 
 
                 //roration of track
