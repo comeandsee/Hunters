@@ -29,6 +29,8 @@ public class AnimalFactory : Singleton<AnimalFactory>
     private string nameSelectedAnimal = "animal";
     private int pointsSelectedAnimal = 100;
 
+    private bool tracksDelay = false;
+
     private Player player;
 
 
@@ -274,19 +276,25 @@ public class AnimalFactory : Singleton<AnimalFactory>
 
     public void createTracks()
     {
-        var playerPosition = getPlayerPosition();
+        if (!tracksDelay)
+        {
+            var playerPosition = getPlayerPosition();
 
-        //position of target
-        var heading = selectedAnimal.transform.position - playerPosition;
-        var distance = heading.magnitude;
-        var direction = heading / distance;
+            //position of target
+            var heading = selectedAnimal.transform.position - playerPosition;
+            var distance = heading.magnitude;
+            var direction = heading / distance;
 
-        heading.y = 0;
+            heading.y = 0;
 
-        var position = playerPosition + direction;
+            var position = playerPosition + direction;
 
-        liveAnimalsFootsteps.Add(Instantiate(AvailableFootsteps[0], position, Quaternion.identity));
-        liveAnimalsFootsteps.Last().transform.rotation = Quaternion.LookRotation(direction);
+            liveAnimalsFootsteps.Add(Instantiate(AvailableFootsteps[0], position, Quaternion.identity));
+            liveAnimalsFootsteps.Last().transform.rotation = Quaternion.LookRotation(direction);
+
+            tracksDelay = true;
+            StartCoroutine(resetDelay());
+        }
     }
 
 
@@ -295,4 +303,12 @@ public class AnimalFactory : Singleton<AnimalFactory>
         var player = GameObject.FindWithTag("Player");
         return player.transform.position;
     }
+
+    IEnumerator resetDelay()
+    {
+        yield return new WaitForSeconds(20f);
+        tracksDelay = false;
+
+    }
+
 }

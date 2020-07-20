@@ -27,7 +27,7 @@ public static class HuntersConstants
     {
         close = 5, //5m
         middle = 10,
-        away = 50,
+        away = 15,
         tooFar
     }
 }
