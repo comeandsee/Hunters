@@ -16,13 +16,13 @@ public class HuntARManager : Singleton<HuntARManager>
     // Start is called before the first frame update
     void Start()
     {
-      //  GetHuntedAnimal();
+        GetHuntedAnimal();
     }
 
     // Update is called once per frame
     void Update()
     {
-     //   huntAnimal();
+        //huntAnimal();
     }
 
     public void GetHuntedAnimal()
@@ -32,23 +32,23 @@ public class HuntARManager : Singleton<HuntARManager>
 
     private void getAnimalWithMinDistance()
     {
-        var liveAnimals = AnimalFactory.Instance.LiveAnimals;
+        var liveAnimals = AnimalFactory.Instance.AnimalsInstances;
 
         Animal animalWithMinDistance = null;
         double minDistance;
 
         //first animal
-        minDistance = calculateDistance(GameObject.FindWithTag("Player"), liveAnimals[0].gameObject);
+        minDistance = calculateDistance(GameObject.FindWithTag("Player"), liveAnimals[0].Animal.gameObject);
 
 
         //find min distance
-        foreach (Animal liveAnimal in liveAnimals)
+        foreach (var liveAnimal in liveAnimals)
         {
-            var distance = calculateDistance(GameObject.FindWithTag("Player"), liveAnimal.gameObject);
+            var distance = calculateDistance(GameObject.FindWithTag("Player"), liveAnimal.Animal.gameObject);
 
             if (distance <= minDistance)
             {
-                animalWithMinDistance = liveAnimal;
+                animalWithMinDistance = liveAnimal.Animal;
                 minDistance = distance;
             }
         }
@@ -65,16 +65,12 @@ public class HuntARManager : Singleton<HuntARManager>
    
     private void huntAnimal()
     {
-        if (areTracks)
-        {
-            var distanceState = UpdateHuntingAnimalDistance(huntedAnimal);
+        var distanceState = UpdateHuntingAnimalDistance(huntedAnimal);
 
-            //slady tutaj dodaj
-            AnimalFactory.Instance.createTracksByPlayerPosition();
+        AnimalFactory.Instance.createTracksByPlayerPosition();
 
-         //   areTracks = false;
-        }
-
+        //usuwanie sladow
+        //todo
     }
 
     private distanceZone UpdateHuntingAnimalDistance(Animal searchingAnimal)

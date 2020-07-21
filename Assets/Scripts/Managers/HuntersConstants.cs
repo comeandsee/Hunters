@@ -16,7 +16,7 @@ public static class HuntersConstants
     public static int maxLvl = 5;
     public static float maxDistance = 100.0f;
 
-    public static int startingAnimals = 5;
+    public static int startingAnimals = 6;
     public static float minRange = 2.0f;
     public static float maxRange = 20.0f;
 
