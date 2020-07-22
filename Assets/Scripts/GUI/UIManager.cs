@@ -108,6 +108,7 @@ public class UIManager : MonoBehaviour
     {
         updateLevel();
         updateXP();
+        UpdateDistanceToNearestAnimal();
     }
     public void MenuBtnClicked()
     {
@@ -258,6 +259,18 @@ public class UIManager : MonoBehaviour
     private void isLocalGame()
     {
         isLocalGameToogle.isOn = HuntersConstants.isLocalGame;
+    }
+
+
+    private void UpdateDistanceToNearestAnimal()
+    {
+        double minDistance;
+        var player = GameObject.FindWithTag("Player");
+        var animal = HuntARManager.Instance.GetHuntedAnimal(out minDistance);
+
+        var distanceState = HuntARManager.Instance.updateDistanceStatus(minDistance);
+
+        updateDistanceStatusUI(distanceState);
     }
 
     /*  public void SetVolume()

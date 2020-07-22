@@ -16,10 +16,10 @@ public class HuntARManager : Singleton<HuntARManager>
     // Start is called before the first frame update
     void Start()
     {
-        FindHuntedAnimal();
+      //  FindHuntedAnimal();
     }
 
-    // Update is called once per frame
+  
     void Update()
     {
         //huntAnimal();
@@ -27,6 +27,7 @@ public class HuntARManager : Singleton<HuntARManager>
 
     private void FindHuntedAnimal()
     {
+        //get nearest animal 
         this.getHuntedAnimalAndUpdateUI();
     }
 
@@ -103,7 +104,7 @@ public class HuntARManager : Singleton<HuntARManager>
     }
 
 
-    private distanceZone updateDistanceStatus(double updatedDistance)
+    public distanceZone updateDistanceStatus(double updatedDistance)
     {
         distanceZone distanceState = distanceZone.tooFar;
 
