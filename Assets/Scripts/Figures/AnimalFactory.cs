@@ -80,6 +80,9 @@ public class AnimalFactory : Singleton<AnimalFactory>
         PointsSelectedAnimal = animal.Points;
 
         selectedAnimal = null;
+
+        var uI = FindObjectOfType<UIManager>();
+        uI.ShowSuccessBox() ;
     }
 
     public Animal[] AvailableAnimals { get => availableAnimals; set => availableAnimals = value; }

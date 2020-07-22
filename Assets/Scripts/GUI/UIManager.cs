@@ -29,6 +29,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private InputField minRangeInputField;
     [SerializeField] private Toggle isLocalGameToogle;
 
+    [SerializeField] private GameObject SuccessBox;
+    [SerializeField] private Text animalNameTxt;
+    [SerializeField] private Text animalPointsTxt;
+
     // public Slider musicVolume;
 
     private AudioSource audioSource;
@@ -267,6 +271,22 @@ public class UIManager : MonoBehaviour
 
     }
 
+
+    public void ShowSuccessBox()
+    {
+        SuccessBox.gameObject.SetActive(true);
+        animalNameTxt.text = AnimalFactory.Instance.NameSelectedAnimal.Replace("(Clone)", "");
+        animalPointsTxt.text = "+ " + AnimalFactory.Instance.PointsSelectedAnimal.ToString() ;
+
+        StartCoroutine(waitAndCloseSuccessBox());
+    }
+
+    private IEnumerator waitAndCloseSuccessBox()
+    {
+        yield return new WaitForSeconds(2.0f);
+        SuccessBox.gameObject.SetActive(false);
+
+    }
     /*  public void SetVolume()
       { 
           AudioSource [] ad  = GetComponents<AudioSource>();
