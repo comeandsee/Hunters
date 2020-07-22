@@ -21,6 +21,9 @@ public static class HuntersConstants
     public static float maxRange = 20.0f;
 
     public static bool isAreaGame = true;
+    public static bool isGdansk = true;
+
+    public static float gameAreaMaxDistance = 100.0f;
 
 
     public enum distanceZone

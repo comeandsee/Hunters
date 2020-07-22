@@ -16,7 +16,7 @@ public class HuntARManager : Singleton<HuntARManager>
     // Start is called before the first frame update
     void Start()
     {
-        GetHuntedAnimal();
+        FindHuntedAnimal();
     }
 
     // Update is called once per frame
@@ -25,17 +25,28 @@ public class HuntARManager : Singleton<HuntARManager>
         //huntAnimal();
     }
 
-    public void GetHuntedAnimal()
+    private void FindHuntedAnimal()
     {
-        this.getAnimalWithMinDistance();
+        this.getHuntedAnimalAndUpdateUI();
     }
 
-    private void getAnimalWithMinDistance()
+    private void getHuntedAnimalAndUpdateUI()
+    {
+        double minDistance;
+        huntedAnimal = GetHuntedAnimal(out minDistance);
+
+        AnimalFactory.Instance.SelectedAnimal = huntedAnimal;
+
+        var distanceState = updateDistanceStatus(minDistance);
+        var uI = FindObjectOfType<UIManager>();
+        uI.updateDistanceStatusUI(distanceState);
+    }
+
+    public Animal GetHuntedAnimal( out double minDistance)
     {
         var liveAnimals = AnimalFactory.Instance.AnimalsInstances;
 
         Animal animalWithMinDistance = null;
-        double minDistance;
 
         //first animal
         minDistance = calculateDistance(GameObject.FindWithTag("Player"), liveAnimals[0].Animal.gameObject);
@@ -53,16 +64,9 @@ public class HuntARManager : Singleton<HuntARManager>
             }
         }
 
-        huntedAnimal = animalWithMinDistance;
-
-        AnimalFactory.Instance.SelectedAnimal = huntedAnimal;
-
-        var distanceState = updateDistanceStatus(minDistance);
-        var uI = FindObjectOfType<UIManager>();
-        uI.updateDistanceStatusUI(distanceState);
+        return animalWithMinDistance;
     }
 
-   
     private void huntAnimal()
     {
         var distanceState = UpdateHuntingAnimalDistance(huntedAnimal);

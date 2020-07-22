@@ -22,7 +22,7 @@ public class Location
         public Coordinates southEast;
         public Coordinates southWest;
 
-        public GameAreaCoordinates(Coordinates northWest, Coordinates northEast, Coordinates southEast, Coordinates southWest)
+        public GameAreaCoordinates(Coordinates northWest, Coordinates northEast, Coordinates southEast, Coordinates southWest, Coordinates centerPoint)
         {
             this.northWest = northWest;
             this.northEast = northEast;
@@ -30,19 +30,27 @@ public class Location
             this.southWest = southWest;
         }
 
-        public GameAreaCoordinates()
-        {
-            this.northWest = new Coordinates(60.193635f, 24.967477f);
-            this.northEast = new Coordinates(60.193736f, 24.971189f);
-            this.southEast = new Coordinates(60.192200f, 24.9687445f);
-            this.southWest = new Coordinates(60.191901f, 24.970663f);
-        }
         public GameAreaCoordinates(bool isGdansk)
         {
-            this.northWest = new Coordinates(54.367873f, 18.609933f);
-            this.northEast = new Coordinates(54.367857f, 18.612052f);
-            this.southEast = new Coordinates(54.366369f, 18.611564f);
-            this.southWest = new Coordinates(54.366553f, 18.609472f);
+            if (isGdansk)
+            {
+                this.northWest = new Coordinates(54.367929f, 18.609691f);
+                this.northEast = new Coordinates(54.367909f, 18.611730f);
+                this.southEast = new Coordinates(54.366359f, 18.611526f);
+                this.southWest = new Coordinates(54.366479f, 18.609584f);
+
+               // this.centerPoint = new Coordinates(54.367067f, 18.610597f);
+            }
+            else
+            {
+                this.northWest = new Coordinates(60.191901f, 24.970663f);
+                this.northEast = new Coordinates(60.191901f, 24.970663f);
+                this.southEast = new Coordinates(60.190312f, 24.970084f);
+                this.southWest = new Coordinates(60.190477f, 24.965600f);
+
+               // this.centerPoint = new Coordinates(60.191238f, 24.967917f);
+            }
+           
         }
     }
 }

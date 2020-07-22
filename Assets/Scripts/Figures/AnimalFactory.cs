@@ -32,6 +32,8 @@ public class AnimalFactory : Singleton<AnimalFactory>
     private Player player;
     private float resetDelayTime = 20f;
 
+    public bool isMapLoad = false;
+
 
     public void CreateAnimalsOnLvl(int lvl)
     {
@@ -99,6 +101,7 @@ public class AnimalFactory : Singleton<AnimalFactory>
         player = GameManager.Instance.CurrentPlayer;
         Assert.IsNotNull(player);
 
+        StartCoroutine(waitToMapLoad());
     }
 
     void Start()
@@ -121,7 +124,7 @@ public class AnimalFactory : Singleton<AnimalFactory>
             //  InstantiateAnimal();
 
             //on area
-            GameAreaCoordinates gameArea = new GameAreaCoordinates();
+            GameAreaCoordinates gameArea = new GameAreaCoordinates(HuntersConstants.isGdansk);
             int indexInAvaiableAnimals = LvlAnimalsIndex[i];
             InstantiateAnimalsOnArea(gameArea, indexInAvaiableAnimals);
         }
@@ -316,9 +319,14 @@ public class AnimalFactory : Singleton<AnimalFactory>
         yield return new WaitUntil(() => !_map.CenterMercator.normalized.Equals(new Vector2d(0.00000, 0.00000)));
         // LiveAnimalsManager.Instance.enabledFootprint(animalsInstances[1].Footsteps[1]);
       //  LiveAnimalsManager.Instance.enabledAllFootprints(false);
-        LiveAnimalsManager.Instance.showAllAnimals(false);
+      //  LiveAnimalsManager.Instance.showAllAnimals(false);
     }
 
+    private IEnumerator waitToMapLoad()
+    {
+        yield return new WaitUntil(() => !_map.CenterMercator.normalized.Equals(new Vector2d(0.00000, 0.00000)));
+        isMapLoad = true;
 
+    }
 
 }

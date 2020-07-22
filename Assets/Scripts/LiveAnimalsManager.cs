@@ -5,6 +5,9 @@ using static HuntersConstants;
 
 public class LiveAnimalsManager : Singleton<LiveAnimalsManager>
 {
+    private bool enabled = true; //odwrotnie
+    private bool disabled = false;
+    private float distance = (float)distanceZone.middle;
 
     private void Start()
     {
@@ -17,10 +20,7 @@ public class LiveAnimalsManager : Singleton<LiveAnimalsManager>
         var liveAnimals =  AnimalFactory.Instance.AnimalsInstances;
         foreach (var animal in liveAnimals)
         {
-            bool enabled = true;
-            bool disabled = false;
-            var distance = (float)distanceZone.middle;
-
+         
             if (GetDistance(playerPosition, animal.Animal.gameObject) <= distance)
             {
 

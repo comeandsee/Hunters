@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.UI;
 using static HuntersConstants;
+using static Location;
 
 public class UIManager : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject ARCam;
     [SerializeField] private GameObject Map;
     [SerializeField] private GameObject distanceInfoBox;
+    [SerializeField] private GameObject gameAreaMaxDistance;
     // public Slider musicVolume;
 
     private AudioSource audioSource;
@@ -39,6 +41,9 @@ public class UIManager : MonoBehaviour
         Assert.IsNotNull(mapCam);
         Assert.IsNotNull(ARCam);
         Assert.IsNotNull(Map);
+
+
+     //   StartCoroutine(waitToMapLoad()); 
     }
 
     public void showNewLvlBox(bool setActive=true)
@@ -180,12 +185,40 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void isGameAreaTooFar()
+    {
+        double minDistance;
+        var player = GameObject.FindWithTag("Player");
+        var animal = HuntARManager.Instance.GetHuntedAnimal(out minDistance);
+
+        var distance = GetDistance(player.transform.position, animal.gameObject);
 
 
+        if (distance >= HuntersConstants.gameAreaMaxDistance)
+        {
+            gameAreaMaxDistance.gameObject.SetActive(true);
+        }
+        else
+        {
+            gameAreaMaxDistance.gameObject.SetActive(false);
+        }
+    }
+    private float GetDistance(Vector3 playerPosition, GameObject gameObject)
+    {
+        var heading = gameObject.transform.position - playerPosition;
+        return heading.magnitude;
+    }
 
-  /*  public void SetVolume()
-    { 
-        AudioSource [] ad  = GetComponents<AudioSource>();
-        audioSource.volume = musicVolume.value;
-    }*/
+    private IEnumerator waitToMapLoad()
+    {
+        yield return new WaitUntil(() => AnimalFactory.Instance.isMapLoad == true);
+        isGameAreaTooFar();
+
+    }
+
+    /*  public void SetVolume()
+      { 
+          AudioSource [] ad  = GetComponents<AudioSource>();
+          audioSource.volume = musicVolume.value;
+      }*/
 }
