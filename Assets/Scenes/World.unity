@@ -4682,6 +4682,7 @@ GameObject:
   - component: {fileID: 1165489560}
   - component: {fileID: 1165489562}
   - component: {fileID: 1165489563}
+  - component: {fileID: 1165489564}
   m_Layer: 0
   m_Name: Loader
   m_TagString: Untagged
@@ -4793,10 +4794,21 @@ MonoBehaviour:
   - {fileID: 6098595989272956798, guid: 96b0a5c17b771dc448a4e4e06358d022, type: 3}
   - {fileID: 6871099861228231050, guid: 989ded0b352701641b179fcbff7466d6, type: 3}
   - {fileID: 7064917758606720814, guid: 468fde4e4cad1214a939b726a2f09e74, type: 3}
-  liveAnimals: []
-  liveAnimalsFootsteps: []
+  footstepsToManualSearch: []
   _map: {fileID: 1099197346}
   selectedAnimal: {fileID: 0}
+--- !u!114 &1165489564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1165489559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2b723d0fc7453946a0ed8cb052cc85f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1176356275
 GameObject:
   m_ObjectHideFlags: 0

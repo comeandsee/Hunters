@@ -16,16 +16,23 @@ public class LiveAnimal
 
     public Animal Animal { get => animal;  }
 
+
     public void addFootstep(GameObject gameObject)
     {
-        this.footsteps.Add(gameObject);
+        this.Footsteps.Add(gameObject);
     }
 
-    public void destoryFootsteps()
+    public void destroyAllFootsteps()
     {
-        foreach (var footstep in this.footsteps)
+        foreach (var footstep in this.Footsteps)
         {
             footstep.Destroy();
         }
     }
+
+
+    public List<GameObject> Footsteps { get => footsteps; }
+
+
+ 
 }

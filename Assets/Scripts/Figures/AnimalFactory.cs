@@ -39,7 +39,7 @@ public class AnimalFactory : Singleton<AnimalFactory>
 
         for (int i = 0; i < animalsInstances.Count; i++)
         {
-            animalsInstances[i].destoryFootsteps();
+            animalsInstances[i].destroyAllFootsteps();
             animalsInstances[i].Animal.deleteMe();
         }
         animalsInstances = new List<LiveAnimal>();
@@ -70,7 +70,7 @@ public class AnimalFactory : Singleton<AnimalFactory>
 
 
         var index = animalsInstances.IndexOf(animalsInstances.Find(a => a.Animal == animal));
-        animalsInstances[index].destoryFootsteps();
+        animalsInstances[index].destroyAllFootsteps();
 
         animalsInstances.RemoveAt(index);
 
@@ -98,6 +98,7 @@ public class AnimalFactory : Singleton<AnimalFactory>
         Assert.IsNotNull(AvailableAnimals);
         player = GameManager.Instance.CurrentPlayer;
         Assert.IsNotNull(player);
+
     }
 
     void Start()
@@ -108,6 +109,8 @@ public class AnimalFactory : Singleton<AnimalFactory>
         {
             CreateAnimalsOnLvl(lvl: player.Lvl);
         }
+
+      //  StartCoroutine( waitAndGo());
     }
 
 
@@ -308,7 +311,14 @@ public class AnimalFactory : Singleton<AnimalFactory>
         bool isPositive = number >= 0;
         return (isPositive ? 1 : -1);
     }
+    private IEnumerator waitAndGo()
+    {
+        yield return new WaitUntil(() => !_map.CenterMercator.normalized.Equals(new Vector2d(0.00000, 0.00000)));
+        // LiveAnimalsManager.Instance.enabledFootprint(animalsInstances[1].Footsteps[1]);
+      //  LiveAnimalsManager.Instance.enabledAllFootprints(false);
+        LiveAnimalsManager.Instance.showAllAnimals(false);
+    }
 
 
-   
+
 }
