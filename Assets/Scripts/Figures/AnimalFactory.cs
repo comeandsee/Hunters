@@ -121,12 +121,19 @@ public class AnimalFactory : Singleton<AnimalFactory>
     {
         for (int i = 0; i < HuntersConstants.startingAnimals; i++)
         {
-            //  InstantiateAnimal();
+            if (HuntersConstants.isLocalGame)
+            {
+                InstantiateAnimal();
+            }
+            else
+            {
+                //on specific area
+                GameAreaCoordinates gameArea = new GameAreaCoordinates(HuntersConstants.isGdansk);
+                int indexInAvaiableAnimals = LvlAnimalsIndex[i];
+                InstantiateAnimalsOnArea(gameArea, indexInAvaiableAnimals);
+            }
 
-            //on area
-            GameAreaCoordinates gameArea = new GameAreaCoordinates(HuntersConstants.isGdansk);
-            int indexInAvaiableAnimals = LvlAnimalsIndex[i];
-            InstantiateAnimalsOnArea(gameArea, indexInAvaiableAnimals);
+          
         }
         UpdatePlayerValues();
     }
@@ -146,10 +153,16 @@ public class AnimalFactory : Singleton<AnimalFactory>
         int indexInLvlAnimalsIndex = Random.Range(0, LvlAnimalsIndex.Count);
         int index = LvlAnimalsIndex[indexInLvlAnimalsIndex];
 
-        float x = player.transform.position.x + GenerateRange();
-        float z = player.transform.position.z + GenerateRange();
-        float y = player.transform.position.y;
+        var player = GameObject.FindWithTag("Player");
+        var playerPosition = player.transform.position;
+
+        float x = playerPosition.x + GenerateRange();
+        float z = playerPosition.z + GenerateRange();
+        float y = playerPosition.y;
         animalsInstances.Add( new LiveAnimal (Instantiate(AvailableAnimals[index], new Vector3(x, y, z), Quaternion.identity)));
+
+        var instanceInList = animalsInstances.Last();
+        createTrack(instanceInList.Animal, instanceInList);
     }
 
 

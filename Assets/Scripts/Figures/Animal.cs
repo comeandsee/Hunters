@@ -82,12 +82,12 @@ public class Animal : MonoBehaviour
                 {
                     if (huntersSceneManager.gameObject.activeSelf)
                     {
-                        if (!HuntersConstants.isAreaGame)
+                       /* if (!HuntersConstants.isAreaGame)
                         {
                             positionStart = this.gameObject.transform.position;
                             this.gameObject.transform.position = HuntersConstants.objectPositionInCaptureScene;
                             this.gameObject.transform.eulerAngles = HuntersConstants.objectRotationInCaptureScene;
-                        }
+                        }*/
                         huntersSceneManager.animalTapped(this.gameObject);
                     }
                 }

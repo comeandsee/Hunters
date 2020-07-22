@@ -47,14 +47,9 @@ public class Harvest : MonoBehaviour
         if (GatherAnimal)
         {
             Animal animal = AnimalFactory.Instance.SelectedAnimal;
-            if (HuntersConstants.isAreaGame)
-            {
-                animal.StartGatherInWordScene();
-            }
-            else
-            {
-                animal.GatherInCaptureScene();
-            }
+            animal.StartGatherInWordScene();
+            
+          
             if(animal.Hp == 0)
             {
                 audioSource.PlayOneShot(successSound);

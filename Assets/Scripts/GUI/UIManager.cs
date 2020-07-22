@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.UI;
@@ -17,12 +18,17 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject newLvlBox;
     [SerializeField] private GameObject winnerBox;
     [SerializeField] private GameObject rulesBox;
+    [SerializeField] private GameObject settingsBox;
     [SerializeField] private AudioClip menuBtnSound;
     [SerializeField] private Camera mapCam;
     [SerializeField] private GameObject ARCam;
     [SerializeField] private GameObject Map;
     [SerializeField] private GameObject distanceInfoBox;
     [SerializeField] private GameObject gameAreaMaxDistance;
+    [SerializeField] private InputField maxRangeInputField;
+    [SerializeField] private InputField minRangeInputField;
+    [SerializeField] private Toggle isLocalGameToogle;
+
     // public Slider musicVolume;
 
     private AudioSource audioSource;
@@ -43,7 +49,7 @@ public class UIManager : MonoBehaviour
         Assert.IsNotNull(Map);
 
 
-     //   StartCoroutine(waitToMapLoad()); 
+        //   StartCoroutine(waitToMapLoad()); 
     }
 
     public void showNewLvlBox(bool setActive=true)
@@ -61,6 +67,13 @@ public class UIManager : MonoBehaviour
         rulesBox.gameObject.SetActive(setActive);
     }
 
+    public void showSettingsBox(bool setActive = true)
+    {
+        settingsBox.gameObject.SetActive(setActive);
+        maxRangeInputField.text = HuntersConstants.maxRange.ToString();
+        minRangeInputField.text = HuntersConstants.minRange.ToString();
+        isLocalGame();
+    }
 
     public void showPositionBox(bool setActive = true)
     {
@@ -139,7 +152,7 @@ public class UIManager : MonoBehaviour
     public void SettingsBtnClicked()
     {
         audioSource.PlayOneShot(menuBtnSound);
-        //todo
+        showSettingsBox();
     }
 
 
@@ -161,6 +174,7 @@ public class UIManager : MonoBehaviour
     {
         audioSource.PlayOneShot(menuBtnSound);
         showRulesBox(false);
+        showSettingsBox(false);
     }
 
 
@@ -214,6 +228,36 @@ public class UIManager : MonoBehaviour
         yield return new WaitUntil(() => AnimalFactory.Instance.isMapLoad == true);
         isGameAreaTooFar();
 
+    }
+
+
+    public void isLocalGameChanged(Toggle change)
+    {
+        HuntersConstants.isLocalGame = change.isOn;
+        StartNewGame();
+    }
+
+    private static void StartNewGame()
+    {
+        int lvl = GameManager.Instance.CurrentPlayer.Lvl;
+        GameManager.Instance.CurrentPlayer.startFromBeginning(lvl);
+    }
+
+    public void minRange(InputField input)
+    {
+        HuntersConstants.minRange = float.Parse(input.text, CultureInfo.InvariantCulture.NumberFormat);
+        StartNewGame();
+    }
+
+    public void maxRange(InputField input)
+    {
+        HuntersConstants.maxRange = float.Parse(input.text, CultureInfo.InvariantCulture.NumberFormat);
+        StartNewGame();
+    }
+
+    private void isLocalGame()
+    {
+        isLocalGameToogle.isOn = HuntersConstants.isLocalGame;
     }
 
     /*  public void SetVolume()

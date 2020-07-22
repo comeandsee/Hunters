@@ -54,8 +54,6 @@ public class WorldSceneManager : HuntersSceneManager
         GameObject[] arrayOfChildrenOfAnimal;
         GetTappedAnimal(animalObject, out animal, out arrayOfChildrenOfAnimal);
 
-        if (HuntersConstants.isAreaGame)
-        {
             //todo
 
             //TODO
@@ -67,8 +65,6 @@ public class WorldSceneManager : HuntersSceneManager
 
                 Harvest harvest = FindObjectOfType<Harvest>();
                 harvest.GatherAnimal = true;
-
-
             }
             else
             {
@@ -76,32 +72,7 @@ public class WorldSceneManager : HuntersSceneManager
                 uI.showHuntBox();
                 StartCoroutine(WaitAndNotShowTxt(1.0f));
             }
-
-        }
-        else // this is game for the closest distance around the user
-        {
-            AnimalFactory.Instance.AnimalWasSelected(animal);
-
-            // hide all others obj
-            Animal[] allAnimals = FindObjectsOfType<Animal>();
-            foreach (Animal a in allAnimals)
-            {
-                a.hideObject();
-            }
-
-            //show tapped animal
-            foreach (GameObject childObj in arrayOfChildrenOfAnimal)
-            {
-                var child = childObj.GetComponent<Animal>();
-                child.showObject();
-            }
-
-            animal.showObject();
-
-            //go to capture scene
-            SceneTransitionManager.Instance.
-                GoToScene(HuntersConstants.SCENE_CAPTURE, new List<GameObject>());
-        }
+       
 
     }
 
