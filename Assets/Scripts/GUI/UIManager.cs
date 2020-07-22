@@ -200,36 +200,13 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void isGameAreaTooFar()
-    {
-        double minDistance;
-        var player = GameObject.FindWithTag("Player");
-        var animal = HuntARManager.Instance.GetHuntedAnimal(out minDistance);
 
-        var distance = GetDistance(player.transform.position, animal.gameObject);
-
-
-        if (distance >= HuntersConstants.gameAreaMaxDistance)
-        {
-            gameAreaMaxDistance.gameObject.SetActive(true);
-        }
-        else
-        {
-            gameAreaMaxDistance.gameObject.SetActive(false);
-        }
-    }
     private float GetDistance(Vector3 playerPosition, GameObject gameObject)
     {
         var heading = gameObject.transform.position - playerPosition;
         return heading.magnitude;
     }
 
-    private IEnumerator waitToMapLoad()
-    {
-        yield return new WaitUntil(() => AnimalFactory.Instance.isMapLoad == true);
-        isGameAreaTooFar();
-
-    }
 
 
     public void isLocalGameChanged(Toggle change)
@@ -266,11 +243,28 @@ public class UIManager : MonoBehaviour
     {
         double minDistance;
         var player = GameObject.FindWithTag("Player");
+        bool isGameAreaTooFar = true;
+
+
         var animal = HuntARManager.Instance.GetHuntedAnimal(out minDistance);
 
-        var distanceState = HuntARManager.Instance.updateDistanceStatus(minDistance);
+        if (animal == null)
+        {
+            isGameAreaTooFar = true;
+        }
+        else
+        {
+            var distanceState = HuntARManager.Instance.updateDistanceStatus(minDistance);
 
-        updateDistanceStatusUI(distanceState);
+            updateDistanceStatusUI(distanceState);
+
+            if (minDistance < HuntersConstants.maxDistance)
+            {
+                isGameAreaTooFar = false;
+            }
+        }
+        gameAreaMaxDistance.gameObject.SetActive(isGameAreaTooFar);
+
     }
 
     /*  public void SetVolume()

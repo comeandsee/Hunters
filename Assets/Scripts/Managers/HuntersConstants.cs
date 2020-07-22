@@ -21,7 +21,7 @@ public static class HuntersConstants
     public static float maxRange = 20.0f;
 
     public static bool isLocalGame = false;
-    public static bool isGdansk = false;
+    public static bool isGdansk = true;
 
     public static float gameAreaMaxDistance = 100.0f;
 

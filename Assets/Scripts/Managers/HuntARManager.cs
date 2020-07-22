@@ -50,6 +50,11 @@ public class HuntARManager : Singleton<HuntARManager>
         Animal animalWithMinDistance = null;
 
         //first animal
+        if(liveAnimals== null)
+        {
+            minDistance = -1;
+            return null;
+        }
         minDistance = calculateDistance(GameObject.FindWithTag("Player"), liveAnimals[0].Animal.gameObject);
 
 
