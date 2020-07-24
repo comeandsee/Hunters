@@ -3064,6 +3064,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 666642209}
   m_CullTransparentMesh: 0
+--- !u!1 &693972205 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1305285235433710, guid: da4c35291f8065643a84f15ad26eb3d4,
+    type: 3}
+  m_PrefabInstance: {fileID: 943664150}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &707241895
 GameObject:
   m_ObjectHideFlags: 0
@@ -4129,6 +4135,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 864336628}
     m_Modifications:
+    - target: {fileID: 1305285235433710, guid: da4c35291f8065643a84f15ad26eb3d4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1530986124253168, guid: da4c35291f8065643a84f15ad26eb3d4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1589080780349302, guid: da4c35291f8065643a84f15ad26eb3d4, type: 3}
       propertyPath: m_Name
       value: Player
@@ -6337,7 +6351,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.23379509, y: 0.24340987}
   m_AnchorMax: {x: 0.76900005, y: 0.31728896}
-  m_AnchoredPosition: {x: -1.0000153, y: 2}
+  m_AnchoredPosition: {x: -1.0000305, y: 2}
   m_SizeDelta: {x: 1.6000061, y: 5.5}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1413087030
@@ -7788,6 +7802,7 @@ MonoBehaviour:
   maxRangeInputField: {fileID: 1222439776}
   minRangeInputField: {fileID: 1758390013}
   isLocalGameToogle: {fileID: 909464828}
+  playerBody: {fileID: 693972205}
   SuccessBox: {fileID: 260408181}
   animalNameTxt: {fileID: 1934174009}
   animalPointsTxt: {fileID: 655421727}
@@ -10316,7 +10331,6 @@ GameObject:
   - component: {fileID: 2072167243}
   - component: {fileID: 2072167242}
   - component: {fileID: 2072167241}
-  - component: {fileID: 2072167240}
   - component: {fileID: 2072167239}
   m_Layer: 5
   m_Name: GUIAR
@@ -10421,25 +10435,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &2072167240
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2072167238}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8907a1c659cff74b9b2c56a8b87cdfd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  manager: {fileID: 0}
-  successScreen: {fileID: 260408181}
-  failScreen: {fileID: 839484906}
-  gameScreen: {fileID: 0}
-  HPCountText: {fileID: 0}
-  animalNameTxt: {fileID: 1934174009}
-  animalPointsTxt: {fileID: 655421727}
 --- !u!114 &2072167241
 MonoBehaviour:
   m_ObjectHideFlags: 0

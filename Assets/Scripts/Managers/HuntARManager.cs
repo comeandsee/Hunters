@@ -50,7 +50,7 @@ public class HuntARManager : Singleton<HuntARManager>
         Animal animalWithMinDistance = null;
 
         //first animal
-        if(liveAnimals== null)
+        if(liveAnimals. Count == 0)
         {
             minDistance = -1;
             return null;

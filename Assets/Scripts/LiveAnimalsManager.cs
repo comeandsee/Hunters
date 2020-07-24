@@ -5,8 +5,8 @@ using static HuntersConstants;
 
 public class LiveAnimalsManager : Singleton<LiveAnimalsManager>
 {
-    private bool enabled = false; //odwrotnie
-    private bool disabled = true;
+    private bool enabled = true; //odwrotnie
+    private bool disabled = false;
     private float distance = (float)distanceZone.middle;
 
     private void Start()

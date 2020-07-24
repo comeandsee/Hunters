@@ -126,7 +126,7 @@ public class AnimalFactory : Singleton<AnimalFactory>
         {
             if (HuntersConstants.isLocalGame)
             {
-                InstantiateAnimal();
+                InstantiateAnimal(i);
             }
             else
             {
@@ -151,9 +151,9 @@ public class AnimalFactory : Singleton<AnimalFactory>
         }
     }
 
-    private void InstantiateAnimal()
+    private void InstantiateAnimal(int indexInLvlAnimalsIndex)
     {
-        int indexInLvlAnimalsIndex = Random.Range(0, LvlAnimalsIndex.Count);
+        //int indexInLvlAnimalsIndex = Random.Range(0, LvlAnimalsIndex.Count);
         int index = LvlAnimalsIndex[indexInLvlAnimalsIndex];
 
         var player = GameObject.FindWithTag("Player");

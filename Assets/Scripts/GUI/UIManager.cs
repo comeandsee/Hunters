@@ -28,6 +28,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private InputField maxRangeInputField;
     [SerializeField] private InputField minRangeInputField;
     [SerializeField] private Toggle isLocalGameToogle;
+    [SerializeField] private GameObject playerBody;
 
     [SerializeField] private GameObject SuccessBox;
     [SerializeField] private Text animalNameTxt;
@@ -128,6 +129,7 @@ public class UIManager : MonoBehaviour
 
     public void changeCam()
     {
+        playerBody.SetActive(!playerBody.activeSelf);
         mapCam.enabled = !mapCam.enabled;
         ARCam.SetActive(!ARCam.activeSelf);
         distanceInfoBox.gameObject.SetActive(!distanceInfoBox.activeSelf);
