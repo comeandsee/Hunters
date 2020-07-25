@@ -56,6 +56,7 @@ public class AnimalFactory : Singleton<AnimalFactory>
         }
 
         createAnimals();
+        createAnimals();
     }
 
    
@@ -192,6 +193,7 @@ public class AnimalFactory : Singleton<AnimalFactory>
         float[] xArray = { gameArea.northWest.lat, gameArea.northEast.lat, gameArea.southEast.lat, gameArea.southWest.lat };
         float[] yArray = { gameArea.northWest.lon, gameArea.northEast.lon, gameArea.southEast.lon, gameArea.southWest.lon };
 
+       // Location.CalculateCoordinates();
         float randomLat = Random.Range(xArray.Min(), xArray.Max());
         float randomLon = Random.Range(yArray.Min(), yArray.Max());
 
@@ -275,7 +277,7 @@ public class AnimalFactory : Singleton<AnimalFactory>
     private void createTrack(Animal animal, LiveAnimal instanceInList)
     {
 
-        var tracksNumber = Random.Range(2, 5);
+        var tracksNumber = Random.Range(4, 10);
         var step = 0;
 
         var xPositive = isPositve();
@@ -313,7 +315,7 @@ public class AnimalFactory : Singleton<AnimalFactory>
             footstep.transform.rotation = Quaternion.LookRotation(directionToPrevFootstep);
 
             prevFootstep = footstep;
-            step += 5;
+            step += 7;
         }
 
 
