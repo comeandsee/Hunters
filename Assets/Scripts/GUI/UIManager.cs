@@ -30,10 +30,12 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Toggle isLocalGameToogle;
     [SerializeField] private GameObject playerBody;
     [SerializeField] private GameObject camRotationButton;
+    [SerializeField] private GameObject huntedAnimalHPBox;
 
     [SerializeField] private GameObject SuccessBox;
     [SerializeField] private Text animalNameTxt;
     [SerializeField] private Text animalPointsTxt;
+    [SerializeField] private Text huntedAnimalHPTxt;
 
     // public Slider musicVolume;
 
@@ -54,6 +56,7 @@ public class UIManager : MonoBehaviour
         Assert.IsNotNull(mapCam);
         Assert.IsNotNull(ARCam);
         Assert.IsNotNull(Map);
+        Assert.IsNotNull(huntedAnimalHPBox);
 
 
         //   StartCoroutine(waitToMapLoad()); 
@@ -62,6 +65,11 @@ public class UIManager : MonoBehaviour
     public void showNewLvlBox(bool setActive=true)
     {
         newLvlBox.gameObject.SetActive(setActive);
+    }
+
+    public void showHuntedAnimalHPBox(bool setActive = true)
+    {
+        huntedAnimalHPBox.gameObject.SetActive(setActive);
     }
 
     public void showWinnerBox(bool setActive = true)
@@ -121,7 +129,15 @@ public class UIManager : MonoBehaviour
         updateLevel();
         updateXP();
         UpdateDistanceToNearestAnimal();
+        updateHuntedAnimalHPText();
     }
+
+    private  void updateHuntedAnimalHPText()
+    {
+        if (!huntedAnimalHPTxt.IsActive()) return;
+        huntedAnimalHPTxt.text = AnimalFactory.Instance.SelectedAnimal.Hp.ToString();
+    }
+
     public void MenuBtnClicked()
     {
         audioSource.PlayOneShot(menuBtnSound);

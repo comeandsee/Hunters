@@ -7783,6 +7783,7 @@ MonoBehaviour:
   minRangeInputField: {fileID: 1758390013}
   isLocalGameToogle: {fileID: 909464828}
   playerBody: {fileID: 693972205}
+  camRotationButton: {fileID: 1662562088}
   SuccessBox: {fileID: 260408181}
   animalNameTxt: {fileID: 1934174009}
   animalPointsTxt: {fileID: 655421727}
@@ -8421,7 +8422,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -0.000030517578, y: 0}
+  m_AnchoredPosition: {x: -0.000061035156, y: 0}
   m_SizeDelta: {x: 195, y: 194}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1662562090

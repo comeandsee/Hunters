@@ -165,7 +165,7 @@ public List<Transform> getGeneratedObjects()
             Destroy(gameObject);
 
         }
-        CreateParticles();
+        //CreateParticles();
        
     }
     public void GatherInCaptureScene()

@@ -47,12 +47,15 @@ public class Harvest : MonoBehaviour
         if (GatherAnimal)
         {
             Animal animal = AnimalFactory.Instance.SelectedAnimal;
+            var uI = FindObjectOfType<UIManager>();
+            uI.showHuntedAnimalHPBox();
             animal.StartGatherInWordScene();
             
           
             if(animal.Hp == 0)
             {
                 audioSource.PlayOneShot(successSound);
+                uI.showHuntedAnimalHPBox(false);
                 GatherAnimal = false;
             }
         }
