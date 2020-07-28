@@ -57,7 +57,7 @@ public class Animal : MonoBehaviour
 
     private void OnMouseDown()
     {
-
+       // if (EventSystem.current.IsPointerOverGameObject()) return;
         StartCoroutine(clickedAnimalSound());
 
         Scene currentScene = SceneManager.GetActiveScene();
@@ -65,7 +65,6 @@ public class Animal : MonoBehaviour
 
         if (sceneName == HuntersConstants.SCENE_WORLD)
         {
-           
             var animalPosition = this.gameObject.transform.position;
 
             var player = GameObject.FindWithTag("Player");
@@ -82,12 +81,6 @@ public class Animal : MonoBehaviour
                 {
                     if (huntersSceneManager.gameObject.activeSelf)
                     {
-                       /* if (!HuntersConstants.isAreaGame)
-                        {
-                            positionStart = this.gameObject.transform.position;
-                            this.gameObject.transform.position = HuntersConstants.objectPositionInCaptureScene;
-                            this.gameObject.transform.eulerAngles = HuntersConstants.objectRotationInCaptureScene;
-                        }*/
                         huntersSceneManager.animalTapped(this.gameObject);
                     }
                 }

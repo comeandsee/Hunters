@@ -29,6 +29,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private InputField minRangeInputField;
     [SerializeField] private Toggle isLocalGameToogle;
     [SerializeField] private GameObject playerBody;
+    [SerializeField] private GameObject camRotationButton;
 
     [SerializeField] private GameObject SuccessBox;
     [SerializeField] private Text animalNameTxt;
@@ -37,6 +38,7 @@ public class UIManager : MonoBehaviour
     // public Slider musicVolume;
 
     private AudioSource audioSource;
+    private int camPositionNumber = 1; 
 
     private void Awake()
     {
@@ -70,6 +72,11 @@ public class UIManager : MonoBehaviour
     public void showRulesBox(bool setActive = true)
     {
         rulesBox.gameObject.SetActive(setActive);
+    }
+
+    public void showCamRotationButton(bool setActive = true)
+    {
+        camRotationButton.gameObject.SetActive(setActive);
     }
 
     public void showSettingsBox(bool setActive = true)
@@ -139,7 +146,8 @@ public class UIManager : MonoBehaviour
         {
             r.enabled = !r.enabled;
         }
-        //tutaj jesli chcesz zeby za kazdym razem inne zwierze sledzilo - najlizsze
+
+        showCamRotationButton(!camRotationButton.activeSelf);
     }
 
     public void StartBtnClicked()
@@ -161,6 +169,44 @@ public class UIManager : MonoBehaviour
         audioSource.PlayOneShot(menuBtnSound);
         showSettingsBox();
     }
+
+    public void CamRotationBtnClicked()
+    {
+        audioSource.PlayOneShot(menuBtnSound);
+
+        camPositionNumber += 1;
+        if (camPositionNumber == 5) camPositionNumber = 1;
+
+        var player = GameObject.FindWithTag("Player");
+        (Vector3, Vector3) camSetting;
+
+        switch (camPositionNumber)
+        {
+            case 1:
+                 camSetting = HuntersConstants.CamOnNorth();
+                break;
+            case 2:
+                camSetting = HuntersConstants.CamOnEast();
+                break;
+            case 3:
+                camSetting = HuntersConstants.CamOnSouth();
+                break;
+            case 4:
+                camSetting = HuntersConstants.CamOnWest();
+                break;
+            default:
+                camSetting = HuntersConstants.CamOnNorth();
+                break;
+        }
+
+       
+        mapCam.transform.position = camSetting.Item1 + player.transform.position;
+        mapCam.transform.rotation = Quaternion.Euler(camSetting.Item2);
+
+
+        
+    }
+
 
 
     public IEnumerator WaitAndHideNewLvlBox(float waitTime)

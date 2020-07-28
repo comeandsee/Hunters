@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -34,4 +35,10 @@ public static class HuntersConstants
         away = 15,
         tooFar
     }
+
+    public static (Vector3, Vector3) CamOnNorth() => (new Vector3(0, 44, -37), new Vector3(44, 0, 0));
+    public static (Vector3, Vector3) CamOnWest() => (new Vector3(-37, 44, 0), new Vector3(44, 90, 0));
+    public static (Vector3, Vector3) CamOnSouth() => (new Vector3(0, 44, 37), new Vector3(44, 180, 0));
+    public static (Vector3, Vector3) CamOnEast() => (new Vector3(37, 44, 0), new Vector3(44, -90, 0));
+
 }

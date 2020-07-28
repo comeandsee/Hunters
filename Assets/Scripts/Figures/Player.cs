@@ -19,10 +19,19 @@ public class Player : MonoBehaviour {
 	private string path;
 
     [SerializeField] public float Timer = 0.0f;
+    private float addPointTime = 60.0f;
+    private float lastUpdate = 0.0f;
+    private int bonusXP = 1;
 
     public void Update()
     {
         Timer += Time.deltaTime;
+        if(Time.time - lastUpdate >= addPointTime)
+        {
+            bonusXP = (int)(0.01 * requiredXp);
+            AddXp(bonusXP);
+            lastUpdate = Time.time;
+        }
 
     }
     public int Xp {
