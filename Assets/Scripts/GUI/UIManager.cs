@@ -28,9 +28,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] private InputField maxRangeInputField;
     [SerializeField] private InputField minRangeInputField;
     [SerializeField] private Toggle isLocalGameToogle;
+    [SerializeField] private Toggle isDebugModeToogle;
     [SerializeField] private GameObject playerBody;
     [SerializeField] private GameObject camRotationButton;
     [SerializeField] private GameObject huntedAnimalHPBox;
+    [SerializeField] private GameObject aboutBox;
 
     [SerializeField] private GameObject SuccessBox;
     [SerializeField] private Text animalNameTxt;
@@ -93,6 +95,7 @@ public class UIManager : MonoBehaviour
         maxRangeInputField.text = HuntersConstants.maxRange.ToString();
         minRangeInputField.text = HuntersConstants.minRange.ToString();
         isLocalGame();
+        isDebugMode();
     }
 
     public void showPositionBox(bool setActive = true)
@@ -289,6 +292,12 @@ public class UIManager : MonoBehaviour
         GameManager.Instance.CurrentPlayer.startFromBeginning(lvl);
     }
 
+    public void isLDebugModeChanged(Toggle change)
+    {
+        HuntersConstants.isDebugMode = change.isOn;
+        StartNewGame();
+    }
+
     public void minRange(InputField input)
     {
         HuntersConstants.minRange = float.Parse(input.text, CultureInfo.InvariantCulture.NumberFormat);
@@ -304,6 +313,11 @@ public class UIManager : MonoBehaviour
     private void isLocalGame()
     {
         isLocalGameToogle.isOn = HuntersConstants.isLocalGame;
+    }
+
+    private void isDebugMode()
+    {
+        isDebugModeToogle.isOn = HuntersConstants.isDebugMode;
     }
 
 
@@ -350,6 +364,23 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
         SuccessBox.gameObject.SetActive(false);
 
+    }
+
+    public void exitGame()
+    {
+        audioSource.PlayOneShot(menuBtnSound);
+        Application.Quit();
+    }
+
+    public void aboutBtnClicked()
+    {
+        audioSource.PlayOneShot(menuBtnSound);
+        aboutBox.gameObject.SetActive(!aboutBox.activeSelf);
+    }
+
+    public void exitAboutBox()
+    {
+        aboutBox.gameObject.SetActive(false);
     }
     /*  public void SetVolume()
       { 

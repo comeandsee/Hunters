@@ -6,11 +6,22 @@ using static HuntersConstants;
 public class LiveAnimalsManager : Singleton<LiveAnimalsManager>
 {
     private bool enabled = true; 
-    private bool disabled = true;
-    private float distance = (float)distanceZone.close;
+    private bool disabled = false;
+    private float distance = (float)distanceZone.middle;
 
     private void Update()
     {
+        if (HuntersConstants.isDebugMode)
+        {
+            enabled = true;
+            disabled = true;
+        }
+        else
+        {
+            enabled = true;
+            disabled = false;
+        }
+
         var playerPosition = getPlayerPosition();
         var liveAnimals =  AnimalFactory.Instance.AnimalsInstances;
         foreach (var animal in liveAnimals)
