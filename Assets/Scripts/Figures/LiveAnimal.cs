@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class LiveAnimal
 {
-
     private Animal animal;
     private List<GameObject> footsteps = new List<GameObject>();
 
@@ -15,13 +14,10 @@ public class LiveAnimal
     }
 
     public Animal Animal { get => animal;  }
-
-
     public void addFootstep(GameObject gameObject)
     {
         this.Footsteps.Add(gameObject);
     }
-
     public void destroyAllFootsteps()
     {
         foreach (var footstep in this.Footsteps)
@@ -29,10 +25,5 @@ public class LiveAnimal
             footstep.Destroy();
         }
     }
-
-
     public List<GameObject> Footsteps { get => footsteps; }
-
-
- 
 }

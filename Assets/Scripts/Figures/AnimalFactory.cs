@@ -16,14 +16,11 @@ public class AnimalFactory : Singleton<AnimalFactory>
 {
     [SerializeField] private Animal[] availableAnimals;
     [SerializeField] private GameObject[] availableFootsteps;
-    // [SerializeField] private List<Animal> liveAnimals = new List<Animal>();
-    //[SerializeField] private List<GameObject> liveAnimalsFootsteps = new List<GameObject>();
     [SerializeField] private List<LiveAnimal> animalsInstances = new List<LiveAnimal>();
-
     [SerializeField] private List<GameObject> footstepsToManualSearch = new List<GameObject>();
     [SerializeField] AbstractMap _map;
 
-    [SerializeField] private Animal selectedAnimal;
+    private Animal selectedAnimal;
 
     private List<int> lvlAnimalsIndex = new List<int>();
     private string nameSelectedAnimal = "animal";
@@ -31,6 +28,9 @@ public class AnimalFactory : Singleton<AnimalFactory>
     private bool tracksDelay = false;
     private Player player;
     private float resetDelayTime = 20f;
+    private int minFootstepsNumber = 3;
+    private int maxFootstepsNumber = 5;
+
 
     public bool isMapLoad = false;
 
@@ -54,9 +54,7 @@ public class AnimalFactory : Singleton<AnimalFactory>
                 LvlAnimalsIndex.Add(i);
             }
         }
-
-        createAnimals();
-        createAnimals();
+        createAnimals();     
     }
 
    
@@ -70,7 +68,6 @@ public class AnimalFactory : Singleton<AnimalFactory>
     public void gatherAnimal(Animal animal)
     {
         player.AddXp(animal.Points);
-
 
         var index = animalsInstances.IndexOf(animalsInstances.Find(a => a.Animal == animal));
         animalsInstances[index].destroyAllFootsteps();
@@ -131,13 +128,10 @@ public class AnimalFactory : Singleton<AnimalFactory>
             }
             else
             {
-                //on specific area
                 GameAreaCoordinates gameArea = new GameAreaCoordinates(HuntersConstants.isGdansk);
                 int indexInAvaiableAnimals = LvlAnimalsIndex[i];
                 InstantiateAnimalsOnArea(gameArea, indexInAvaiableAnimals);
             }
-
-          
         }
         UpdatePlayerValues();
     }
@@ -154,7 +148,6 @@ public class AnimalFactory : Singleton<AnimalFactory>
 
     private void InstantiateAnimal(int indexInLvlAnimalsIndex)
     {
-        //int indexInLvlAnimalsIndex = Random.Range(0, LvlAnimalsIndex.Count);
         int index = LvlAnimalsIndex[indexInLvlAnimalsIndex];
 
         var player = GameObject.FindWithTag("Player");
@@ -180,12 +173,13 @@ public class AnimalFactory : Singleton<AnimalFactory>
 
 
     private void InstantiateAnimalsOnArea(GameAreaCoordinates gameArea, int indexInAvaiableAnimals)
-    {
-        // int indexInLvlAnimalsIndex = Random.Range(0, LvlAnimalsIndex.Count);
-        //  int index = LvlAnimalsIndex[indexInLvlAnimalsIndex];     
+    {  
         Coordinates randomCoordinates = GenerateRangeCooridantes(gameArea);
         InstancePrefabOnRealMap(AvailableAnimals[indexInAvaiableAnimals], randomCoordinates.lat, randomCoordinates.lon);
-
+    }
+    private void InstancePrefabOnRealMap(Animal _markerPrefab, double lat, double lon)
+    {
+        StartCoroutine(waitUntilMapShowUpAndCreateAnimalsOnMap(_markerPrefab, lat, lon));
     }
 
     private Coordinates GenerateRangeCooridantes(GameAreaCoordinates gameArea)
@@ -193,17 +187,10 @@ public class AnimalFactory : Singleton<AnimalFactory>
         float[] xArray = { gameArea.northWest.lat, gameArea.northEast.lat, gameArea.southEast.lat, gameArea.southWest.lat };
         float[] yArray = { gameArea.northWest.lon, gameArea.northEast.lon, gameArea.southEast.lon, gameArea.southWest.lon };
 
-       // Location.CalculateCoordinates();
         float randomLat = Random.Range(xArray.Min(), xArray.Max());
         float randomLon = Random.Range(yArray.Min(), yArray.Max());
 
         return new Coordinates(randomLat, randomLon);
-    }
-
-
-    private void InstancePrefabOnRealMap(Animal _markerPrefab, double lat, double lon)
-    {
-        StartCoroutine(waitUntilMapShowUpAndCreateAnimalsOnMap(_markerPrefab, lat, lon));
     }
 
     private IEnumerator waitUntilMapShowUpAndCreateAnimalsOnMap(Animal _markerPrefab, double lat, double lon)
@@ -221,8 +208,6 @@ public class AnimalFactory : Singleton<AnimalFactory>
         instance.transform.position = _map.GeoToWorldPosition(locations, true);
 
         createTrack(instance , instanceInList);
-
-
     }
 
     private void UpdatePlayerValues()
@@ -276,8 +261,7 @@ public class AnimalFactory : Singleton<AnimalFactory>
 
     private void createTrack(Animal animal, LiveAnimal instanceInList)
     {
-
-        var tracksNumber = Random.Range(4, 10);
+        var tracksNumber = Random.Range(minFootstepsNumber, maxFootstepsNumber);
         var step = 0;
 
         var xPositive = isPositve();
@@ -287,7 +271,6 @@ public class AnimalFactory : Singleton<AnimalFactory>
 
         for (int i = 0; i < tracksNumber; i++)
         {
-
             var basic = (float)distanceZone.close + step;
             var distanceX = Random.Range(basic, basic + 5) * xPositive;
             var distanceZ = Random.Range(basic, basic + 5) * yPositive;
@@ -315,7 +298,7 @@ public class AnimalFactory : Singleton<AnimalFactory>
             footstep.transform.rotation = Quaternion.LookRotation(directionToPrevFootstep);
 
             prevFootstep = footstep;
-            step += 7;
+            step += 10;
         }
 
 
