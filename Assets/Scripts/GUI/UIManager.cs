@@ -295,7 +295,7 @@ public class UIManager : MonoBehaviour
     public void isLDebugModeChanged(Toggle change)
     {
         HuntersConstants.isDebugMode = change.isOn;
-        StartNewGame();
+
     }
 
     public void minRange(InputField input)
