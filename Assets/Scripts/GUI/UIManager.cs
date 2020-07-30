@@ -1,6 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.UI;
@@ -20,6 +23,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject rulesBox;
     [SerializeField] private GameObject settingsBox;
     [SerializeField] private AudioClip menuBtnSound;
+    [SerializeField] private AudioClip camerShootBtnSound;
     [SerializeField] private Camera mapCam;
     [SerializeField] private GameObject ARCam;
     [SerializeField] private GameObject Map;
@@ -38,12 +42,14 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Text animalNameTxt;
     [SerializeField] private Text animalPointsTxt;
     [SerializeField] private Text huntedAnimalHPTxt;
+    [SerializeField] private Text debugtxt;
 
     // public Slider musicVolume;
 
     private AudioSource audioSource;
-    private int camPositionNumber = 1; 
-
+    private int camPositionNumber = 1;
+    private int screenNameNumber = 1;
+   
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
@@ -64,7 +70,7 @@ public class UIManager : MonoBehaviour
         //   StartCoroutine(waitToMapLoad()); 
     }
 
-    public void showNewLvlBox(bool setActive=true)
+    public void showNewLvlBox(bool setActive = true)
     {
         newLvlBox.gameObject.SetActive(setActive);
     }
@@ -110,8 +116,8 @@ public class UIManager : MonoBehaviour
 
     private void updateDistanceInf(string info)
     {
-        distanceInfoText.text = info; 
-}
+        distanceInfoText.text = info;
+    }
     public void updateLevel()
     {
         lvlText.text = "Lvl: " + GameManager.Instance.CurrentPlayer.Lvl.ToString();
@@ -135,7 +141,7 @@ public class UIManager : MonoBehaviour
         updateHuntedAnimalHPText();
     }
 
-    private  void updateHuntedAnimalHPText()
+    private void updateHuntedAnimalHPText()
     {
         if (!huntedAnimalHPTxt.IsActive()) return;
         huntedAnimalHPTxt.text = AnimalFactory.Instance.SelectedAnimal.Hp.ToString();
@@ -161,7 +167,7 @@ public class UIManager : MonoBehaviour
         distanceInfoBox.gameObject.SetActive(!distanceInfoBox.activeSelf);
 
         var renderers = Map.GetComponentsInChildren<MeshRenderer>();
-        foreach ( Renderer r in renderers)
+        foreach (Renderer r in renderers)
         {
             r.enabled = !r.enabled;
         }
@@ -173,7 +179,7 @@ public class UIManager : MonoBehaviour
     {
         audioSource.PlayOneShot(menuBtnSound);
         int lvl = GameManager.Instance.CurrentPlayer.Lvl;
-        GameManager.Instance.CurrentPlayer.startFromBeginning( lvl);
+        GameManager.Instance.CurrentPlayer.startFromBeginning(lvl);
         toggleMenu();
 
     }
@@ -202,7 +208,7 @@ public class UIManager : MonoBehaviour
         switch (camPositionNumber)
         {
             case 1:
-                 camSetting = HuntersConstants.CamOnNorth();
+                camSetting = HuntersConstants.CamOnNorth();
                 break;
             case 2:
                 camSetting = HuntersConstants.CamOnEast();
@@ -218,12 +224,12 @@ public class UIManager : MonoBehaviour
                 break;
         }
 
-       
+
         mapCam.transform.position = camSetting.Item1 + player.transform.position;
         mapCam.transform.rotation = Quaternion.Euler(camSetting.Item2);
 
 
-        
+
     }
 
 
@@ -258,7 +264,7 @@ public class UIManager : MonoBehaviour
                 updateDistanceInf("look around");
                 break;
             case distanceZone.middle:
-               updateDistanceInf("you are near");
+                updateDistanceInf("you are near");
                 break;
             case distanceZone.away:
                 updateDistanceInf("come closer");
@@ -354,7 +360,7 @@ public class UIManager : MonoBehaviour
     {
         SuccessBox.gameObject.SetActive(true);
         animalNameTxt.text = AnimalFactory.Instance.NameSelectedAnimal.Replace("(Clone)", "");
-        animalPointsTxt.text = "+ " + AnimalFactory.Instance.PointsSelectedAnimal.ToString() ;
+        animalPointsTxt.text = "+ " + AnimalFactory.Instance.PointsSelectedAnimal.ToString();
 
         StartCoroutine(waitAndCloseSuccessBox());
     }
@@ -382,9 +388,56 @@ public class UIManager : MonoBehaviour
     {
         aboutBox.gameObject.SetActive(false);
     }
+
+    public void getScreenshot()
+    {
+        audioSource.PlayOneShot(camerShootBtnSound);
+
+#if UNITY_EDITOR
+         StartCoroutine(TakeScreenshotOnEditor());
+#else
+        StartCoroutine(TakeScreenshotOnAndroid());
+#endif
+
+    }
+
+
+    public IEnumerator TakeScreenshotOnAndroid()
+    {
+        yield return new WaitForEndOfFrame();
+        Texture2D texture = ScreenCapture.CaptureScreenshotAsTexture(ScreenCapture.StereoScreenCaptureMode.BothEyes);
+
+        string name = PhotoShoot.UniqueNameScreenshot();
+        var cos = PhotoShoot.SaveImageToGallery(texture, name, "Hunters screenshot");
+    }
+
+
+    public IEnumerator TakeScreenshotOnEditor()
+    {
+
+        var myFileName = PhotoShoot.UniqueNameScreenshot();
+        yield return new WaitForEndOfFrame();
+
+        string dirPath = Path.Combine(Application.persistentDataPath, "HuntersScreenshots");
+        string filePath = Path.Combine(dirPath, myFileName + ".png");
+        
+        //Create Directory if it does not exist
+        if (!Directory.Exists(Path.GetDirectoryName(filePath)))
+            {
+                Directory.CreateDirectory(dirPath);
+                yield return new WaitForSeconds(4);
+            }
+
+        ScreenCapture.CaptureScreenshot(filePath);
+    }
+
+
+
     /*  public void SetVolume()
       { 
           AudioSource [] ad  = GetComponents<AudioSource>();
           audioSource.volume = musicVolume.value;
       }*/
 }
+
+
