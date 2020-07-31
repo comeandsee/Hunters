@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 using static HuntersConstants;
 
 public class LiveAnimalsManager : Singleton<LiveAnimalsManager>
@@ -8,13 +9,17 @@ public class LiveAnimalsManager : Singleton<LiveAnimalsManager>
     private bool enabled = true; 
     private bool disabled = false;
     private float distance = (float)distanceZone.middle;
+    
 
     private void Update()
     {
+        var uI = FindObjectOfType<UIManager>();
+
         if (HuntersConstants.isDebugMode)
         {
             enabled = true;
             disabled = true;
+            uI.clearDebugTxt();
         }
         else
         {
@@ -24,29 +29,20 @@ public class LiveAnimalsManager : Singleton<LiveAnimalsManager>
 
         var playerPosition = getPlayerPosition();
         var liveAnimals =  AnimalFactory.Instance.AnimalsInstances;
+
         foreach (var animal in liveAnimals)
         {
-         
-            if (GetDistance(playerPosition, animal.Animal.gameObject) <= distance)
-            {
+            var animalPlayerDistance = GetDistance(playerPosition, animal.Animal.gameObject);
 
-                showAnimal(animal.Animal, enabled);
-            }
-            else
-            {
-                showAnimal(animal.Animal, disabled);
-            }
+            uI.addDebugTxt(animal.Animal.name.Replace("(Clone)","") + ": " + animalPlayerDistance.ToString("0.00"));
+
+            if (animalPlayerDistance <= distance)showAnimal(animal.Animal, enabled);
+            else showAnimal(animal.Animal, disabled);
 
             foreach (var footstep in animal.Footsteps)
             {
-                if(GetDistance(playerPosition, footstep) <= distance)
-                {
-                    showFootprint(footstep, enabled);
-                }
-                else
-                {
-                    showFootprint(footstep, disabled);
-                }
+                if(GetDistance(playerPosition, footstep.gameObject) <= distance) showFootprint(footstep, enabled);
+                else showFootprint(footstep, disabled);
             }
         }
     }

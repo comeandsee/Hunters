@@ -37,6 +37,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject camRotationButton;
     [SerializeField] private GameObject huntedAnimalHPBox;
     [SerializeField] private GameObject aboutBox;
+    [SerializeField] private GameObject debugBox;
+    [SerializeField] private GameObject screenshootButton;
 
     [SerializeField] private GameObject SuccessBox;
     [SerializeField] private Text animalNameTxt;
@@ -161,10 +163,16 @@ public class UIManager : MonoBehaviour
 
     public void changeCam()
     {
-        playerBody.SetActive(!playerBody.activeSelf);
+
         mapCam.enabled = !mapCam.enabled;
         ARCam.SetActive(!ARCam.activeSelf);
         distanceInfoBox.gameObject.SetActive(!distanceInfoBox.activeSelf);
+
+        
+        if (mapCam.enabled) playerBody.SetActive(true);
+        else if (HuntersConstants.isDebugMode) playerBody.SetActive(true);
+        else playerBody.SetActive(false);
+
 
         var renderers = Map.GetComponentsInChildren<MeshRenderer>();
         foreach (Renderer r in renderers)
@@ -301,6 +309,16 @@ public class UIManager : MonoBehaviour
     public void isLDebugModeChanged(Toggle change)
     {
         HuntersConstants.isDebugMode = change.isOn;
+        if (change.isOn)
+        {
+            showDebugTxt();
+            playerBody.gameObject.SetActive(true);
+        }
+        else
+        {
+            showDebugTxt(false);
+            if(ARCam.activeSelf) playerBody.gameObject.SetActive(false);
+        }
 
     }
 
@@ -324,6 +342,7 @@ public class UIManager : MonoBehaviour
     private void isDebugMode()
     {
         isDebugModeToogle.isOn = HuntersConstants.isDebugMode;
+       
     }
 
 
@@ -431,7 +450,33 @@ public class UIManager : MonoBehaviour
         ScreenCapture.CaptureScreenshot(filePath);
     }
 
+    public void showDebugTxt(bool setActive = true)
+    {
+        debugBox.gameObject.SetActive(setActive);
+      //  debugtxt.gameObject.SetActive(setActive);
+    }
 
+
+    public void addDebugTxt(string text)
+    {
+       
+        if (HuntersConstants.isDebugMode)
+        {
+            debugtxt.text += "\n" + text ;
+        }
+    }
+
+    public void clearDebugTxt()
+    {
+        if (HuntersConstants.isDebugMode)
+        {
+            debugtxt.text = " ";
+        }
+    }
+    public void showScreenshootButton(bool setActive = true)
+    {
+        screenshootButton.gameObject.SetActive(setActive);
+    }
 
     /*  public void SetVolume()
       { 

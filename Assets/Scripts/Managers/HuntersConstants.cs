@@ -22,8 +22,8 @@ public static class HuntersConstants
     public static float maxRange = 100.0f;
 
     public static bool isLocalGame = false;
-    public static bool isDebugMode = true;
-    public static bool isGdansk = false;
+    public static bool isDebugMode = false;
+    public static bool isGdansk = true;
 
     public static float gameAreaMaxDistance = 100.0f;
 
@@ -31,9 +31,9 @@ public static class HuntersConstants
 
     public enum distanceZone
     {
-        close = 5, 
-        middle = 10,
-        away = 15,
+        close = 5,//3, //9m
+        middle = 10,//4, //12m
+        away = 15,//5, // 15m 
         tooFar
     }
 

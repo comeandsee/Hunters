@@ -52,7 +52,7 @@ public class Harvest : MonoBehaviour
             animal.StartGatherInWordScene();
             
           
-            if(animal.Hp == 0)
+            if(animal.Hp <= 0)
             {
                 audioSource.PlayOneShot(successSound);
                 uI.showHuntedAnimalHPBox(false);

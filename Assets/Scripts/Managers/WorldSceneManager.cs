@@ -54,9 +54,7 @@ public class WorldSceneManager : HuntersSceneManager
         GameObject[] arrayOfChildrenOfAnimal;
         GetTappedAnimal(animalObject, out animal, out arrayOfChildrenOfAnimal);
 
-            //todo
-
-            //TODO
+          
             if (ARCam.activeSelf)
             {
                 AnimalFactory.Instance.AnimalWasSelected(animal);
