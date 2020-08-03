@@ -891,7 +891,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!1 &225852907
 GameObject:
   m_ObjectHideFlags: 0
@@ -2296,7 +2296,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &498954370
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5547,6 +5547,16 @@ PrefabInstance:
     - target: {fileID: 2138616503702394111, guid: da4c35291f8065643a84f15ad26eb3d4,
         type: 3}
       propertyPath: body
+      value: 
+      objectReference: {fileID: 447289040}
+    - target: {fileID: 2138616503702394111, guid: da4c35291f8065643a84f15ad26eb3d4,
+        type: 3}
+      propertyPath: camAR
+      value: 
+      objectReference: {fileID: 447289040}
+    - target: {fileID: 2138616503702394111, guid: da4c35291f8065643a84f15ad26eb3d4,
+        type: 3}
+      propertyPath: playerBody
       value: 
       objectReference: {fileID: 1056588938}
     m_RemovedComponents: []

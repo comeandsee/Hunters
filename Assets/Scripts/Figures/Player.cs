@@ -12,7 +12,8 @@ public class Player : MonoBehaviour {
 	[SerializeField] private int requiredXp = 100;
 	[SerializeField] private int levelBase = 200;
 	[SerializeField] private List<GameObject> animals = new List<GameObject>();
-    [SerializeField] private GameObject body;
+    [SerializeField] private GameObject playerBody;
+    [SerializeField] private GameObject camAR;
 
     private bool newLvl = false;
     private bool endGame = false;
@@ -74,7 +75,7 @@ public class Player : MonoBehaviour {
 
         // Calculate a rotation a step closer to the target and applies rotation to this object
         transform.rotation = Quaternion.LookRotation(newDirection);
-        body.transform.rotation = Quaternion.LookRotation(newDirection); 
+        playerBody.transform.rotation = Quaternion.LookRotation(newDirection); 
     }
     public Vector3 getDirection()
     {
@@ -96,15 +97,21 @@ public class Player : MonoBehaviour {
         //   transform.Rotate(0, 1 * Time.deltaTime, 0, Space.Self); //rotate
         //   transform.Translate(1 * Time.deltaTime, 0, 0, Space.World);
 
-        if (body != null)
+        if (playerBody != null)
         {
-            var a = body.gameObject.transform.localRotation;
+            var a = playerBody.gameObject.transform.localRotation;
             var b = Quaternion.LookRotation(direction);
  
            // var c = Time.deltaTime * 40f;
             if (b != new Quaternion(0, 0, 0, 1))
             {
-                body.gameObject.transform.rotation = Quaternion.Slerp(a, b, 1);
+                playerBody.gameObject.transform.rotation = Quaternion.Slerp(a, b, 1);
+
+                if (camAR != null)
+                {
+                    camAR.gameObject.transform.rotation = Quaternion.Slerp(a, b, 1);
+                }
+
             }
         }
         //

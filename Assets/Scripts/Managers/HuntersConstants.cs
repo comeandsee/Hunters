@@ -26,14 +26,15 @@ public static class HuntersConstants
     public static bool isGdansk = true;
 
     public static float gameAreaMaxDistance = 100.0f;
-
+    public static float distanceToShowAnimal = (float)distanceZone.close;
+    public static float distanceToShowFootsteps = (float)distanceZone.middle;
 
 
     public enum distanceZone
     {
         close = 5,//3, //9m
         middle = 10,//4, //12m
-        away = 15,//5, // 15m 
+        away = 15,//5, // 15m  
         tooFar
     }
 

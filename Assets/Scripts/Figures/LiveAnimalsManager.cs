@@ -8,8 +8,9 @@ public class LiveAnimalsManager : Singleton<LiveAnimalsManager>
 {
     private bool enabled = true; 
     private bool disabled = false;
-    private float distance = (float)distanceZone.middle;
-    
+    private float distance = distanceToShowAnimal;
+    private float distanceFootsteps = distanceToShowFootsteps;
+
 
     private void Update()
     {
@@ -41,7 +42,7 @@ public class LiveAnimalsManager : Singleton<LiveAnimalsManager>
 
             foreach (var footstep in animal.Footsteps)
             {
-                if(GetDistance(playerPosition, footstep.gameObject) <= distance) showFootprint(footstep, enabled);
+                if (GetDistance(playerPosition, footstep.gameObject) <= distanceFootsteps) showFootprint(footstep, enabled);
                 else showFootprint(footstep, disabled);
             }
         }
