@@ -40,22 +40,23 @@ public class Location
         {
             if (isGdansk)
             {
-                
-                this.northWest = new Coordinates(54.367929f, 18.609691f);
-                this.northEast = new Coordinates(54.367909f, 18.611730f);
-                this.southEast = new Coordinates(54.366359f, 18.611526f);
-                this.southWest = new Coordinates(54.366479f, 18.609584f);
-               
+
+                  this.northWest = new Coordinates(54.367929f, 18.609691f);
+                  this.northEast = new Coordinates(54.367909f, 18.611730f);
+                  this.southEast = new Coordinates(54.366359f, 18.611526f);
+                  this.southWest = new Coordinates(54.366479f, 18.609584f);
+
 
                 // this.centerPoint = new Coordinates(54.367067f, 18.610597f);
 
                 //duzy park
-/*
-                this.northWest = new Coordinates(54.373336f, 18.606535f);
+                /*
+                this.northWest = new Coordinates(54.373105f, 18.605602f);
                 this.northEast = new Coordinates(54.372036f, 18.613216f);
                 this.southEast = new Coordinates(54.366405f, 18.611534f);
-                this.southWest = new Coordinates(54.366405f, 18.611534f);
-                */
+                this.southWest = new Coordinates(54.370333f, 18.599519f);
+                  */
+
             }
             else
             {
